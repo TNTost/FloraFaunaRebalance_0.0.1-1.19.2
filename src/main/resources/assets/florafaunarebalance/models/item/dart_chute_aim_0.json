@@ -1,0 +1,6 @@
+{
+  "parent": "florafaunarebalance:item/dart_chute",
+  "textures": {
+    "layer0": "florafaunarebalance:item/dart_chute_aim_0"
+  }
+}
