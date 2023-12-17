@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "florafaunarebalance:item/dart_chute"
+  }
+}
