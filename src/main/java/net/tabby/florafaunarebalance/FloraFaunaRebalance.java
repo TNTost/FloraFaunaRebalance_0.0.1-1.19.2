@@ -11,7 +11,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.tabby.florafaunarebalance.item.ModItems;
+import net.tabby.florafaunarebalance.entity.ModEntityType;
+import net.tabby.florafaunarebalance.item.ModItemsINIT;
 import net.tabby.florafaunarebalance.util.ModItemProperties;
 import org.slf4j.Logger;
 
@@ -24,10 +25,12 @@ public class FloraFaunaRebalance
     public FloraFaunaRebalance()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModItems.register(modEventBus);
+        ModItemsINIT.register(modEventBus);
+        ModEntityType.register(modEventBus);
 
         modEventBus.addListener(this::Setup);
         modEventBus.addListener(this::clientSetup);
+
 
         MinecraftForge.EVENT_BUS.register(this);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
