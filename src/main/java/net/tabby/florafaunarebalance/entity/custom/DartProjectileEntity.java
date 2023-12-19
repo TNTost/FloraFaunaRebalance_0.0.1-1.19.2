@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.ModEntityType;
 import net.tabby.florafaunarebalance.item.ModItemsINIT;
+import org.jetbrains.annotations.NotNull;
 
 public class DartProjectileEntity extends AbstractArrow {
     private final Item referenceItem;
@@ -22,7 +23,7 @@ public class DartProjectileEntity extends AbstractArrow {
     }
 
     @Override
-    public ItemStack getPickupItem() {
+    public @NotNull ItemStack getPickupItem() {
         return new ItemStack(this.referenceItem);
     }
 }

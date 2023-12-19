@@ -17,7 +17,7 @@ public class ModItemsINIT {
             () -> new BowItem(new Item.Properties().tab(CreativeModeTab.TAB_COMBAT).durability(43)));
     public static final RegistryObject<Item> DART = ITEMS.register("dart",
             () -> new DartItem(new Item.Properties().tab(CreativeModeTab.TAB_COMBAT),
-                    1.5f));
+                    1.25f));
 
 
     public static void register(IEventBus eventBus) {
