@@ -20,13 +20,13 @@ public class DartItem extends ArrowItem {
     }
     //CustomArrow arrow = new CustomArrow(shooter, level, ModItems.CUSTOM_ARROW.get());
     @Override
-    public @NotNull AbstractArrow createArrow(@NotNull Level p_40513_level, @NotNull ItemStack p_40514_, @NotNull LivingEntity p_40515_shooter) {
+    public AbstractArrow createArrow(Level p_40513_level, ItemStack p_40514_, LivingEntity p_40515_shooter) {
         DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.UNTIPPED_DART.get());
         arrow.setBaseDamage(this.damage);
         return arrow;
     }
     @Override
-    public boolean isInfinite(@NotNull ItemStack stack, @NotNull ItemStack bow, @NotNull Player player) {
+    public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
         int enchant = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, bow);
         return enchant > 0 && this.getClass() == DartItem.class;
     }
