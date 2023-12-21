@@ -14,7 +14,7 @@ public class DartProjectileEntity extends AbstractArrow {
     private final Item referenceItem;
     public DartProjectileEntity(EntityType<? extends AbstractArrow> p_36721_type, Level p_36722_level) {
         super(p_36721_type, p_36722_level);
-        this.referenceItem = ModItemsINIT.DART.get();
+        this.referenceItem = ModItemsINIT.UNTIPPED_DART.get();
     }
 
     public DartProjectileEntity(LivingEntity p_36718_shooter, Level p_36719_level, Item referenceItem) {

@@ -7,7 +7,7 @@ import net.tabby.florafaunarebalance.item.ModItemsINIT;
 
 public class ModItemProperties {
     public static void addCustomItemProperties() {
-        makeBow(ModItemsINIT.DARTCHUTE.get());
+        makeBow(ModItemsINIT.DART_CHUTE.get());
     }
     private static void makeBow(Item Items) {
         ItemProperties.register(Items, new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {

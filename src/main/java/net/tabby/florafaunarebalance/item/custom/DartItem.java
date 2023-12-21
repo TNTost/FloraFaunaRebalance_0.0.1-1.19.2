@@ -21,7 +21,7 @@ public class DartItem extends ArrowItem {
     //CustomArrow arrow = new CustomArrow(shooter, level, ModItems.CUSTOM_ARROW.get());
     @Override
     public @NotNull AbstractArrow createArrow(@NotNull Level p_40513_level, @NotNull ItemStack p_40514_, @NotNull LivingEntity p_40515_shooter) {
-        DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.DART.get());
+        DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.UNTIPPED_DART.get());
         arrow.setBaseDamage(this.damage);
         return arrow;
     }
