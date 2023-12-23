@@ -3,13 +3,12 @@ package net.tabby.florafaunarebalance.item.custom;
 
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
-import net.tabby.florafaunarebalance.util.ModTags;
 import org.jetbrains.annotations.NotNull;
 
 
 import java.util.function.Predicate;
 
-import static net.tabby.florafaunarebalance.util.ModTags.Items.DART_TAG;
+import static net.tabby.florafaunarebalance.util.ModTags.Items.*;
 
 public class ChuteItem extends BowItem {
     public static final Predicate<ItemStack> DART_ONLY = itemStack -> itemStack.is(DART_TAG);
