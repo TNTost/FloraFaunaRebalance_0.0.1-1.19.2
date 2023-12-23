@@ -10,19 +10,18 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.ModItemsINIT;
-import org.jetbrains.annotations.NotNull;
 
 public class DartItem extends ArrowItem {
-    public final float damage;
+    public final float DAMAGE;
     public DartItem(Properties p_40512_properties, float damage) {
         super(p_40512_properties);
-        this.damage = damage;
+        this.DAMAGE = damage;
     }
     //CustomArrow arrow = new CustomArrow(shooter, level, ModItems.CUSTOM_ARROW.get());
     @Override
     public AbstractArrow createArrow(Level p_40513_level, ItemStack p_40514_, LivingEntity p_40515_shooter) {
         DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.UNTIPPED_DART.get());
-        arrow.setBaseDamage(this.damage);
+        arrow.setBaseDamage(this.DAMAGE);
         return arrow;
     }
     @Override
