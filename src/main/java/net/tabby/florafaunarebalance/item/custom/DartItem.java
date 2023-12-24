@@ -1,5 +1,6 @@
 package net.tabby.florafaunarebalance.item.custom;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -11,17 +12,21 @@ import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.ModItemsINIT;
 
+import javax.annotation.Nullable;
+
 public class DartItem extends ArrowItem {
-    public final float DAMAGE;
-    public DartItem(Properties p_40512_properties, float damage) {
+    public final float damage;
+    public final MobEffect effect;
+    public DartItem(Properties p_40512_properties, float damage, @Nullable MobEffect effect) {
         super(p_40512_properties);
-        this.DAMAGE = damage;
+        this.damage = damage;
+        this.effect = effect;
     }
     //CustomArrow arrow = new CustomArrow(shooter, level, ModItems.CUSTOM_ARROW.get());
     @Override
     public AbstractArrow createArrow(Level p_40513_level, ItemStack p_40514_, LivingEntity p_40515_shooter) {
-        DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.UNTIPPED_DART.get());
-        arrow.setBaseDamage(this.DAMAGE);
+        DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, ModItemsINIT.UNTIPPED_DART.get(), effect);
+        arrow.setBaseDamage(this.damage);
         return arrow;
     }
     @Override
