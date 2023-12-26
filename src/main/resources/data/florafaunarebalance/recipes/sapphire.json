@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "florafaunarebalance:sapphire_block"
+    }
+  ],
+  "result": {
+    "item": "florafaunarebalance:sapphire",
+    "count": 9
+  }
+}

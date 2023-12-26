@@ -40,7 +40,8 @@ public class FFRInitialiseBlocks {
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_TAB);
 
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.COPPER).strength(3f)), FFRCreativeTab.FFR_TAB);
+            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.AMETHYST).strength(3f)), FFRCreativeTab.FFR_TAB);
+
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
@@ -48,7 +49,6 @@ public class FFRInitialiseBlocks {
         registerBlockItem(name, toReturn, tab);
         return toReturn;
     }
-
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, CreativeModeTab tab) {
         return FFRInitialiseItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "florafaunarebalance:sapphire"
+    }
+  },
+  "result": "florafaunarebalance:sapphire_block"
+}
