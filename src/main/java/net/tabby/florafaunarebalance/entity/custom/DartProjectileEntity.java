@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.tabby.florafaunarebalance.entity.ModEntityType;
-import net.tabby.florafaunarebalance.item.ModItemsINIT;
+import net.tabby.florafaunarebalance.item.FFRInitialiseItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -23,7 +23,7 @@ public class DartProjectileEntity extends AbstractArrow {
     private final Set<MobEffectInstance> effects;
     public DartProjectileEntity(EntityType<? extends AbstractArrow> p_36721_type, Level p_36722_level) {
         super(p_36721_type, p_36722_level);
-        this.referenceItem = ModItemsINIT.UNTIPPED_DART.get();
+        this.referenceItem = FFRInitialiseItems.UNTIPPED_DART.get();
         this.effects = new HashSet<>();
         this.col = -1;
     }

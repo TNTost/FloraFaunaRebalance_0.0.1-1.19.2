@@ -1,5 +1,10 @@
 {
   "item.florafaunarebalance.dart_chute": "Dart Chute",
   "item.florafaunarebalance.untipped_dart": "Untipped Dart",
-  "item.florafaunarebalance.poison_dart": "Poison Dart"
+  "item.florafaunarebalance.poison_dart": "Poison Dart",
+
+  "block.florafaunarebalance.bamboo_planks": "Bamboo Planks",
+  "block.florafaunarebalance.bamboo_mosaic": "bamboo_mosaic",
+
+  "itemGroup.FFRCreativeTab": "Flora Fauna Rebalance"
 }
