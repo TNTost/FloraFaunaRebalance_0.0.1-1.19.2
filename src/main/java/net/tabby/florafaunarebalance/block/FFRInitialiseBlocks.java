@@ -26,16 +26,21 @@ public class FFRInitialiseBlocks {
 
 
     public static final RegistryObject<Block> BAMBOO_PLANKS = registerBlock("bamboo_planks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
+            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<Block> BAMBOO_MOSAIC = registerBlock("bamboo_mosaic",
             () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
 
+
+
     public static final RegistryObject<Block> SAPPHIRE_ORE = registerBlock("sapphire_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_TAB);
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = registerBlock("deepslate_sapphire_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(6f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_TAB);
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.COPPER).strength(3f)), FFRCreativeTab.FFR_TAB);
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

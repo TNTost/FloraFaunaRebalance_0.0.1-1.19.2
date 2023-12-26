@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "florafaunarebalance:poison_dart"
+    "layer0": "florafaunarebalance:item/poison_dart"
   }
 }

@@ -6,5 +6,10 @@
   "block.florafaunarebalance.bamboo_planks": "Bamboo Planks",
   "block.florafaunarebalance.bamboo_mosaic": "bamboo_mosaic",
 
+  "item.florafaunarebalance.sapphire": "Sapphire",
+  "block.florafaunarebalance.sapphire_ore": "Sapphire Ore",
+  "block.florafaunarebalance.deepslate_sapphire_ore": "Deepslate Sapphire Ore",
+  "block.florafaunarebalance.sapphire_block": "Sapphire Block",
+
   "itemGroup.FFRCreativeTab": "Flora Fauna Rebalance"
 }
