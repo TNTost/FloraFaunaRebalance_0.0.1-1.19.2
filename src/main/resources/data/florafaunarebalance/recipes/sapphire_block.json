@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:shaped",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
     "XXX",
@@ -11,5 +11,7 @@
       "item": "florafaunarebalance:sapphire"
     }
   },
-  "result": "florafaunarebalance:sapphire_block"
+  "result": {
+    "item": "florafaunarebalance:sapphire_block"
+  }
 }
