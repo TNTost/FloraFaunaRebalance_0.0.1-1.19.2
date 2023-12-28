@@ -15,5 +15,6 @@ public class DataGenerators {
         ExistingFileHelper existingFileHelper = pEvent.getExistingFileHelper();
 
         generator.addProvider(true, new FFRRecipeProvider(generator));
+        generator.addProvider(true, new FFRLootTableProvider(generator));
     }
 }

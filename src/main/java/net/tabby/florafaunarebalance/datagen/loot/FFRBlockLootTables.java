@@ -15,10 +15,10 @@ public class FFRBlockLootTables extends BlockLoot {
 
     @Override
     protected void addTables() {
-        this.dropSelf(FFRib.BAMBOO_PLANKS.get());
+        dropSelf(FFRib.BAMBOO_PLANKS.get());
         dropSelf(FFRib.BAMBOO_MOSAIC.get());
 
-        this.dropSelf(FFRib.SAPPHIRE_BLOCK.get());
+        dropSelf(FFRib.SAPPHIRE_BLOCK.get());
         add(FFRib.SAPPHIRE_ORE.get(),
                 (block) -> createOreDrop(FFRib.SAPPHIRE_ORE.get(), FFRii.SAPPHIRE.get()));
         add(FFRib.DEEPSLATE_SAPPHIRE_ORE.get(),
