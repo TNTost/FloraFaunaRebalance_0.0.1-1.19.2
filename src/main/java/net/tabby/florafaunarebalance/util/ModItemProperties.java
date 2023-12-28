@@ -3,11 +3,11 @@ package net.tabby.florafaunarebalance.util;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.tabby.florafaunarebalance.item.FFRInitialiseItems;
+import net.tabby.florafaunarebalance.item.FFRii;
 
 public class ModItemProperties {
     public static void addCustomItemProperties() {
-        makeBow(FFRInitialiseItems.DART_CHUTE.get());
+        makeBow(FFRii.DART_CHUTE.get());
     }
     private static void makeBow(Item Items) {
         ItemProperties.register(Items, new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {

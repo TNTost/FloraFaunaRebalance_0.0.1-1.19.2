@@ -8,7 +8,7 @@ public class FFRCreativeTab {
     public static final CreativeModeTab FFR_TAB = new CreativeModeTab("florafaunarebalancetab") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(FFRInitialiseItems.DART_CHUTE.get());
+            return new ItemStack(FFRii.DART_CHUTE.get());
         }
     };
 }

@@ -12,7 +12,7 @@ import net.tabby.florafaunarebalance.item.custom.ChuteItem;
 import net.tabby.florafaunarebalance.item.custom.DartItem;
 import java.util.List;
 
-public class FFRInitialiseItems {
+public class FFRii {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FloraFaunaRebalance.MOD_ID);
 
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",

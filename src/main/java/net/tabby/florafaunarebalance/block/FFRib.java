@@ -15,11 +15,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
-import net.tabby.florafaunarebalance.item.FFRInitialiseItems;
+import net.tabby.florafaunarebalance.item.FFRii;
 
 import java.util.function.Supplier;
 
-public class FFRInitialiseBlocks {
+public class FFRib {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
@@ -49,7 +49,7 @@ public class FFRInitialiseBlocks {
         return toReturn;
     }
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, CreativeModeTab tab) {
-        return FFRInitialiseItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+        return FFRii.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }
 
 
