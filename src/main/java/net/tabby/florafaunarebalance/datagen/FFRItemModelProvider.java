@@ -11,14 +11,14 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.item.FFRii;
 
 public class FFRItemModelProvider extends ItemModelProvider {
-    public FFRItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, FloraFaunaRebalance.MOD_ID, existingFileHelper);
+    public FFRItemModelProvider(DataGenerator pGenerator, ExistingFileHelper existingFileHelper) {
+        super(pGenerator, FloraFaunaRebalance.MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
-        simpleItem(FFRii.UNTIPPED_DART);
-        simpleItem(FFRii.POISON_DART);
+       // simpleItem(FFRii.UNTIPPED_DART);
+       // simpleItem(FFRii.POISON_DART);
 
         simpleItem(FFRii.SAPPHIRE);
     }

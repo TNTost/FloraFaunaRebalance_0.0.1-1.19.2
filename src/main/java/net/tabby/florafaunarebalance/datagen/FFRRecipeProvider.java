@@ -6,6 +6,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -36,7 +39,7 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
                         inventoryTrigger(ItemPredicate.Builder.item().of(FFRib.BAMBOO_PLANKS.get()).build()))
                         .save(pConsumer);
 
-        toolSetRecipes(pConsumer, Items.BONE, Items.COBBLESTONE, STONE_TOOL_SET);
+        toolSetRecipes(pConsumer, Items.BONE, ItemTags.STONE_TOOL_MATERIALS, STONE_TOOL_SET);
         //sapphire toolset here
 
         nineBlockStorageRecipes(pConsumer, FFRii.SAPPHIRE.get(), FFRib.SAPPHIRE_BLOCK.get());
@@ -47,7 +50,7 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
 
-    protected static void toolSetRecipes(Consumer<FinishedRecipe> pConsumer, ItemLike pHandle, ItemLike pMaterial, List<ItemLike> pItems) {
+    protected static void toolSetRecipes(Consumer<FinishedRecipe> pConsumer, ItemLike pHandle, TagKey<Item> pMaterial, List<ItemLike> pItems) {
         Iterator<ItemLike> itemList = pItems.iterator();
         ShapedRecipeBuilder.shaped(itemList.next()).define('I', pHandle).define('#', pMaterial)
                 .pattern("##").pattern("I#").pattern("I ").unlockedBy("has_" + pMaterial, inventoryTrigger(ItemPredicate.Builder.item().of(pMaterial).build())).save(pConsumer);
