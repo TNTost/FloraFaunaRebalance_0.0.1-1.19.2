@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sapphire_block": {
+    "has_sapphire": {
       "conditions": {
         "items": [
           {
             "items": [
-              "florafaunarebalance:sapphire_block"
+              "florafaunarebalance:sapphire"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_sapphire_block",
+      "has_sapphire",
       "has_the_recipe"
     ]
   ],

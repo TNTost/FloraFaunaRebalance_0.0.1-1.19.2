@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bamboo": {
+    "has_deepslate_sapphire_ore": {
       "conditions": {
         "items": [
           {
             "items": [
-              "florafaunarebalance:bamboo_planks"
+              "florafaunarebalance:deepslate_sapphire_ore"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "florafaunarebalance:bamboo_planks"
+        "recipe": "minecraft:sapphire_from_blasting_deepslate_sapphire_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_bamboo",
+      "has_deepslate_sapphire_ore",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "florafaunarebalance:bamboo_planks"
+      "minecraft:sapphire_from_blasting_deepslate_sapphire_ore"
     ]
   }
 }
