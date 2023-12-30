@@ -6,11 +6,14 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.item.FFRii;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +58,10 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
             ShapedRecipeBuilder.shaped(pTools.next()).define('I', pHandle).define('#', pMaterial.getIngredient())
                     .pattern(pGrid.next()).pattern(pGrid.next()).pattern(pGrid.next()).unlockedBy("has_" + pMaterial, inventoryTrigger(pMaterial.getPredicate())).save(pConsumer);
         } //tools
+    }
+    protected static void nineBlockStorageRecipes(@NotNull Consumer<FinishedRecipe> pConsumer, ItemLike pItem, ItemLike pBlock) {
+        ShapelessRecipeBuilder.shapeless(pItem, 9).requires(pBlock).group(null).unlockedBy(getHasName(pBlock), has(pBlock)).save(pConsumer, new ResourceLocation(FloraFaunaRebalance.MOD_ID, getSimpleRecipeName(pItem)));
+        ShapedRecipeBuilder.shaped(pBlock).define('#', pItem).pattern("###").pattern("###").pattern("###").group(null).unlockedBy(getHasName(pItem), has(pItem)).save(pConsumer, new ResourceLocation(FloraFaunaRebalance.MOD_ID, getSimpleRecipeName(pBlock)));
     }
 
     static {
