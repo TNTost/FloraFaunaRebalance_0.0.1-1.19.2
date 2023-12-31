@@ -4,7 +4,13 @@
   "item.florafaunarebalance.poison_dart": "Poison Dart",
 
   "block.florafaunarebalance.bamboo_planks": "Bamboo Planks",
-  "block.florafaunarebalance.bamboo_mosaic": "bamboo_mosaic",
+  "block.florafaunarebalance.bamboo_mosaic": "Bamboo Mosaic",
+
+  "block.florafaunarebalance.bamboo_log": "Bamboo Log",
+  "block.florafaunarebalance.bamboo_wood": "Bamboo Wood",
+  "block.florafaunarebalance.stripped_bamboo_log": "Stripped Bamboo Log",
+  "block.florafaunarebalance.stripped_bamboo_wood": "Stripped Bamboo Wood",
+  "block.florafaunarebalance.bamboo_leaves": "Bamboo Leaves",
 
   "item.florafaunarebalance.sapphire": "Sapphire",
   "block.florafaunarebalance.sapphire_ore": "Sapphire Ore",

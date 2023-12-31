@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "florafaunarebalance:block/bamboo_log_top",
+    "side": "florafaunarebalance:block/bamboo_log"
+  }
+}

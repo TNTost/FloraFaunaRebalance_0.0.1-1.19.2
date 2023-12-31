@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 
-import static net.tabby.florafaunarebalance.util.ModTags.Items.*;
+import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 
 public class ChuteItem extends BowItem {
     public static final Predicate<ItemStack> DART_ONLY = itemStack -> itemStack.is(DART_TAG);
