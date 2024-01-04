@@ -16,7 +16,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.block.custom.BuddingLog;
 import net.tabby.florafaunarebalance.block.custom.LogRotatedPillarBlock;
+import net.tabby.florafaunarebalance.block.custom.extention.ExtendBonemealableLog;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
@@ -59,9 +61,9 @@ public class FFRib {
             }, FFRCreativeTab.FFR_TAB);
 
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_LOG = registerBlock("bamboo_log",
-            () -> new LogRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
+            () -> new ExtendBonemealableLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_WOOD = registerBlock("bamboo_wood",
-            () -> new LogRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
+            () -> new ExtendBonemealableLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_BAMBOO_LOG = registerBlock("stripped_bamboo_log",
             () -> new LogRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_BAMBOO_WOOD = registerBlock("stripped_bamboo_wood",
@@ -82,6 +84,11 @@ public class FFRib {
                     return 60;
                 }
             }, FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_BAMBOO_LOG = registerBlock("budding_bamboo_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_BAMBOO_WOOD = registerBlock("budding_bamboo_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO).randomTicks()), FFRCreativeTab.FFR_TAB);
+
 
 
 
@@ -95,6 +102,10 @@ public class FFRib {
 
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.METAL).strength(3f)), FFRCreativeTab.FFR_TAB);
+
+
+
+
 
 
 

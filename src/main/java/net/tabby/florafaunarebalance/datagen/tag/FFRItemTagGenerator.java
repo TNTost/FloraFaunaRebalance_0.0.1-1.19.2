@@ -4,7 +4,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
@@ -25,18 +24,27 @@ public class FFRItemTagGenerator extends ItemTagsProvider {
                 .add(FFRib.BAMBOO_LOG.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_LOG.get().asItem())
                 .add(FFRib.BAMBOO_WOOD.get().asItem())
-                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem());
+                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_LOG.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem());
         tag(FFRTags.Items.BAMBOO_LOGS)
                 .add(FFRib.BAMBOO_LOG.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_LOG.get().asItem())
                 .add(FFRib.BAMBOO_WOOD.get().asItem())
-                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem());
+                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_LOG.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem());
 
         tag(ItemTags.LOGS_THAT_BURN)
                 .add(FFRib.BAMBOO_LOG.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_LOG.get().asItem())
                 .add(FFRib.BAMBOO_WOOD.get().asItem())
-                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem());
+                .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_LOG.get().asItem())
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem());
+
+        tag(ItemTags.LEAVES)
+                .add(FFRib.BAMBOO_LEAVES.get().asItem());
 
         tag(FFRTags.Items.DART_TAG)
                 .add(FFRii.UNTIPPED_DART.get())

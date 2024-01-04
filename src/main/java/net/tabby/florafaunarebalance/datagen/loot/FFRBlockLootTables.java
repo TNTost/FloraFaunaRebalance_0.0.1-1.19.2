@@ -46,6 +46,8 @@ public class FFRBlockLootTables extends BlockLoot {
 
         add(FFRib.BAMBOO_LEAVES.get(),
                 (block) -> createBambooLeavesDrops(FFRib.BAMBOO_LEAVES.get(), Items.CHORUS_FRUIT,  BAMBOO_FRUIT_CHANCES));
+        dropOther(FFRib.BUDDING_BAMBOO_LOG.get(), FFRib.BAMBOO_LOG.get());
+        dropOther(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BAMBOO_LOG.get());
 
         dropSelf(FFRib.SAPPHIRE_BLOCK.get());
         add(FFRib.SAPPHIRE_ORE.get(),
@@ -59,11 +61,11 @@ public class FFRBlockLootTables extends BlockLoot {
         return FFRib.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
     protected static LootTable.Builder createBambooLeavesDrops(Block pLeaves, ItemLike pFruit, float... pChances) {
-        return createSilkTouchOrShearsDispatchTable(pLeaves, ((LootPoolSingletonContainer.Builder)applyExplosionCondition(pLeaves, LootItem.lootTableItem(pFruit))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, pChances)))
+        return createSilkTouchOrShearsDispatchTable(pLeaves, ((LootPoolSingletonContainer.Builder<?>)applyExplosionCondition(pLeaves, LootItem.lootTableItem(pFruit))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, pChances)))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
-                        .add(((LootPoolSingletonContainer.Builder)applyExplosionDecay(pLeaves, LootItem.lootTableItem(Items.BAMBOO)
+                        .add(((LootPoolSingletonContainer.Builder<?>)applyExplosionDecay(pLeaves, LootItem.lootTableItem(Items.BAMBOO)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
                                 ).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, BAMBOO_LEAVES_CHUTE_CHANCES))
                         )

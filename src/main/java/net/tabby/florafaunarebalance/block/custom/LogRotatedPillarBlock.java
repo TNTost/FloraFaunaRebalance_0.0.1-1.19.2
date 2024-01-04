@@ -34,8 +34,7 @@ public class LogRotatedPillarBlock extends RotatedPillarBlock {
         if (context.getItemInHand().getItem() instanceof AxeItem) {
             if (state.is(FFRib.BAMBOO_LOG.get())) {
                 return FFRib.STRIPPED_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-            }
-            if (state.is(FFRib.BAMBOO_WOOD.get())) {
+            } else if (state.is(FFRib.BAMBOO_WOOD.get())) {
                 return FFRib.STRIPPED_BAMBOO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
         }
