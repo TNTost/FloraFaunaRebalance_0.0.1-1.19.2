@@ -26,7 +26,31 @@ public class BuddingLog extends LogRotatedPillarBlock {
 
     public void randomTick(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(GROWTH_CHANCE) == 0) {
-            Direction randomSide = DIRECTIONS[randomSource.nextInt(DIRECTIONS.length)]; //pick a side, choiche
+            String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
+            int index = 0;
+            if (str.contains("log")) {
+                Direction.Axis axis = state.getValue(AXIS);
+                switch (axis) {
+                    case Y -> index = switch (randomSource.nextInt(DIRECTIONS.length - 2)) {
+                        case  0 -> 2;
+                        case  1 -> 3;
+                        case  2 -> 4;
+                        case  3 -> 5;
+                        default -> 0;
+                    };
+                    case Z -> index = switch (randomSource.nextInt(DIRECTIONS.length - 2)) {
+                        case  0 -> 0;
+                        case  1 -> 1;
+                        case  2 -> 4;
+                        case  3 -> 5;
+                        default -> 0;
+                    };
+                    case X -> index = randomSource.nextInt(DIRECTIONS.length - 2);
+                }
+            } else {
+                index = randomSource.nextInt(DIRECTIONS.length);
+            }
+            Direction randomSide = DIRECTIONS[index]; //pick a side, choiche
             BlockPos adjBlock = pos.relative(randomSide);
             BlockState potentialLeafState = serverLevel.getBlockState(adjBlock);
             Block resultBlock = null;
@@ -36,7 +60,6 @@ public class BuddingLog extends LogRotatedPillarBlock {
             if (resultBlock != null) {
                 BlockState finalState = ((resultBlock.defaultBlockState().setValue(LeavesBlock.DISTANCE, 1)).setValue(LeavesBlock.WATERLOGGED, potentialLeafState.getFluidState().getType() == Fluids.WATER));
                 serverLevel.setBlockAndUpdate(adjBlock, finalState);
-
             }
         }
     }
@@ -49,6 +72,8 @@ public class BuddingLog extends LogRotatedPillarBlock {
             return FFRib.BUDDING_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         } else if (state.is(FFRib.BAMBOO_WOOD.get())) {
             return FFRib.BUDDING_BAMBOO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+        } else if (state.is(Blocks.OAK_LOG)) {
+            return FFRib.BUDDING_OAK_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         } else {
             String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
             return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", "stripped_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));

@@ -18,7 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.custom.BuddingLog;
 import net.tabby.florafaunarebalance.block.custom.LogRotatedPillarBlock;
-import net.tabby.florafaunarebalance.block.custom.extention.ExtendBonemealableLog;
+import net.tabby.florafaunarebalance.block.custom.ExtendBonemealableLog;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
@@ -88,6 +88,10 @@ public class FFRib {
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO).randomTicks()), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedPillarBlock> BUDDING_BAMBOO_WOOD = registerBlock("budding_bamboo_wood",
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_OAK_LOG = registerBlock("budding_oak_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
 
 
 

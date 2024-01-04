@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -48,6 +49,8 @@ public class FFRBlockLootTables extends BlockLoot {
                 (block) -> createBambooLeavesDrops(FFRib.BAMBOO_LEAVES.get(), Items.CHORUS_FRUIT,  BAMBOO_FRUIT_CHANCES));
         dropOther(FFRib.BUDDING_BAMBOO_LOG.get(), FFRib.BAMBOO_LOG.get());
         dropOther(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BAMBOO_LOG.get());
+
+        dropOther(FFRib.BUDDING_OAK_LOG.get(), Blocks.OAK_LOG);
 
         dropSelf(FFRib.SAPPHIRE_BLOCK.get());
         add(FFRib.SAPPHIRE_ORE.get(),

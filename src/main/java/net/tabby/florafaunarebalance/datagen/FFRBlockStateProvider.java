@@ -35,6 +35,10 @@ public class FFRBlockStateProvider extends BlockStateProvider {
         axisBlock(FFRib.BUDDING_BAMBOO_WOOD.get(), blockTexture(FFRib.BUDDING_BAMBOO_LOG.get()), blockTexture(FFRib.BUDDING_BAMBOO_LOG.get()));
             simpleBlockItem(FFRib.BUDDING_BAMBOO_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BUDDING_BAMBOO_LOG.get()));
 
+
+            logWithItem(FFRib.BUDDING_OAK_LOG);
+
+
         simpleBlockWithItem(FFRib.SAPPHIRE_BLOCK);
         simpleBlockWithItem(FFRib.SAPPHIRE_ORE);
         simpleBlockWithItem(FFRib.DEEPSLATE_SAPPHIRE_ORE);

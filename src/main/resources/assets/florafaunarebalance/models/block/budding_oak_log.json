@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "florafaunarebalance:block/budding_oak_log_top",
+    "side": "florafaunarebalance:block/budding_oak_log"
+  }
+}

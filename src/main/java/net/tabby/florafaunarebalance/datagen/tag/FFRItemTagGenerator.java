@@ -26,7 +26,13 @@ public class FFRItemTagGenerator extends ItemTagsProvider {
                 .add(FFRib.BAMBOO_WOOD.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem())
                 .add(FFRib.BUDDING_BAMBOO_LOG.get().asItem())
-                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem());
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem())
+                        .add(FFRib.BUDDING_OAK_LOG.get().asItem());
+
+        tag(ItemTags.OAK_LOGS)
+                .add(FFRib.BUDDING_OAK_LOG.get().asItem());
+
+
         tag(FFRTags.Items.BAMBOO_LOGS)
                 .add(FFRib.BAMBOO_LOG.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_LOG.get().asItem())
@@ -41,7 +47,8 @@ public class FFRItemTagGenerator extends ItemTagsProvider {
                 .add(FFRib.BAMBOO_WOOD.get().asItem())
                 .add(FFRib.STRIPPED_BAMBOO_WOOD.get().asItem())
                 .add(FFRib.BUDDING_BAMBOO_LOG.get().asItem())
-                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem());
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get().asItem())
+                        .add(FFRib.BUDDING_OAK_LOG.get().asItem());
 
         tag(ItemTags.LEAVES)
                 .add(FFRib.BAMBOO_LEAVES.get().asItem());

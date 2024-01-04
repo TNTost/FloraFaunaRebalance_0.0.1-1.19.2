@@ -27,7 +27,8 @@ public class FFRBlockTagGenerator extends BlockTagsProvider {
                         .add(FFRib.STRIPPED_BAMBOO_WOOD.get())
 
                                 .add(FFRib.BUDDING_BAMBOO_LOG.get())
-                                .add(FFRib.BUDDING_BAMBOO_WOOD.get());
+                                .add(FFRib.BUDDING_BAMBOO_WOOD.get())
+                                .add(FFRib.BUDDING_OAK_LOG.get());
         tag(BlockTags.PLANKS)
                 .add(FFRib.BAMBOO_PLANKS.get())
                 .add(FFRib.BAMBOO_MOSAIC.get());
@@ -55,14 +56,16 @@ public class FFRBlockTagGenerator extends BlockTagsProvider {
                 .add(FFRib.BAMBOO_WOOD.get())
                 .add(FFRib.STRIPPED_BAMBOO_WOOD.get())
                 .add(FFRib.BUDDING_BAMBOO_LOG.get())
-                .add(FFRib.BUDDING_BAMBOO_WOOD.get());
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get())
+                        .add(FFRib.BUDDING_OAK_LOG.get());
         tag(BlockTags.LOGS_THAT_BURN)
                 .add(FFRib.BAMBOO_LOG.get())
                 .add(FFRib.STRIPPED_BAMBOO_LOG.get())
                 .add(FFRib.BAMBOO_WOOD.get())
                 .add(FFRib.STRIPPED_BAMBOO_WOOD.get())
                 .add(FFRib.BUDDING_BAMBOO_LOG.get())
-                .add(FFRib.BUDDING_BAMBOO_WOOD.get());
+                .add(FFRib.BUDDING_BAMBOO_WOOD.get())
+                        .add(FFRib.BUDDING_OAK_LOG.get());
 
         tag(FFRTags.Blocks.BAMBOO_LOGS)
                 .add(FFRib.BAMBOO_LOG.get())

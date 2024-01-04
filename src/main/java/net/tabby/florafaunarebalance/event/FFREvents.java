@@ -27,13 +27,14 @@ public class FFREvents {
             if (event.getItemStack().is(Items.BONE_MEAL)) {
                 BlockState state;
                 BlockPos pos = event.getHitVec().getBlockPos();
-                if ((state = event.getLevel().getBlockState(pos)).is(FFRTags.Blocks.SPLICEABLE_LOGS)) {
+                if ((state = level.getBlockState(pos)).is(FFRTags.Blocks.SPLICEABLE_LOGS)) {
                     level.setBlock(pos, BuddingLog.createNewBuddingLog(state), 2);
+                    event.getItemStack().shrink(1);
                     level.playSound(null, pos, new SoundEvent(new ResourceLocation("minecraft", "item.bone_meal.use")), SoundSource.BLOCKS, 1.0f, 1.0f);
                     double scale = 3.5;
                     RandomSource random = RandomSource.create();
                     for (int i = 0; i < 11; i++) {
-                        level.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + random.nextDouble() * scale + (scale + 1) * 0.5, pos.getY() + 0.5, pos.getZ() + random.nextDouble() * scale - (scale + 1) * 0.5, 0.0d + random.nextDouble() * 0.04, 0.05d, 0.0d + random.nextDouble() * 0.04);
+                        level.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + random.nextDouble() * scale - 2.25, pos.getY() + 0.5, pos.getZ() + random.nextDouble() * scale - 2.25, 0.0d + random.nextDouble() * 0.04, 0.05d, 0.0d + random.nextDouble() * 0.04);
                     }
                 }
             }
