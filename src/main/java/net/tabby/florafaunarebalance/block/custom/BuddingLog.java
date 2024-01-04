@@ -41,7 +41,7 @@ public class BuddingLog extends LogRotatedPillarBlock {
         }
     }
     public static boolean canLeavesGrowAtState (BlockState state) {
-        return state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 0;
+        return state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8;
     }
 
     public static BlockState createNewBuddingLog(BlockState state) {
