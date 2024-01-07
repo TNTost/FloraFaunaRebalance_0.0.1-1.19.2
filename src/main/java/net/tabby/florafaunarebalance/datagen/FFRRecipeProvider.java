@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.item.FFRii;
@@ -23,6 +24,7 @@ import java.util.function.Consumer;
 
 
 public class FFRRecipeProvider extends RecipeProvider implements IConditionBuilder {
+    protected static final ImmutableList<String> BUDDING_TYPES;
     protected static final ImmutableList<ItemLike> SAPPHIRE_SMELTABLES;
     protected static final ImmutableList<ItemLike> STONE_TOOL_SET;
     protected static final ImmutableList<String> SET_STRINGS;
@@ -39,6 +41,10 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("##").unlockedBy("has_bamboo",
                         inventoryTrigger(ItemPredicate.Builder.item().of(FFRib.BAMBOO_PLANKS.get()).build()))
                         .save(pConsumer);
+
+        for (String type : BUDDING_TYPES) {
+            fourBlockPackingRecipe(pConsumer, ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + type + "_log")), ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + type + "_wood")));
+        }
 
         toolSetRecipes(pConsumer, Items.BONE, TagOrItem.of(ItemTags.STONE_TOOL_MATERIALS));
         //sapphire toolset here
@@ -63,8 +69,12 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapelessRecipeBuilder.shapeless(pItem, 9).requires(pBlock).group(null).unlockedBy(getHasName(pBlock), has(pBlock)).save(pConsumer, new ResourceLocation(FloraFaunaRebalance.MOD_ID, getSimpleRecipeName(pItem)));
         ShapedRecipeBuilder.shaped(pBlock).define('#', pItem).pattern("###").pattern("###").pattern("###").group(null).unlockedBy(getHasName(pItem), has(pItem)).save(pConsumer, new ResourceLocation(FloraFaunaRebalance.MOD_ID, getSimpleRecipeName(pBlock)));
     }
+    protected static void fourBlockPackingRecipe(Consumer<FinishedRecipe> pConsumer, ItemLike pEntry, ItemLike pResult) {
+        ShapedRecipeBuilder.shaped(pResult).define('#', pEntry).pattern("##").pattern("##").unlockedBy(getHasName(pEntry), has(pEntry)).save(pConsumer, new ResourceLocation(FloraFaunaRebalance.MOD_ID, getSimpleRecipeName(pResult)));
+    }
 
     static {
+        BUDDING_TYPES = ImmutableList.of("oak", "birch", "spruce", "jungle", "acacia", "dark_oak", "mangrove", "bamboo");
         SAPPHIRE_SMELTABLES = ImmutableList.of(FFRib.SAPPHIRE_ORE.get().asItem(), FFRib.DEEPSLATE_SAPPHIRE_ORE.get().asItem());
         STONE_TOOL_SET = ImmutableList.of(Items.STONE_AXE, Items.STONE_HOE, Items.STONE_PICKAXE, Items.STONE_SHOVEL, Items.STONE_SWORD);
         SET_STRINGS = ImmutableList.of("##", "I#", "I ", "##", "I ", "I ", "###", " I ", " I ", "#", "I", "I", "#", "#", "I");

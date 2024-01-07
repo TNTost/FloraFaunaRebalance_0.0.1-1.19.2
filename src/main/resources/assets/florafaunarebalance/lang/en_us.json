@@ -15,11 +15,26 @@
   "block.florafaunarebalance.budding_bamboo_wood": "Budding Bamboo Wood",
 
   "block.florafaunarebalance.budding_oak_log": "Budding Oak Log",
+  "block.florafaunarebalance.budding_oak_wood": "Budding Oak Wood",
+  "block.florafaunarebalance.budding_birch_log": "Budding Birch Log",
+  "block.florafaunarebalance.budding_birch_wood": "Budding Birch Wood",
+  "block.florafaunarebalance.budding_spruce_log": "Budding Spruce Log",
+  "block.florafaunarebalance.budding_spruce_wood": "Budding Spruce Wood",
+  "block.florafaunarebalance.budding_jungle_log": "Budding Jungle Log",
+  "block.florafaunarebalance.budding_jungle_wood": "Budding Jungle Wood",
+  "block.florafaunarebalance.budding_acacia_log": "Budding Acacia Log",
+  "block.florafaunarebalance.budding_acacia_wood": "Budding Acacia Wood",
+  "block.florafaunarebalance.budding_dark_oak_log": "Budding Dark Oak Log",
+  "block.florafaunarebalance.budding_dark_oak_wood": "Budding Dark Oak Wood",
+  "block.florafaunarebalance.budding_mangrove_log": "Budding Mangrove Log",
+  "block.florafaunarebalance.budding_mangrove_wood": "Budding Mangrove Wood",
+
 
   "item.florafaunarebalance.sapphire": "Sapphire",
   "block.florafaunarebalance.sapphire_ore": "Sapphire Ore",
   "block.florafaunarebalance.deepslate_sapphire_ore": "Deepslate Sapphire Ore",
   "block.florafaunarebalance.sapphire_block": "Sapphire Block",
 
-  "itemGroup.FFRCreativeTab": "Flora Fauna Rebalance"
+  "itemGroup.florafaunarebalancetab": "Flora Fauna Rebalance",
+  "itemGroup.florafaunavanillatab": "Flora Fauna Vanilla Expanded"
 }
