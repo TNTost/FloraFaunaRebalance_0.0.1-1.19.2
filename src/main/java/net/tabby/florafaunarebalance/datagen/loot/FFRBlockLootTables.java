@@ -8,10 +8,12 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -47,10 +49,23 @@ public class FFRBlockLootTables extends BlockLoot {
 
         add(FFRib.BAMBOO_LEAVES.get(),
                 (block) -> createBambooLeavesDrops(FFRib.BAMBOO_LEAVES.get(), Items.CHORUS_FRUIT,  BAMBOO_FRUIT_CHANCES));
-        dropOther(FFRib.BUDDING_BAMBOO_LOG.get(), FFRib.BAMBOO_LOG.get());
-        dropOther(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BAMBOO_LOG.get());
+        add(FFRib.BUDDING_BAMBOO_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_BAMBOO_LOG.get(), FFRib.BAMBOO_LOG.get(), Items.BAMBOO));
+        add(FFRib.BUDDING_BAMBOO_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BAMBOO_WOOD.get(), Items.BAMBOO));
 
-        dropOther(FFRib.BUDDING_OAK_LOG.get(), Blocks.OAK_LOG);
+        add(FFRib.BUDDING_OAK_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_OAK_LOG.get(), Blocks.OAK_LOG, Items.OAK_SAPLING));
+        add(FFRib.BUDDING_OAK_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_OAK_WOOD.get(), Blocks.OAK_WOOD, Items.OAK_SAPLING));
+        add(FFRib.BUDDING_BIRCH_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_BIRCH_LOG.get(), Blocks.BIRCH_LOG, Items.BIRCH_SAPLING));
+        add(FFRib.BUDDING_BIRCH_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_BIRCH_WOOD.get(), Blocks.BIRCH_WOOD, Items.BIRCH_SAPLING));
+        add(FFRib.BUDDING_SPRUCE_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_SPRUCE_LOG.get(), Blocks.SPRUCE_LOG, Items.SPRUCE_SAPLING));
+        add(FFRib.BUDDING_SPRUCE_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_SPRUCE_WOOD.get(), Blocks.SPRUCE_WOOD, Items.SPRUCE_SAPLING));
+        add(FFRib.BUDDING_JUNGLE_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_JUNGLE_LOG.get(), Blocks.JUNGLE_LOG, Items.JUNGLE_SAPLING));
+        add(FFRib.BUDDING_JUNGLE_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_JUNGLE_WOOD.get(), Blocks.JUNGLE_WOOD, Items.JUNGLE_SAPLING));
+        add(FFRib.BUDDING_ACACIA_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_ACACIA_LOG.get(), Blocks.ACACIA_LOG, Items.ACACIA_SAPLING));
+        add(FFRib.BUDDING_ACACIA_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_ACACIA_WOOD.get(), Blocks.ACACIA_WOOD, Items.ACACIA_SAPLING));
+        add(FFRib.BUDDING_DARK_OAK_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_DARK_OAK_LOG.get(), Blocks.DARK_OAK_LOG, Items.DARK_OAK_SAPLING));
+        add(FFRib.BUDDING_DARK_OAK_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_DARK_OAK_WOOD.get(), Blocks.DARK_OAK_WOOD, Items.DARK_OAK_SAPLING));
+        add(FFRib.BUDDING_MANGROVE_LOG.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_MANGROVE_LOG.get(), Blocks.MANGROVE_LOG, Items.MANGROVE_PROPAGULE));
+        add(FFRib.BUDDING_MANGROVE_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_MANGROVE_WOOD.get(), Blocks.MANGROVE_WOOD, Items.MANGROVE_PROPAGULE));
 
         dropSelf(FFRib.SAPPHIRE_BLOCK.get());
         add(FFRib.SAPPHIRE_ORE.get(),
@@ -63,11 +78,13 @@ public class FFRBlockLootTables extends BlockLoot {
     protected @NotNull Iterable<Block> getKnownBlocks() {
         return FFRib.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
+    protected static LootTable.Builder dropBudWhenSilkElseLogAndSapling(Block pBud, Block pLog, ItemLike pSapling) {
+        return createSilkTouchDispatchTable(pBud, applyExplosionDecay(pBud, LootItem.lootTableItem(pLog)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(applyExplosionDecay(pBud, LootItem.lootTableItem(pSapling).apply(SetItemCountFunction.setCount(UniformGenerator.between(-5.0f, 2.0f))).apply(LimitCount.limitCount(IntRange.lowerBound(0))))));
+    }
     protected static LootTable.Builder createBambooLeavesDrops(Block pLeaves, ItemLike pFruit, float... pChances) {
         return createSilkTouchOrShearsDispatchTable(pLeaves, ((LootPoolSingletonContainer.Builder<?>)applyExplosionCondition(pLeaves, LootItem.lootTableItem(pFruit))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, pChances)))
-                .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
-                        .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH)
                         .add(((LootPoolSingletonContainer.Builder<?>)applyExplosionDecay(pLeaves, LootItem.lootTableItem(Items.BAMBOO)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
                                 ).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, BAMBOO_LEAVES_CHUTE_CHANCES))

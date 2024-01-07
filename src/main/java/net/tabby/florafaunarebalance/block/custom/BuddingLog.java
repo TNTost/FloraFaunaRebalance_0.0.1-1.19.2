@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 
 import java.util.Objects;
@@ -39,7 +40,6 @@ public class BuddingLog extends LogRotatedPillarBlock {
                         default -> 0;
                     };
                     case Z -> index = switch (randomSource.nextInt(DIRECTIONS.length - 2)) {
-                        case  0 -> 0;
                         case  1 -> 1;
                         case  2 -> 4;
                         case  3 -> 5;
@@ -53,12 +53,23 @@ public class BuddingLog extends LogRotatedPillarBlock {
             Direction randomSide = DIRECTIONS[index]; //pick a side, choiche
             BlockPos adjBlock = pos.relative(randomSide);
             BlockState potentialLeafState = serverLevel.getBlockState(adjBlock);
-            Block resultBlock = null;
+
+            Block leafType = null;
             if (canLeavesGrowAtState(potentialLeafState)) {
-                resultBlock = FFRib.BAMBOO_LEAVES.get();
+                if (str.contains("bamboo")) { leafType = FFRib.BAMBOO_LEAVES.get();
+                } else if (str.contains("oak")) {
+                    if (str.contains("dark")) { leafType = Blocks.DARK_OAK_LEAVES;
+                    } else { leafType = Blocks.OAK_LEAVES;
+                    }
+                } else if (str.contains("birch")) { leafType = Blocks.BIRCH_LEAVES;
+                } else if (str.contains("spruce")) { leafType = Blocks.SPRUCE_LEAVES;
+                } else if (str.contains("jungle")) { leafType = Blocks.JUNGLE_LEAVES;
+                } else if (str.contains("acacia")) { leafType = Blocks.ACACIA_LEAVES;
+                } else if (str.contains("mangrove")) { leafType = Blocks.MANGROVE_LEAVES;
+                }
             }
-            if (resultBlock != null) {
-                BlockState finalState = ((resultBlock.defaultBlockState().setValue(LeavesBlock.DISTANCE, 1)).setValue(LeavesBlock.WATERLOGGED, potentialLeafState.getFluidState().getType() == Fluids.WATER));
+            if (leafType != null) {
+                BlockState finalState = ((leafType.defaultBlockState().setValue(LeavesBlock.DISTANCE, 1)).setValue(LeavesBlock.WATERLOGGED, potentialLeafState.getFluidState().getType() == Fluids.WATER));
                 serverLevel.setBlockAndUpdate(adjBlock, finalState);
             }
         }
@@ -72,11 +83,9 @@ public class BuddingLog extends LogRotatedPillarBlock {
             return FFRib.BUDDING_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         } else if (state.is(FFRib.BAMBOO_WOOD.get())) {
             return FFRib.BUDDING_BAMBOO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-        } else if (state.is(Blocks.OAK_LOG)) {
-            return FFRib.BUDDING_OAK_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         } else {
             String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
-            return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", "stripped_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
         }
     }
 }

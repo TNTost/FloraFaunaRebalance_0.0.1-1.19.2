@@ -92,6 +92,43 @@ public class FFRib {
 
     public static final RegistryObject<RotatedPillarBlock> BUDDING_OAK_LOG = registerBlock("budding_oak_log",
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_OAK_WOOD = registerBlock("budding_oak_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_BIRCH_LOG = registerBlock("budding_birch_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.BIRCH_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_BIRCH_WOOD = registerBlock("budding_birch_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.BIRCH_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_SPRUCE_LOG = registerBlock("budding_spruce_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.SPRUCE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_SPRUCE_WOOD = registerBlock("budding_spruce_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.SPRUCE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_JUNGLE_LOG = registerBlock("budding_jungle_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_JUNGLE_WOOD = registerBlock("budding_jungle_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_ACACIA_LOG = registerBlock("budding_acacia_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.ACACIA_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_ACACIA_WOOD = registerBlock("budding_acacia_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.ACACIA_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_DARK_OAK_LOG = registerBlock("budding_dark_oak_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_DARK_OAK_WOOD = registerBlock("budding_dark_oak_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_MANGROVE_LOG = registerBlock("budding_mangrove_log",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> BUDDING_MANGROVE_WOOD = registerBlock("budding_mangrove_wood",
+            () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_TAB);
+
+
+
+
+
 
 
 

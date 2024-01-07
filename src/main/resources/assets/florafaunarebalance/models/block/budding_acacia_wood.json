@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "florafaunarebalance:block/budding_acacia_log",
+    "side": "florafaunarebalance:block/budding_acacia_log"
+  }
+}
