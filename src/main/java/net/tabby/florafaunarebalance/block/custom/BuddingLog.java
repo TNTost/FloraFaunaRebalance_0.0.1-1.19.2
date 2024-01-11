@@ -5,56 +5,63 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.block.custom.blockstate.FFRProperties;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 
 public class BuddingLog extends LogRotatedPillarBlock {
-    public static final int GROWTH_CHANCE = 5;
+    public static final int GROWTH_CHANCE = 3;
     public static final Direction[] DIRECTIONS = Direction.values();
+    public static final IntegerProperty NUTRIENTS = FFRProperties.NUTRIENTS;
+
     public BuddingLog(Properties p_55926_) {
         super(p_55926_);
+       // this.registerDefaultState(this.stateDefinition.any().setValue(NUTRIENTS, 5));
     }
 
+   //@Override
+   //public BlockState getStateForPlacement(@NotNull BlockPlaceContext p_55928_) {
+   //    return this.defaultBlockState().setValue(NUTRIENTS, 5);
+   //}
+   //@Override
+   //protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+   //    builder.add(NUTRIENTS);
+   //}
 
-    public void randomTick(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource randomSource) {
+
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(GROWTH_CHANCE) == 0) {
-            String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
-            int index = 0;
-            if (str.contains("log")) {
-                Direction.Axis axis = state.getValue(AXIS);
-                switch (axis) {
-                    case Y -> index = switch (randomSource.nextInt(DIRECTIONS.length - 2)) {
-                        case  0 -> 2;
-                        case  1 -> 3;
-                        case  2 -> 4;
-                        case  3 -> 5;
-                        default -> 0;
-                    };
-                    case Z -> index = switch (randomSource.nextInt(DIRECTIONS.length - 2)) {
+            Block leafType = null;
+            String str;
+            int index = randomSource.nextInt(DIRECTIONS.length);
+            if ((str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath()).contains("log")) {
+                int preReMap = randomSource.nextInt(DIRECTIONS.length - 2);
+                switch (state.getValue(AXIS)) {
+                    case Y -> index = preReMap + 2;
+                    case Z -> index = switch (preReMap) {
                         case  1 -> 1;
                         case  2 -> 4;
                         case  3 -> 5;
                         default -> 0;
                     };
-                    case X -> index = randomSource.nextInt(DIRECTIONS.length - 2);
+                    case X -> index = preReMap;
                 }
-            } else {
-                index = randomSource.nextInt(DIRECTIONS.length);
             }
-            Direction randomSide = DIRECTIONS[index]; //pick a side, choiche
-            BlockPos adjBlock = pos.relative(randomSide);
-            BlockState potentialLeafState = serverLevel.getBlockState(adjBlock);
-
-            Block leafType = null;
+            BlockPos randomAdjBlock = pos.relative(DIRECTIONS[index]);
+            BlockState potentialLeafState = level.getBlockState(randomAdjBlock);
             if (canLeavesGrowAtState(potentialLeafState)) {
                 if (str.contains("bamboo")) { leafType = FFRib.BAMBOO_LEAVES.get();
                 } else if (str.contains("oak")) {
@@ -70,22 +77,16 @@ public class BuddingLog extends LogRotatedPillarBlock {
             }
             if (leafType != null) {
                 BlockState finalState = ((leafType.defaultBlockState().setValue(LeavesBlock.DISTANCE, 1)).setValue(LeavesBlock.WATERLOGGED, potentialLeafState.getFluidState().getType() == Fluids.WATER));
-                serverLevel.setBlockAndUpdate(adjBlock, finalState);
+                level.setBlockAndUpdate(randomAdjBlock, finalState);
             }
         }
     }
     public static boolean canLeavesGrowAtState (BlockState state) {
-        return state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8;
+        return (state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8) && state.getValue(NUTRIENTS) > 0;
     }
 
     public static BlockState createNewBuddingLog(BlockState state) {
-        if (state.is(FFRib.BAMBOO_LOG.get())) {
-            return FFRib.BUDDING_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-        } else if (state.is(FFRib.BAMBOO_WOOD.get())) {
-            return FFRib.BUDDING_BAMBOO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-        } else {
-            String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
-            return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-        }
+        String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
     }
 }
