@@ -1,0 +1,9 @@
+repositories {
+    maven { // gtceu
+        name "firstdarkMaven"
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
+    maven { // Registrate
+        url "https://maven.tterrag.com/"
+    }
+}
