@@ -1,9 +1,13 @@
 repositories {
+    maven {
+        name = "spongepowered-repo"
+        url = "https://repo.spongepowered.org/repository/maven-public/"
+    }
     maven { // gtceu
-        name "firstdarkMaven"
-        url "https://maven.firstdarkdev.xyz/snapshots"
+        name = "firstdarkMaven"
+        url = "https://maven.firstdarkdev.xyz/snapshots"
     }
     maven { // Registrate
-        url "https://maven.tterrag.com/"
+        url = "https://maven.tterrag.com/"
     }
 }

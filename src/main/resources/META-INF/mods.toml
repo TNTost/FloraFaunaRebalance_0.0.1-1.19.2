@@ -63,13 +63,13 @@ versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 # gregtech dependancy for rubber log/wood type
-#[[dependencies.florafaunarebalance]]
-#modId="gregtechceu-modern"
-#mandatory=false
-#
-#versionRange="${minecraft_version_range}"
-#ordering="NONE"
-#side="BOTH"
+[[dependencies.florafaunarebalance]]
+modId="gregtechceu-modern"
+mandatory=false
+
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
 # gregtech sub-dependancy
 #[[dependencies.florafaunarebalance]]
 #modId="architectury"

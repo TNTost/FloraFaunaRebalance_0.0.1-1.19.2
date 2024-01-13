@@ -120,6 +120,9 @@ mixin {
 
     debug.verbose = true
     debug.export = true
+    dumpTargetOnFailure = true
+
+        //# add quiet to reload gradle
 }
     //# repositories
 apply from: "$rootDir/gradle/scripts/repositories.gradle"

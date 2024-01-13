@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "net.tabby.florafaunarebalance.core.mixins",
+  "refmap": "mixins.florafaunarebalance.refmap.json",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

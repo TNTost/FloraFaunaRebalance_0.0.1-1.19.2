@@ -38,8 +38,10 @@ public class FloraFaunaRebalance
         modEventBus.addListener(this::clientSetup);
 
 
+
         MinecraftForge.EVENT_BUS.register(this);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFRConfig.SPEC);
+        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
