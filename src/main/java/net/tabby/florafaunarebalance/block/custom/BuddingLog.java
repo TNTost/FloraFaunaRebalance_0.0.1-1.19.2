@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
-import net.tabby.florafaunarebalance.util.blockstate.FFRProperties;
+import net.tabby.florafaunarebalance.util.blockstate.FFRBlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -85,6 +85,6 @@ public class BuddingLog extends LogRotatedPillarBlock {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
     }
     static {
-        NUTRIENTS = FFRProperties.NUTRIENTS;
+        NUTRIENTS = FFRBlockStateProperties.NUTRIENTS;
     }
 }

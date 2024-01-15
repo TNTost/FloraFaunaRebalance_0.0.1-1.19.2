@@ -16,40 +16,36 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class DartProjectileEntity extends AbstractArrow {
-
-
-    private final int col;
+    //private final int col;
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
+
     public DartProjectileEntity(EntityType<? extends AbstractArrow> p_36721_type, Level p_36722_level) {
         super(p_36721_type, p_36722_level);
         this.referenceItem = FFRii.UNTIPPED_DART.get();
-        this.effects = new HashSet<>();
-        this.col = -1;
+        effects = new HashSet<>();
+        //this.col = -1;
     }
     public DartProjectileEntity(LivingEntity p_36718_shooter, Level p_36719_level, Item referenceItem, int col) {
         super(ModEntityType.DART.get(), p_36718_shooter, p_36719_level);
         this.referenceItem = referenceItem;
-        this.effects = new HashSet<>();
-        this.col = col;
+        effects = new HashSet<>();
+        //this.col = col;
     }
 
     public void setEffectsFromList (List<MobEffectInstance> pList) {
-        List<MobEffectInstance> listCopy = List.copyOf(pList);
-        if (!listCopy.isEmpty()) {
-           for (MobEffectInstance entry : listCopy) {
-               this.effects.add(new MobEffectInstance(entry));
+        if (!pList.isEmpty()) {
+           for (MobEffectInstance entry : pList) {
+               effects.add(new MobEffectInstance(entry));
            }
         }
     }
    protected void onHitEntity (@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
-
         Entity target = entityHitResult.getEntity();
         if (target instanceof LivingEntity livingEntity) {
-            if(!this.effects.isEmpty()) {
-
-                for (MobEffectInstance entry : this.effects) {
+            if(!effects.isEmpty()) {
+                for (MobEffectInstance entry : effects) {
                     livingEntity.addEffect(entry);
                 }
             }

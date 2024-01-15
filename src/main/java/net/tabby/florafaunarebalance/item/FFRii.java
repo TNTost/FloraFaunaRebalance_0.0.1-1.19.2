@@ -8,8 +8,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.item.core.ChuteItem;
-import net.tabby.florafaunarebalance.item.core.DartItem;
+import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
+import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import java.util.List;
 
 public class FFRii {
@@ -17,6 +17,7 @@ public class FFRii {
 
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
+
     public static final RegistryObject<Item> UNTIPPED_DART = ITEMS.register("untipped_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
                     1.20f, List.of(), -1));

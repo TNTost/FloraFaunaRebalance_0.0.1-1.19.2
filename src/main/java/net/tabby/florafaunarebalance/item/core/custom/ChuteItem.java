@@ -1,8 +1,9 @@
-package net.tabby.florafaunarebalance.item.core;
+package net.tabby.florafaunarebalance.item.core.custom;
 
 
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -15,8 +16,13 @@ public class ChuteItem extends BowItem {
     public ChuteItem(Properties p_40660_) {
         super(p_40660_);
     }
+
     @Override
     public @NotNull Predicate<ItemStack> getAllSupportedProjectiles() {
         return DART_ONLY;
+    }
+    @Override
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_40678_) {
+        return UseAnim.SPYGLASS;
     }
 }

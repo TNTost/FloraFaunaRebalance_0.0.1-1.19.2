@@ -16,7 +16,7 @@ import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.ModEntityType;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.util.ModItemProperties;
+import net.tabby.florafaunarebalance.util.FFRItemProperties;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -45,7 +45,7 @@ public class FloraFaunaRebalance
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        ModItemProperties.addCustomItemProperties();
+        FFRItemProperties.addCustomItemProperties();
     }
     private void Setup(final FMLCommonSetupEvent event) {
     }
