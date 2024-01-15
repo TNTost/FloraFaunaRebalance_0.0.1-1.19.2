@@ -33,14 +33,14 @@ public class DartProjectileEntity extends AbstractArrow {
         //this.col = col;
     }
 
-    public void setEffectsFromList (List<MobEffectInstance> pList) {
+    public void setEffectsFromList(List<MobEffectInstance> pList) {
         if (!pList.isEmpty()) {
            for (MobEffectInstance entry : pList) {
                effects.add(new MobEffectInstance(entry));
            }
         }
     }
-   protected void onHitEntity (@NotNull EntityHitResult entityHitResult) {
+   protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
         Entity target = entityHitResult.getEntity();
         if (target instanceof LivingEntity livingEntity) {

@@ -9,11 +9,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.custom.BuddingLog;
+import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
 import net.tabby.florafaunarebalance.util.FFRTags;
 
 
@@ -37,6 +39,17 @@ public class FFREvents {
                         level.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + random.nextDouble() * scale - 2.25, pos.getY() + 0.5, pos.getZ() + random.nextDouble() * scale - 2.25, 0.0d + random.nextDouble() * 0.04, 0.05d, 0.0d + random.nextDouble() * 0.04);
                     }
                 }
+            }
+        }
+
+        public static void onComputeFovModifierEvent(ComputeFovModifierEvent event) {
+            if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().getItem() instanceof ChuteItem) {
+                float drawTimeInTicks = 20.0f;
+                float fovModifier = 1.0f;
+                float dT = event.getPlayer().getTicksUsingItem() / drawTimeInTicks;
+                dT = dT > 1.0f ? 1.0f : dT*dT;
+                fovModifier *= 1.0f - dT * 0.15f;
+                event.setNewFovModifier(fovModifier);
             }
         }
     }
