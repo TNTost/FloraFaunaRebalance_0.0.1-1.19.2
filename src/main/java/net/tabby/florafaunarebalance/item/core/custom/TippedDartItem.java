@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.custom;
+package net.tabby.florafaunarebalance.item.core.custom;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
+import net.tabby.florafaunarebalance.item.core.DartItem;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 

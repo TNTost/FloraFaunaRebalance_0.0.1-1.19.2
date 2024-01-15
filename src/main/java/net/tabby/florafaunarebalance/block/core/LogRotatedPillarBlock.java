@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.block.custom;
+package net.tabby.florafaunarebalance.block.core;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

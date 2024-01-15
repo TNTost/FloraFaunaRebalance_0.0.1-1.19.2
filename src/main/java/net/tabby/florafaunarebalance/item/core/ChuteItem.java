@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.custom;
+package net.tabby.florafaunarebalance.item.core;
 
 
 import net.minecraft.world.item.BowItem;

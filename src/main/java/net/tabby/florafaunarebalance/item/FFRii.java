@@ -8,8 +8,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.item.custom.ChuteItem;
-import net.tabby.florafaunarebalance.item.custom.DartItem;
+import net.tabby.florafaunarebalance.item.core.ChuteItem;
+import net.tabby.florafaunarebalance.item.core.DartItem;
 import java.util.List;
 
 public class FFRii {

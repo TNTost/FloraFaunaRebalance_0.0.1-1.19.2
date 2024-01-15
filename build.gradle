@@ -123,6 +123,7 @@ mixin {
     dumpTargetOnFailure = true
 
         //# add quiet to reload gradle
+    quiet
 }
     //# repositories
 apply from: "$rootDir/gradle/scripts/repositories.gradle"

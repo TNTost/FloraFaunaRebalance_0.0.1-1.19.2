@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -16,7 +15,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.block.custom.blockstate.FFRProperties;
+import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
+import net.tabby.florafaunarebalance.util.blockstate.FFRProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -25,22 +25,17 @@ import java.util.Objects;
 public class BuddingLog extends LogRotatedPillarBlock {
     public static final int GROWTH_CHANCE = 3;
     public static final Direction[] DIRECTIONS = Direction.values();
-    public static final IntegerProperty NUTRIENTS = FFRProperties.NUTRIENTS;
+    public static final IntegerProperty NUTRIENTS;
 
     public BuddingLog(Properties p_55926_) {
         super(p_55926_);
-       // this.registerDefaultState(this.stateDefinition.any().setValue(NUTRIENTS, 5));
+        registerDefaultState(defaultBlockState().setValue(NUTRIENTS, 0));
     }
-
-   //@Override
-   //public BlockState getStateForPlacement(@NotNull BlockPlaceContext p_55928_) {
-   //    return this.defaultBlockState().setValue(NUTRIENTS, 5);
-   //}
-   //@Override
-   //protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-   //    builder.add(NUTRIENTS);
-   //}
-
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(NUTRIENTS);
+    }
 
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(GROWTH_CHANCE) == 0) {
@@ -82,11 +77,14 @@ public class BuddingLog extends LogRotatedPillarBlock {
         }
     }
     public static boolean canLeavesGrowAtState (BlockState state) {
-        return (state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8) && state.getValue(NUTRIENTS) > 0;
+        return (state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8); //#  && state.getValue(NUTRIENTS) > 0
     }
 
     public static BlockState createNewBuddingLog(BlockState state) {
         String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+    }
+    static {
+        NUTRIENTS = FFRProperties.NUTRIENTS;
     }
 }

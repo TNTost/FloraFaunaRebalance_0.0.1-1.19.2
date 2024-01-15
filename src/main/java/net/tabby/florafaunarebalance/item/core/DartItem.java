@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.custom;
+package net.tabby.florafaunarebalance.item.core;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
