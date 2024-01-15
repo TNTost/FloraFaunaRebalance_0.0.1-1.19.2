@@ -37,18 +37,18 @@ public class ChuteItem extends BowItem{
 
 
         //# split this up into method call to other class to reduce clutter later..
-    @Override
-    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-                poseStack.translate(i * 0.56f, -0.52f, -0.72f);
-                if (player.getUseItem() == itemInHand && player.isUsingItem()) {
-                    poseStack.translate(0.0, -0.05, 0.0);
-                }   return true;
-            }
-        });
-    }
+    //@Override
+    //public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
+//
+    //    consumer.accept(new IClientItemExtensions() {
+    //        @Override
+    //        public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+    //            int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+    //            poseStack.translate(i * 0.56f, -0.52f, -0.72f);
+    //            if (player.getUseItem() == itemInHand && player.isUsingItem()) {
+    //                poseStack.translate(0.0, -0.05, 0.0);
+    //            }   return true;
+    //        }
+    //    });
+    //}
 }
