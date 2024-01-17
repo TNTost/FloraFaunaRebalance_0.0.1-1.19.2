@@ -6,15 +6,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.custom.BuddingLog;
+import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
 import net.tabby.florafaunarebalance.util.FFRTags;
 
@@ -48,6 +52,17 @@ public class FFREvents {
                 float dT = event.getPlayer().getTicksUsingItem() / drawTimeInTicks;
                 dT = dT > 1.0f ? 1.0f : dT*dT;
                 event.setNewFovModifier(1.0f - dT * 0.175f);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onSpentBreath(TickEvent.PlayerTickEvent event) {
+            Player p1 = event.player;
+            if (!p1.isUnderWater() && p1.isCrouching()) { //# on land, sneaking...event.side == LogicalSide.SERVER &&
+                if (p1.getCooldowns().isOnCooldown(FFRii.DART_CHUTE.get())) {
+                    int Oxy = p1.getAirSupply();
+                    p1.setAirSupply(Oxy < 10 ? 0 : Math.max(Oxy - 5, 0)); //# meh, good math but features
+                }
             }
         }
     }
