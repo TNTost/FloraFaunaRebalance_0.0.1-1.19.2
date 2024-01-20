@@ -23,13 +23,11 @@ public class DartItem extends ArrowItem {
         this.effects = effect;
         this.col = col;
     }
-    //CustomArrow arrow = new CustomArrow(shooter, level, ModItems.CUSTOM_ARROW.get());
-    @Override
-    public AbstractArrow createArrow(Level p_40513_level, ItemStack p_40514_, LivingEntity p_40515_shooter) {
-        DartProjectileEntity arrow = new DartProjectileEntity(p_40515_shooter, p_40513_level, this, col); //# 'this'  is a life-saver
-        arrow.setBaseDamage(this.damage);
-        arrow.setEffectsFromList(effects);
-        return arrow;
+    public AbstractArrow createDart(Level level, ItemStack p_40514_, LivingEntity shooter) {
+        DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this, col); //# 'this'  is a life-saver
+        dart.setBaseDamage(this.damage);
+        dart.setEffectsFromList(effects);
+        return dart;
     }
     @Override
     public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {

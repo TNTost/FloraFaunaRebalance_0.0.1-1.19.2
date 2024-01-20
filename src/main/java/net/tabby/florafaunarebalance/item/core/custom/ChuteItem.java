@@ -3,6 +3,8 @@ package net.tabby.florafaunarebalance.item.core.custom;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,20 +12,27 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.level.NoteBlockEvent;
+import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
+import net.tabby.florafaunarebalance.item.FFRii;
 import org.jetbrains.annotations.NotNull;
 
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 //# make it so ChuteItem extends ProjectileWeaponItem instead...
 public class ChuteItem extends ProjectileWeaponItem {
+    public static final float BREATH_DURATION_CAP = 12.0f;
     public static final Predicate<ItemStack> DART_ONLY = itemStack -> itemStack.is(DART_TAG);
     public static final Predicate<ItemStack> DART_OR_FIREWORKS = DART_ONLY.or(itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
 
@@ -32,16 +41,39 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
 
 
-    public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int i) {
-        if (entity instanceof Player player && i > 0) { //# instanceof <Type> "variableName" makes new var
-            System.out.println("hello this is use duration " + i);
-        } else {
-            System.out.println("you held it too long " + 1);
+    public void releaseUsing(ItemStack chuteItem, Level level, LivingEntity entity, int t) {
+        if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
+            ItemStack ammo = player.getProjectile(chuteItem);
+            boolean inf = player.getAbilities().instabuild;
+
+            if (!ammo.isEmpty() || inf) { //# get and check if dart OR in creative
+                if (ammo.isEmpty()) {
+                    ammo = new ItemStack(FFRii.UNTIPPED_DART.get()); //# set dart in case of no item present.
+                }
+                float pow = getPowerForTime(getUseDuration(chuteItem) - t);
+                if ((double) pow >= 0.35) {
+                    shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
+                    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
+                    if (!inf) {
+                        ammo.shrink(1);
+                        if (ammo.isEmpty()) {
+                            player.getInventory().removeItem(ammo);
+                        }
+                    }
+                }
+            }
         }
+    }
+    public static float getPowerForTime(int t) {
+        float str = t / BREATH_DURATION_CAP;
+        if ((str = (str * str + str * 3.5f) / 4.5f) > 1.0f) {
+            str = 1.0f;
+        }
+        return str;
     }
 
     //# make it allow fireworks to be pulled only / require ignition source...
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         boolean flag = !player.getProjectile(itemStack).isEmpty();
         InteractionResultHolder<ItemStack> ret = ForgeEventFactory.onArrowNock(itemStack, level, player, hand, flag);
@@ -64,7 +96,29 @@ public class ChuteItem extends ProjectileWeaponItem {
             //} else {
 
             //}
+    }
 
+    protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean flag) {
+        if (!level.isClientSide) {
+            Entity projectile;
+            if (ammo.is(Items.FIREWORK_ROCKET)) { //# check if is fireworks.
+                projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
+            } else {
+                DartItem dartItem = (DartItem) (ammo.getItem()); //# may induce bug in future, scrap if not.
+                AbstractArrow dartProjectile = dartItem.createDart(level, ammo, player);
+                dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f);
+                if (pow == 1.0f) {
+                    dartProjectile.setCritArrow(true);
+                }
+                if (flag) {
+                    dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                }
+                projectile = dartProjectile;
+            }
+            //# enchant handler /> [unbreaking], [mending], [power], [barrage], [gathering]
+            chuteItem.hurtAndBreak(1, player, (breakEvent) -> breakEvent.broadcastBreakEvent(player.getUsedItemHand())); //# odd naming.
+            level.addFreshEntity(projectile);
+        }
     }
 
     //public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
@@ -72,6 +126,8 @@ public class ChuteItem extends ProjectileWeaponItem {
     //}
     //public static void shootProjectileWithCooldown(Level level, LivingEntity player, InteractionHand hand, ItemStack itemStack) {
     //}
+
+
 
 
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_40678_) {
@@ -91,11 +147,14 @@ public class ChuteItem extends ProjectileWeaponItem {
             }
         });
     }
-    public int getUseDuration(ItemStack p_41454_) {
+    public int getUseDuration(@NotNull ItemStack p_41454_) {
         return 270; //# method required to make projectile weapon, <releaseUsing.i> takes "return value - useTime"
     }
+    public boolean useOnRelease(ItemStack itemStack) {
+        return itemStack.is(this);
+    }
 
-    public Predicate<ItemStack> getAllSupportedProjectiles() {
+    public @NotNull Predicate<ItemStack> getAllSupportedProjectiles() {
         return DART_OR_FIREWORKS;
     }
     public int getDefaultProjectileRange() {
