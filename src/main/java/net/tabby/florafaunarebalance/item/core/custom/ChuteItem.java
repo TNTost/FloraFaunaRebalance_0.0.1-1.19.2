@@ -147,6 +147,7 @@ public class ChuteItem extends ProjectileWeaponItem {
             }
         });
     }
+
     public int getUseDuration(@NotNull ItemStack p_41454_) {
         return 270; //# method required to make projectile weapon, <releaseUsing.i> takes "return value - useTime"
     }

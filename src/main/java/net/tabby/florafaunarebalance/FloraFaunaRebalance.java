@@ -14,7 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
-import net.tabby.florafaunarebalance.entity.ModEntityType;
+import net.tabby.florafaunarebalance.entity.FFREntityTypes;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.util.FFRItemProperties;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class FloraFaunaRebalance
 
         FFRii.register(modEventBus);
         FFRib.register(modEventBus);
-        ModEntityType.register(modEventBus);
+        FFREntityTypes.register(modEventBus);
 
         modEventBus.addListener(this::Setup);
         modEventBus.addListener(this::clientSetup);
@@ -57,7 +57,7 @@ public class FloraFaunaRebalance
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ModEntityType.DART.get(), DartProjectileRenderer::new);
+            EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
         }
     }
 }

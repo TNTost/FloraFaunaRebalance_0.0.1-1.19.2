@@ -1,25 +1,22 @@
 package net.tabby.florafaunarebalance.entity.custom;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.tabby.florafaunarebalance.entity.ModEntityType;
+import net.tabby.florafaunarebalance.entity.FFREntityTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class DartProjectileEntity extends AbstractArrow {
-    private String name;
-
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
 
@@ -28,28 +25,27 @@ public class DartProjectileEntity extends AbstractArrow {
         super(type, level);
         this.referenceItem = null;
         effects = new HashSet<>();
-        //this.col = -1;
     }
-    public DartProjectileEntity(LivingEntity shooter, Level level, Item referenceItem, int col) {
-        super(ModEntityType.DART.get(), shooter, level);
+    public DartProjectileEntity(LivingEntity shooter, Level level, Item referenceItem) {
+        super(FFREntityTypes.DART.get(), shooter, level);
         this.referenceItem = referenceItem;
-        effects = new HashSet<>();
-        //this.col = col;
-    }
-
-    public void addAdditionalSaveData(CompoundTag p_36772_) {
-        super.addAdditionalSaveData(p_36772_);
+        effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.
     }
 
     //public void setEffectsFromRegistryName(String str) {
     //    System.out.println(str);
     //}
 
-    public void setEffectsFromList(List<MobEffectInstance> pList) {
-        if (!pList.isEmpty()) {
-           for (MobEffectInstance entry : pList) {
-               effects.add(new MobEffectInstance(entry));
-           }
+    public void setEffectsFromNBT(ItemStack dart, Boolean mpt) {
+        if (!mpt) { //# if effects exist.
+            System.out.println("effects exist");
+            Collection<MobEffectInstance> instances = PotionUtils.getCustomEffects(dart);
+            if (instances.isEmpty()) {
+                System.out.println("but the nbt list is empty");
+            }
+            for (MobEffectInstance entry : instances) {
+                effects.add(new MobEffectInstance(entry)); //# new keyword important to prevent soft-copy here...
+            }
         }
     }
     protected void doPostHurtEffects(LivingEntity entity) {
