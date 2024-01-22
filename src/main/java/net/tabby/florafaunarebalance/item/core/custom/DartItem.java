@@ -9,8 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import java.util.List;
+import java.util.Objects;
 
 public class DartItem extends ArrowItem {
     public final int col;
@@ -23,15 +25,16 @@ public class DartItem extends ArrowItem {
         this.effects = effect;
         this.col = col;
     }
-    public AbstractArrow createDart(Level level, ItemStack p_40514_, LivingEntity shooter) {
+    public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this, col); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
         dart.setEffectsFromList(effects);
+        dart.setEffectsFromRegistryName(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).getPath());
         return dart;
     }
     @Override
-    public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
-        int enchant = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, bow);
+    public boolean isInfinite(ItemStack stack, ItemStack chute, Player player) {
+        int enchant = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, chute);
         return enchant > 0 && this.getClass() == DartItem.class;
     }
 }

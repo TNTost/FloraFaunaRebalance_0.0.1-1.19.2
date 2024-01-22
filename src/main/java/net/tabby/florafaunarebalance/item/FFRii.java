@@ -19,13 +19,11 @@ public class FFRii {
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
 
     public static final RegistryObject<Item> UNTIPPED_DART = ITEMS.register("untipped_dart",
-            () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
+            () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).stacksTo(128),
                     1.20f, List.of(), -1));
     public static final RegistryObject<Item> POISON_DART = ITEMS.register("poison_dart",
-            () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
-                    0.85f, List.of(
-                            new MobEffectInstance(MobEffects.POISON, 60, 2),
-                            new MobEffectInstance(MobEffects.WEAKNESS, 300, 1)), 65535));
+            () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).stacksTo(128),
+                    0.85f, List.of(), 65535));
 
     
     public static final RegistryObject<Item> SAPPHIRE = ITEMS.register("sapphire",

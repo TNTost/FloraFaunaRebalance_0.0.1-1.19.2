@@ -1,6 +1,9 @@
 package net.tabby.florafaunarebalance.entity.custom;
 
+import com.google.common.collect.ImmutableSet;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,28 +13,37 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.tabby.florafaunarebalance.entity.ModEntityType;
-import net.tabby.florafaunarebalance.item.FFRii;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class DartProjectileEntity extends AbstractArrow {
-    //private final int col;
+    private String name;
+
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
 
-    public DartProjectileEntity(EntityType<? extends AbstractArrow> p_36721_type, Level p_36722_level) {
-        super(p_36721_type, p_36722_level);
-        this.referenceItem = FFRii.UNTIPPED_DART.get();
+
+    public DartProjectileEntity(EntityType<? extends AbstractArrow> type, Level level) {
+        super(type, level);
+        this.referenceItem = null;
         effects = new HashSet<>();
         //this.col = -1;
     }
-    public DartProjectileEntity(LivingEntity p_36718_shooter, Level p_36719_level, Item referenceItem, int col) {
-        super(ModEntityType.DART.get(), p_36718_shooter, p_36719_level);
+    public DartProjectileEntity(LivingEntity shooter, Level level, Item referenceItem, int col) {
+        super(ModEntityType.DART.get(), shooter, level);
         this.referenceItem = referenceItem;
         effects = new HashSet<>();
         //this.col = col;
     }
+
+    public void addAdditionalSaveData(CompoundTag p_36772_) {
+        super.addAdditionalSaveData(p_36772_);
+    }
+
+    //public void setEffectsFromRegistryName(String str) {
+    //    System.out.println(str);
+    //}
 
     public void setEffectsFromList(List<MobEffectInstance> pList) {
         if (!pList.isEmpty()) {
@@ -40,7 +52,11 @@ public class DartProjectileEntity extends AbstractArrow {
            }
         }
     }
-   protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
+    protected void doPostHurtEffects(LivingEntity entity) {
+        super.doPostHurtEffects(entity); //# not sure why super required.
+    }
+
+    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
         Entity target = entityHitResult.getEntity();
         if (target instanceof LivingEntity livingEntity) {

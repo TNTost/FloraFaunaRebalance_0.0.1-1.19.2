@@ -19,13 +19,12 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.level.NoteBlockEvent;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
+import net.tabby.florafaunarebalance.util.FFRTags;
 import org.jetbrains.annotations.NotNull;
 
 
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -43,11 +42,11 @@ public class ChuteItem extends ProjectileWeaponItem {
 
     public void releaseUsing(ItemStack chuteItem, Level level, LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
-            ItemStack ammo = player.getProjectile(chuteItem);
+            ItemStack ammo = player.getProjectile(chuteItem); //# loops through inv to find item.
             boolean inf = player.getAbilities().instabuild;
 
             if (!ammo.isEmpty() || inf) { //# get and check if dart OR in creative
-                if (ammo.isEmpty()) {
+                if (ammo.isEmpty() || ammo.is(Items.ARROW)) { //# remove arrow
                     ammo = new ItemStack(FFRii.UNTIPPED_DART.get()); //# set dart in case of no item present.
                 }
                 float pow = getPowerForTime(getUseDuration(chuteItem) - t);
@@ -104,8 +103,9 @@ public class ChuteItem extends ProjectileWeaponItem {
             if (ammo.is(Items.FIREWORK_ROCKET)) { //# check if is fireworks.
                 projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
             } else {
-                DartItem dartItem = (DartItem) (ammo.getItem()); //# may induce bug in future, scrap if not.
-                AbstractArrow dartProjectile = dartItem.createDart(level, ammo, player);
+                Item i = ammo.getItem(); //# add edge case: .getProjectile() returns arrow when /gmc && no item found.
+                DartItem dartItem = (DartItem) (i); //# may induce bug in future, scrap if not.
+                DartProjectileEntity dartProjectile = (DartProjectileEntity) dartItem.createDart(level, ammo, player);
                 dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f);
                 if (pow == 1.0f) {
                     dartProjectile.setCritArrow(true);
