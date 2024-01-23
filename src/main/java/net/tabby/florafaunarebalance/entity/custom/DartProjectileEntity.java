@@ -1,10 +1,8 @@
 package net.tabby.florafaunarebalance.entity.custom;
 
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,33 +34,29 @@ public class DartProjectileEntity extends AbstractArrow {
     //    System.out.println(str);
     //}
 
-    public void setEffectsFromNBT(ItemStack dart, Boolean mpt) {
-        if (!mpt) { //# if effects exist.
-            System.out.println("effects exist");
-            Collection<MobEffectInstance> instances = PotionUtils.getCustomEffects(dart);
-            if (instances.isEmpty()) {
-                System.out.println("but the nbt list is empty");
-            }
-            for (MobEffectInstance entry : instances) {
-                effects.add(new MobEffectInstance(entry)); //# new keyword important to prevent soft-copy here...
-            }
+    public void setEffectsFromNBT(ItemStack dart) {
+        for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) {
+            effects.add(new MobEffectInstance(entry));
         }
     }
     protected void doPostHurtEffects(LivingEntity entity) {
         super.doPostHurtEffects(entity); //# not sure why super required.
+        for (MobEffectInstance effect : effects) {
+            entity.addEffect(effect, this.getEffectSource());
+        }
     }
 
-    protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
-        super.onHitEntity(entityHitResult);
-        Entity target = entityHitResult.getEntity();
-        if (target instanceof LivingEntity livingEntity) {
-            if(!effects.isEmpty()) {
-                for (MobEffectInstance entry : effects) {
-                    livingEntity.addEffect(entry);
-                }
-            }
-        }
-   }
+   //protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
+   //    //super.onHitEntity(entityHitResult);
+   //    //Entity target = entityHitResult.getEntity();
+   //    //if (target instanceof LivingEntity livingEntity) {
+   //    //    if(!effects.isEmpty()) {
+   //    //        for (MobEffectInstance entry : effects) {
+   //    //            livingEntity.addEffect(entry);
+   //    //        }
+   //    //    }
+   //    //}
+   //
    /* public void tick() {
         super.tick();
         if (this.level.isClientSide) {
