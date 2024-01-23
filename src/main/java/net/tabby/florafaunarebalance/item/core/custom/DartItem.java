@@ -34,24 +34,19 @@ public class DartItem extends ArrowItem {
         this.effects = effects;
     }
     public ItemStack getDefaultInstance() {
-        ItemStack dart = new ItemStack(this);
+        ItemStack dart = new ItemStack(this); //# creates new itemStack &sets NBT tag...
         return setCustomEffects(dart, effects);
-        //ListTag tag = dart.getOrCreateTag().getList("CustomPotionEffects", 9);
-        //for (MobEffectInstance entry : effects) {
-        //    tag.add(entry.save(new CompoundTag()));
-        //}
-        //dart.put
     }
 
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
-        dart.setEffectsFromNBT(itemStack);
+        dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
         return dart;
     }
     @Override
     public boolean isInfinite(ItemStack stack, ItemStack chute, Player player) {
         int enchant = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, chute);
-        return enchant > 0 && this.getClass() == DartItem.class;
+        return enchant > 0 && this.getClass() == DartItem.class; //# actually pretty useless
     }
 }

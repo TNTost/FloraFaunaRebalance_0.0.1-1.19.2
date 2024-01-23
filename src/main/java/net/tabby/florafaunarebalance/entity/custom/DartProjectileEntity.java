@@ -8,7 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
 import net.tabby.florafaunarebalance.entity.FFREntityTypes;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,33 +29,18 @@ public class DartProjectileEntity extends AbstractArrow {
         effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.
     }
 
-    //public void setEffectsFromRegistryName(String str) {
-    //    System.out.println(str);
-    //}
 
     public void setEffectsFromNBT(ItemStack dart) {
-        for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) {
-            effects.add(new MobEffectInstance(entry));
+        for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) { //# get effect as list.
+            effects.add(new MobEffectInstance(entry)); //# new keyword important to not cause hard-soft copy issues...
         }
     }
     protected void doPostHurtEffects(LivingEntity entity) {
         super.doPostHurtEffects(entity); //# not sure why super required.
         for (MobEffectInstance effect : effects) {
-            entity.addEffect(effect, this.getEffectSource());
+            entity.addEffect(effect, this.getEffectSource()); //# iterate through list &add to entity.
         }
     }
-
-   //protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
-   //    //super.onHitEntity(entityHitResult);
-   //    //Entity target = entityHitResult.getEntity();
-   //    //if (target instanceof LivingEntity livingEntity) {
-   //    //    if(!effects.isEmpty()) {
-   //    //        for (MobEffectInstance entry : effects) {
-   //    //            livingEntity.addEffect(entry);
-   //    //        }
-   //    //    }
-   //    //}
-   //
    /* public void tick() {
         super.tick();
         if (this.level.isClientSide) {

@@ -51,7 +51,8 @@ public class ChuteItem extends ProjectileWeaponItem {
                 }
                 float pow = getPowerForTime(getUseDuration(chuteItem) - t);
                 if ((double) pow >= 0.35) {
-                    shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
+                    Entity projectile = ammo.is(Items.FIREWORK_ROCKET) ? new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true) : null; //# set as new firework rocket when ammo matches, otherwise null.
+                    shootProjectile(projectile, level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) {
                         ammo.shrink(1);
@@ -84,34 +85,21 @@ public class ChuteItem extends ProjectileWeaponItem {
             player.startUsingItem(hand);
             return InteractionResultHolder.consume(itemStack);
         }
-
-        //int Oxy = player.getAirSupply();
-            //if (player.isCrouching() && Oxy > 30) { //# sneaking enables rapid fire at oxygen cost.
-            //    player.setAirSupply(Oxy = Math.max(Oxy - 60 + 12 * EnchantmentHelper.getRespiration(player), 0)); //# make fancy counter + checksum to animate the drainage.
-            //    player.getCooldowns().addCooldown(itemStack.getItem(), Oxy < 30 ? 75 : 5);
-//
-            //    shootProjectileWithCooldown(level, player, hand, itemStack);
-            //    return InteractionResultHolder.consume(itemStack);
-            //} else {
-
-            //}
+        //# remember setAirSupply.TEMP
     }
 
-    protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean flag) {
-        if (!level.isClientSide) {
-            Entity projectile;
-            if (ammo.is(Items.FIREWORK_ROCKET)) { //# check if is fireworks.
-                projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
-            } else {
-                Item i = ammo.getItem(); //# add edge case: .getProjectile() returns arrow when /gmc && no item found.
-                DartItem dartItem = (DartItem) (i); //# may induce bug in future, scrap if not.
-                DartProjectileEntity dartProjectile = (DartProjectileEntity) dartItem.createDart(level, ammo, player);
+    protected static void shootProjectile(Entity projectile ,Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
+        if (!level.isClientSide) { //# set Entity to null when firing non-dart...
+            if (projectile == null) {
+                Item i = ammo.getItem();
+                DartItem dartItem = (DartItem) (i); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
+                DartProjectileEntity dartProjectile = (DartProjectileEntity) dartItem.createDart(level, ammo, player); //# casting is important...
                 dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f);
                 if (pow == 1.0f) {
                     dartProjectile.setCritArrow(true);
                 }
-                if (flag) {
-                    dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                if (inf) {
+                    //dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 }
                 projectile = dartProjectile;
             }
