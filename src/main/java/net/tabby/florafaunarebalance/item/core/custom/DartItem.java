@@ -1,10 +1,13 @@
 package net.tabby.florafaunarebalance.item.core.custom;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -30,15 +33,20 @@ public class DartItem extends ArrowItem {
         this.damage = damage;
         this.effects = effects;
     }
-    //public @NotNull ItemStack getDefaultInstance() {
-    //    return effects == null ? super.getDefaultInstance() : PotionUtils.setCustomEffects(super.getDefaultInstance(), effects); //# can use super.getDefaultInstance as a "getPrevious".
-    //}
+    public ItemStack getDefaultInstance() {
+        ItemStack dart = new ItemStack(this);
+        return setCustomEffects(dart, effects);
+        //ListTag tag = dart.getOrCreateTag().getList("CustomPotionEffects", 9);
+        //for (MobEffectInstance entry : effects) {
+        //    tag.add(entry.save(new CompoundTag()));
+        //}
+        //dart.put
+    }
 
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
-        PotionUtils.setCustomEffects(itemStack, effects);
-        dart.setEffectsFromNBT(itemStack,false);
+        dart.setEffectsFromNBT(itemStack);
         return dart;
     }
     @Override
