@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -28,7 +29,7 @@ public class DartItem extends ArrowItem {
     }
     public ItemStack getDefaultInstance() {
         ItemStack dart = new ItemStack(this); //# creates new itemStack &sets NBT tag...
-        return setCustomEffects(dart, effects); //# doesnt create new nbt.TEMP
+        return PotionUtils.setCustomEffects(dart, effects); //# missing "PotionUtils." caused bug, E.
     }
 
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
@@ -43,4 +44,5 @@ public class DartItem extends ArrowItem {
         int enchant = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, chute);
         return enchant > 0 && this.getClass() == DartItem.class; //# actually pretty useless
     }
+
 }
