@@ -53,7 +53,7 @@ public class ChuteItem extends ProjectileWeaponItem {
                 if ((double) pow >= 0.35) {
                     Entity projectile = ammo.is(Items.FIREWORK_ROCKET) ? new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true) : null; //# set as new firework rocket when ammo matches, otherwise null.
                     shootProjectile(projectile, level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
-                    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
+                    //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) {
                         ammo.shrink(1);
                         if (ammo.isEmpty()) {
@@ -88,11 +88,10 @@ public class ChuteItem extends ProjectileWeaponItem {
         //# remember setAirSupply.TEMP
     }
 
-    protected static void shootProjectile(Entity projectile ,Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
+    protected static void shootProjectile(Entity projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
             if (projectile == null) {
-                Item i = ammo.getItem();
-                DartItem dartItem = (DartItem) (i); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
+                DartItem dartItem = (DartItem) (ammo.getItem()); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
                 DartProjectileEntity dartProjectile = (DartProjectileEntity) dartItem.createDart(level, ammo, player); //# casting is important...
                 dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f);
                 if (pow == 1.0f) {
@@ -122,19 +121,19 @@ public class ChuteItem extends ProjectileWeaponItem {
         return UseAnim.SPYGLASS;
     }
     //# split this up into method call to other class to reduce clutter later...
-    @Override
-    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-                poseStack.translate(i * 0.56f, -0.52f, -0.72f);
-                if (player.getUseItem() == itemInHand && player.isUsingItem()) {
-                    poseStack.translate(0.0, -0.05, 0.0);
-                }   return true;
-            }
-        });
-    }
+    //@Override
+    //public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
+    //    consumer.accept(new IClientItemExtensions() {
+    //        @Override
+    //        public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+    //            int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+    //            poseStack.translate(i * 0.56f, -0.52f, -0.72f);
+    //            if (player.getUseItem() == itemInHand && player.isUsingItem()) {
+    //                poseStack.translate(0.0, -0.05, 0.0);
+    //            }   return true;
+    //        }
+    //    });
+    //}
 
     public int getUseDuration(@NotNull ItemStack p_41454_) {
         return 270; //# method required to make projectile weapon, <releaseUsing.i> takes "return value - useTime"
