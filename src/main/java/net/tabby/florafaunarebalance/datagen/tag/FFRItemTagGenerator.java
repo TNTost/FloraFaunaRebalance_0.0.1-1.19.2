@@ -99,7 +99,8 @@ public class FFRItemTagGenerator extends ItemTagsProvider {
                 .add(FFRib.BAMBOO_LEAVES.get().asItem());
 
         tag(FFRTags.Items.DART_TAG)
-                .add(FFRii.UNTIPPED_DART.get())
-                .add(FFRii.POISON_DART.get());
+                .add(FFRii.DART.get())
+                .add(FFRii.POISON_DART.get())
+                .add(FFRii.DART_OF_HEALING.get());
     }
 }

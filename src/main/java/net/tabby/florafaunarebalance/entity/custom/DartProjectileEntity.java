@@ -71,7 +71,7 @@ public class DartProjectileEntity extends AbstractArrow {
 
 
     @Override
-    public @NotNull ItemStack getPickupItem() {
+    public @NotNull ItemStack getPickupItem() { //# doesnt return nbt item...
         return new ItemStack(this.referenceItem);
     }
 }

@@ -14,18 +14,22 @@ import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import java.util.List;
 
 public class FFRii {
+    public static final int TPS = 20;
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FloraFaunaRebalance.MOD_ID);
 
 
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
 
-    public static final RegistryObject<Item> UNTIPPED_DART = ITEMS.register("untipped_dart",
+    public static final RegistryObject<Item> DART = ITEMS.register("untipped_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
                     1.20f, null));
     public static final RegistryObject<Item> POISON_DART = ITEMS.register("poison_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
-                    0.85f, List.of(new MobEffectInstance(MobEffects.POISON, 120, 1), new MobEffectInstance(MobEffects.WEAKNESS, 360, 0))));
+                    0.85f, List.of(new MobEffectInstance(MobEffects.POISON, 9 * TPS, 1), new MobEffectInstance(MobEffects.WEAKNESS, 27 * TPS, 0))));
+    public static final RegistryObject<Item> DART_OF_HEALING = ITEMS.register("dart_of_healing",
+            () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
+                    0.35f, List.of(new MobEffectInstance(MobEffects.HEAL, 1, 0), (new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * TPS, 0)))));
 
     
     public static final RegistryObject<Item> SAPPHIRE = ITEMS.register("sapphire",

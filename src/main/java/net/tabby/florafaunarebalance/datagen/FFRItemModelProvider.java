@@ -19,6 +19,7 @@ public class FFRItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
        // simpleItem(FFRii.UNTIPPED_DART);
        // simpleItem(FFRii.POISON_DART);
+        // simpleItem(FFRii.DART_OF_HEALING);
 
         simpleItem(FFRii.SAPPHIRE);
     }

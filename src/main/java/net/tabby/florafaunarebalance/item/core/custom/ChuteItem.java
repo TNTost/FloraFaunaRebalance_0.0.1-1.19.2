@@ -1,21 +1,15 @@
 package net.tabby.florafaunarebalance.item.core.custom;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +36,7 @@ public class ChuteItem extends ProjectileWeaponItem {
 
             if (!ammo.isEmpty() || inf) { //# get and check if dart OR in creative
                 if (ammo.isEmpty() || ammo.is(Items.ARROW)) { //# remove arrow
-                    ammo = new ItemStack(FFRii.UNTIPPED_DART.get()); //# set dart in case of no item present.
+                    ammo = new ItemStack(FFRii.DART.get()); //# set dart in case of no item present.
                 }
                 float pow = getPowerForTime(getUseDuration(chuteItem) - t);
                 if ((double) pow >= 0.35) {
