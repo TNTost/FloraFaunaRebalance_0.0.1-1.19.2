@@ -1,19 +1,19 @@
 package net.tabby.florafaunarebalance.item.core.custom;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 
 import java.util.Collection;
 import java.util.List;
-
-import static net.minecraft.world.item.alchemy.PotionUtils.setCustomEffects;
 
 public class DartItem extends ArrowItem {
     //public final int col;
@@ -30,13 +30,32 @@ public class DartItem extends ArrowItem {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
 
-        if (!this.effects.isEmpty()) { //# checks for effects.
-            ListTag nbt = itemStack.getOrCreateTag().getList("CustomPotionEffects", 9);
+        //if (!this.effects.isEmpty()) { //# checks for effects.
+        //    ListTag nbt = itemStack.getOrCreateTag().getList("CustomPotionEffects", 9);
+        //    for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
+        //        nbt.add(entry.save(new CompoundTag())); //# check must be made here, itemStacks have no nbt when first made.
+        //    }
+        //    itemStack.getTag().put("CustomPotionEffects", nbt);
+        //    //# temp remove.
+        //}
+        dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
+        return dart;
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemList) {
+        if (this.allowedIn(tab)) {
+            itemList.add(setDefaultTag(effects));
+        }
+    }
+    public ItemStack setDefaultTag(Collection<MobEffectInstance> collection) {
+        ItemStack dart = new ItemStack(this); //# item to itemStack...
+        if (this.effects != null) {
+            ListTag nbt = new ListTag();
             for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
                 nbt.add(entry.save(new CompoundTag())); //# check must be made here, itemStacks have no nbt when first made.
             }
-            itemStack.getTag().put("CustomPotionEffects", nbt);
-            dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
+            dart.getOrCreateTag().put("CustomPotionEffects", nbt);
         }
         return dart;
     }
