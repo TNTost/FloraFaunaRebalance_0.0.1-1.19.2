@@ -6,7 +6,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
@@ -15,17 +14,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.util.FFRTags;
 import org.jetbrains.annotations.NotNull;
 
 
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
@@ -73,19 +68,17 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
 
     //# make it allow fireworks to be pulled only / require ignition source...
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        boolean flag = !player.getProjectile(itemStack).isEmpty();
-        InteractionResultHolder<ItemStack> ret = ForgeEventFactory.onArrowNock(itemStack, level, player, hand, flag);
-        if (ret != null) {
-            return ret;
-        } else if (!flag && !player.getAbilities().instabuild) {
-            return InteractionResultHolder.fail(itemStack);
-        } else {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+        ItemStack chuteItem = player.getItemInHand(hand);
+        boolean ammo = !player.getProjectile(chuteItem).isEmpty();
+        if (ammo || player.getAbilities().instabuild) {
             player.startUsingItem(hand);
-            return InteractionResultHolder.consume(itemStack);
+            return InteractionResultHolder.consume(chuteItem);
+        } else {
+            return InteractionResultHolder.fail(chuteItem);
         }
-        //# remember setAirSupply.TEMP
+        //# not sure if introduces bug due to not use forgeEvents.onArrowNock...
+        //# remember setAirSupply.TEMP.
     }
 
     protected static void shootProjectile(Entity projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
@@ -98,7 +91,7 @@ public class ChuteItem extends ProjectileWeaponItem {
                     dartProjectile.setCritArrow(true);
                 }
                 if (inf) {
-                    //dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                    dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 }
                 projectile = dartProjectile;
             }

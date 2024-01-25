@@ -29,31 +29,22 @@ public class DartItem extends ArrowItem {
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
-
-        //if (!this.effects.isEmpty()) { //# checks for effects.
-        //    ListTag nbt = itemStack.getOrCreateTag().getList("CustomPotionEffects", 9);
-        //    for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
-        //        nbt.add(entry.save(new CompoundTag())); //# check must be made here, itemStacks have no nbt when first made.
-        //    }
-        //    itemStack.getTag().put("CustomPotionEffects", nbt);
-        //    //# temp remove.
-        //}
         dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
         return dart;
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemList) {
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemList) { //# generate default nbt alongside item...
         if (this.allowedIn(tab)) {
-            itemList.add(setDefaultTag(effects));
+            ItemStack dart = new ItemStack(this); //# item to itemStack...
+            itemList.add(setDefaultTag(dart)); //# splitting this into a method call makes it more readable.
         }
     }
-    public ItemStack setDefaultTag(Collection<MobEffectInstance> collection) {
-        ItemStack dart = new ItemStack(this); //# item to itemStack...
-        if (this.effects != null) {
+    public ItemStack setDefaultTag(ItemStack dart) {
+        if (this.effects != null) { //# itemStack created before check guarantees non-effect darts get registered.
             ListTag nbt = new ListTag();
             for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
-                nbt.add(entry.save(new CompoundTag())); //# check must be made here, itemStacks have no nbt when first made.
+                nbt.add(entry.save(new CompoundTag()));
             }
             dart.getOrCreateTag().put("CustomPotionEffects", nbt);
         }
