@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.util.blockstate;
+package net.tabby.florafaunarebalance.block.core;
 
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 

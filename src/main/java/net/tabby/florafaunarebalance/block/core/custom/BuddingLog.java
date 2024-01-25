@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.block.custom;
+package net.tabby.florafaunarebalance.block.core.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
-import net.tabby.florafaunarebalance.util.blockstate.FFRBlockStateProperties;
+import net.tabby.florafaunarebalance.block.core.FFRBlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

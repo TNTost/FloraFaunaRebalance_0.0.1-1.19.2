@@ -22,7 +22,7 @@ public class DartItem extends ArrowItem {
 
     public DartItem(Properties properties, float damage, List<MobEffectInstance> effects) {
         super(properties);
-        this.damage = damage;
+        this.damage = damage; //# initialise damage / effectList.
         this.effects = effects;
     }
 
@@ -33,7 +33,7 @@ public class DartItem extends ArrowItem {
         if (!this.effects.isEmpty()) { //# checks for effects.
             ListTag nbt = itemStack.getOrCreateTag().getList("CustomPotionEffects", 9);
             for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
-                nbt.add(entry.save(new CompoundTag()));
+                nbt.add(entry.save(new CompoundTag())); //# check must be made here, itemStacks have no nbt when first made.
             }
             itemStack.getTag().put("CustomPotionEffects", nbt);
             dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.

@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.block.custom;
+package net.tabby.florafaunarebalance.block.core.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.block.custom.BuddingLog;
 
 public class ExtendBonemealableLog extends RotatedPillarBlock implements BonemealableBlock {
     public ExtendBonemealableLog(Properties p_55926_) {

@@ -16,9 +16,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.block.custom.BuddingLog;
+import net.tabby.florafaunarebalance.block.core.custom.BuddingLog;
 import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
-import net.tabby.florafaunarebalance.block.custom.ExtendBonemealableLog;
+import net.tabby.florafaunarebalance.block.core.custom.ExtendBonemealableLog;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
