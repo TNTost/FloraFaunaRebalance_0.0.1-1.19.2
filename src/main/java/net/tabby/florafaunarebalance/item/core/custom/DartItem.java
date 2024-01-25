@@ -1,5 +1,7 @@
 package net.tabby.florafaunarebalance.item.core.custom;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,16 +29,19 @@ public class DartItem extends ArrowItem {
         this.damage = damage;
         this.effects = effects;
     }
-    public ItemStack getDefaultInstance() {
-        ItemStack dart = new ItemStack(this); //# creates new itemStack &sets NBT tag...
-        return PotionUtils.setCustomEffects(dart, effects); //# missing "PotionUtils." caused bug, E.
-    }
 
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
-        setCustomEffects(itemStack, effects); //# fixes the non nbt, but in a weird way.TEMP
-        dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
+
+        if (!this.effects.isEmpty()) { //# checks for effects.
+            ListTag nbt = itemStack.getOrCreateTag().getList("CustomPotionEffects", 9);
+            for (MobEffectInstance entry : effects) { //# getOrCreateTag gets tag or when null creates NEW Tag...
+                nbt.add(entry.save(new CompoundTag()));
+            }
+            itemStack.getTag().put("CustomPotionEffects", nbt);
+            dart.setEffectsFromNBT(itemStack); //# gets called when arrow shot, list wrongly initialised when done elsewhere.
+        }
         return dart;
     }
     @Override
