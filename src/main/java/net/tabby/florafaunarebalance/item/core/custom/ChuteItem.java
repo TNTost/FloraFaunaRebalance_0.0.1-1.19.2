@@ -78,9 +78,8 @@ public class ChuteItem extends ProjectileWeaponItem {
     protected static void shootProjectile(Entity projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
             if (projectile == null) {
-                DartItem dartItem = (DartItem) (ammo.getItem()); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
-                DartProjectileEntity dartProjectile = (DartProjectileEntity) dartItem.createDart(level, ammo, player); //# casting is important...
-                dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f);
+                DartProjectileEntity dartProjectile = (DartProjectileEntity) ((DartItem) ammo.getItem()).createDart(level, ammo, player); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
+                dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f); //# casting is important...
                 if (pow == 1.0f) {
                     dartProjectile.setCritArrow(true);
                 }

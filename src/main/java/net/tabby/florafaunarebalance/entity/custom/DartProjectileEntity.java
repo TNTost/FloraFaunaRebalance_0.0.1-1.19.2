@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.FFREntityTypes;
+import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -72,6 +73,6 @@ public class DartProjectileEntity extends AbstractArrow {
 
     @Override
     public @NotNull ItemStack getPickupItem() { //# doesnt return nbt item...
-        return new ItemStack(this.referenceItem);
+        return ((DartItem) this.referenceItem).setDefaultTag(new ItemStack(this.referenceItem)); //# cast item to DartItem, then use method to set effect tag for pickup...
     }
 }
