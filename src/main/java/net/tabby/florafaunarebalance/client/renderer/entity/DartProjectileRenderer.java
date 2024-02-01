@@ -11,12 +11,15 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> {
-    public DartProjectileRenderer(EntityRendererProvider.Context p_173917_context) {
-        super(p_173917_context);
+    private static final ResourceLocation DART_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/dart.png");
+    //# texture location.^^
+
+    public DartProjectileRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull DartProjectileEntity dartProjectileEntity) {
-        return new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectiles/dart.png");
+    public ResourceLocation getTextureLocation(DartProjectileEntity dartProjectileEntity) {
+        return DART_TEXTURE; //# decide here which texture to use...
     }
 }

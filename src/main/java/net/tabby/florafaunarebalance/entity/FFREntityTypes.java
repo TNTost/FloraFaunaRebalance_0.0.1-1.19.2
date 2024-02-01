@@ -16,9 +16,8 @@ public class FFREntityTypes {
 
 
     //ARROW = register("arrow", EntityType.Builder.of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<DartProjectileEntity>> DART =
-            ENTITY_TYPES.register("dart", () ->
-                    EntityType.Builder.<DartProjectileEntity>of(DartProjectileEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<DartProjectileEntity>> DART = ENTITY_TYPES.register("dart",
+            () -> EntityType.Builder.<DartProjectileEntity>of(DartProjectileEntity::new, MobCategory.MISC)
                             .sized(0.5f,0.5f)
                             .clientTrackingRange(4)
                             .updateInterval(20)

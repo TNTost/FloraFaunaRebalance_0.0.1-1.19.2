@@ -44,11 +44,14 @@ public class FloraFaunaRebalance
         //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-        FFRItemProperties.addCustomItemProperties();
-    }
     private void Setup(final FMLCommonSetupEvent event) {
     }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        FFRItemProperties.addCustomItemProperties();
+        EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
+    }
+
 
 
 
@@ -57,7 +60,7 @@ public class FloraFaunaRebalance
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
+           // EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
         }
     }
 }
