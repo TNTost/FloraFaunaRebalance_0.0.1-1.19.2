@@ -8,13 +8,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.tabby.florafaunarebalance.entity.FFREntityTypes;
+import net.tabby.florafaunarebalance.client.renderer.entity.core.DartVariants;
+import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class DartProjectileEntity extends AbstractArrow {
+public class DartProjectileEntity extends AbstractArrow implements DartVariants {
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
 
@@ -25,7 +26,7 @@ public class DartProjectileEntity extends AbstractArrow {
         effects = new HashSet<>();
     }
     public DartProjectileEntity(LivingEntity shooter, Level level, Item referenceItem) {
-        super(FFREntityTypes.DART.get(), shooter, level);
+        super(FFRet.DART.get(), shooter, level);
         this.referenceItem = referenceItem;
         effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.
     }
@@ -70,6 +71,9 @@ public class DartProjectileEntity extends AbstractArrow {
         }
     }*/
 
+    public Item getEntitySourceItem() {
+        return referenceItem;
+    }
 
     @Override
     public @NotNull ItemStack getPickupItem() { //# doesnt return nbt item...

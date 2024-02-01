@@ -19,7 +19,12 @@ public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DartProjectileEntity dartProjectileEntity) {
-        return DART_TEXTURE; //# decide here which texture to use...
+    public ResourceLocation getTextureLocation(DartProjectileEntity dartEntity) {
+        if (dartEntity.getVariant().equals("untipped_dart")) {
+            System.out.println("hellowo, you are using the interface correctly");
+            return DART_TEXTURE; //# decide here which texture to use...
+        } else {
+            return DART_TEXTURE;
+        }
     }
 }
