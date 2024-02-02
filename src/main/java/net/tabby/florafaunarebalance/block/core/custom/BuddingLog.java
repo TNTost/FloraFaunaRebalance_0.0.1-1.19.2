@@ -21,6 +21,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static net.tabby.florafaunarebalance.util.all.FFRUtil.getRgStr;
+
 
 public class BuddingLog extends LogRotatedPillarBlock {
     public static final int GROWTH_CHANCE = 3;
@@ -42,7 +44,7 @@ public class BuddingLog extends LogRotatedPillarBlock {
             Block leafType = null;
             String str;
             int index = randomSource.nextInt(DIRECTIONS.length);
-            if ((str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath()).contains("log")) {
+            if ((str = getRgStr(state)).contains("log")) { //# check if log or wood
                 int preReMap = randomSource.nextInt(DIRECTIONS.length - 2);
                 switch (state.getValue(AXIS)) {
                     case Y -> index = preReMap + 2;
@@ -81,7 +83,7 @@ public class BuddingLog extends LogRotatedPillarBlock {
     }
 
     public static BlockState createNewBuddingLog(BlockState state) {
-        String str = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(state.getBlock())).getPath();
+        String str = getRgStr(state);
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "budding_" + str))).defaultBlockState().setValue(AXIS, state.getValue(AXIS));
     }
     static {
