@@ -2,10 +2,8 @@ package net.tabby.florafaunarebalance;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -14,7 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
-import net.tabby.florafaunarebalance.entity.FFREntityTypes;
+import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.util.FFRItemProperties;
 import org.slf4j.Logger;
@@ -32,7 +30,7 @@ public class FloraFaunaRebalance
 
         FFRii.register(modEventBus);
         FFRib.register(modEventBus);
-        FFREntityTypes.register(modEventBus);
+        FFRet.register(modEventBus);
 
         modEventBus.addListener(this::Setup);
         modEventBus.addListener(this::clientSetup);
@@ -47,20 +45,8 @@ public class FloraFaunaRebalance
     private void Setup(final FMLCommonSetupEvent event) {
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) { //# subscribes to eventbus and does client-setupEvents...
         FFRItemProperties.addCustomItemProperties();
-        EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
+        EntityRenderers.register(FFRet.DART.get(), DartProjectileRenderer::new); //# renders Darts..
     }
-
-
-
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-           // EntityRenderers.register(FFREntityTypes.DART.get(), DartProjectileRenderer::new);
-        }
-    }
-}
+  }
