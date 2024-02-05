@@ -23,7 +23,7 @@ public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> 
 
     @Override
     public ResourceLocation getTextureLocation(DartProjectileEntity dartEntity) {
-        return switch (dartEntity.getVariant()) { //# you can return a switch statement...
+        return switch (dartEntity.getDartVariant().getStr()) { //# you can return a switch statement...
             case "untipped_dart" -> DART_TEXTURE;
             case "poison_dart" -> POISON_DART_TEXTURE;
             case "dart_of_healing" -> DART_OF_HEALING_TEXTURE; //# choose between diff dart textures.

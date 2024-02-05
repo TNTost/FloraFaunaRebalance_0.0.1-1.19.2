@@ -9,7 +9,10 @@ public interface DartVariants {
     Item getEntitySourceItem();
 
     default String getVariant() {
-        Item dart = getEntitySourceItem() == null ? FFRii.DART.get() : getEntitySourceItem();
+        Item s = getEntitySourceItem();
+        System.out.println(s);
+        Item dart = s == null ? FFRii.DART.get() : s;
+        System.out.println(getRgStr(dart));
         return getRgStr(dart);
     }
 }

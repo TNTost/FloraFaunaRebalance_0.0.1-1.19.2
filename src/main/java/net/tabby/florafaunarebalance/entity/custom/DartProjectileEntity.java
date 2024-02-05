@@ -1,5 +1,8 @@
 package net.tabby.florafaunarebalance.entity.custom;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,14 +11,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.tabby.florafaunarebalance.client.renderer.entity.core.DartVariants;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class DartProjectileEntity extends AbstractArrow implements DartVariants {
+public class DartProjectileEntity extends AbstractArrow { //# implements DartVariants
+    private static final EntityDataAccessor<Integer> DATA_ID_VARIANT;
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
 
@@ -25,10 +28,13 @@ public class DartProjectileEntity extends AbstractArrow implements DartVariants 
         this.referenceItem = null;
         effects = new HashSet<>();
     }
-    public DartProjectileEntity(LivingEntity shooter, Level level, Item referenceItem) {
+    public DartProjectileEntity(LivingEntity shooter, Level level, Item ref) {
         super(FFRet.DART.get(), shooter, level);
-        this.referenceItem = referenceItem;
+        this.referenceItem = ref;
         effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.
+    }
+    protected void defineSynchedData() {
+        this.entityData.define(DATA_ID_VARIANT, Variant.UNTIPPED.ordinal());
     }
 
 
@@ -70,9 +76,34 @@ public class DartProjectileEntity extends AbstractArrow implements DartVariants 
             }
         }
     }*/
+    public Variant getDartVariant() {
+        return Variant.byId((Integer) this.entityData.get(DATA_ID_VARIANT));
+    }
 
-    public Item getEntitySourceItem() {
-        return referenceItem;
+
+    static {
+        DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.INT);
+    }
+    public static enum Variant {
+        UNTIPPED("untipped_dart"),
+        POISON("poison_dart"),
+        HEALING("dart_of_healing");
+
+        //private final int id;
+        private final String str;
+        public String getStr() {
+            return this.str;
+        }
+
+        Variant(String name) {
+            this.str = name;
+        }
+
+        public static Variant byId(int i) {
+            Variant[] v = values();
+            i = i < 0 || i > v.length ? 0 : i; //# make sure I in range 0 to lengthOf enum...
+            return v[i];
+        }
     }
 
     @Override
