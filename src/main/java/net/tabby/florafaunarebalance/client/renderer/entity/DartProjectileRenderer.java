@@ -13,8 +13,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> {
     private static final ResourceLocation DART_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/dart.png");
-    private static final ResourceLocation POISON_DART_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/poison.png");
-    private static final ResourceLocation DART_OF_HEALING_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/healing.png");
+    private static final ResourceLocation POISON_DART_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/poison_dart.png");
+    private static final ResourceLocation DART_OF_HEALING_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/entity/projectile/dart_of_healing.png");
     //# texture locations.^^
 
     public DartProjectileRenderer(EntityRendererProvider.Context context) {
