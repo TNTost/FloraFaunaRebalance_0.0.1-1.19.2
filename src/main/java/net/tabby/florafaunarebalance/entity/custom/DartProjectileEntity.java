@@ -12,7 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.tabby.florafaunarebalance.client.renderer.entity.core.DartVariants;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
@@ -21,8 +20,8 @@ import java.util.*;
 
 import static net.tabby.florafaunarebalance.util.all.FFRUtil.getRgStr;
 
-public class DartProjectileEntity extends AbstractArrow implements DartVariants { //# implements DartVariants
-    private static final EntityDataAccessor<Integer> DATA_ID_VARIANT;
+public class DartProjectileEntity extends AbstractArrow { //# implements DartVariants
+    private static final EntityDataAccessor<String> DATA_ID_VARIANT;
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
 
@@ -40,12 +39,9 @@ public class DartProjectileEntity extends AbstractArrow implements DartVariants 
     }
     protected void defineSynchedData() {
         super.defineSynchedData(); //# calling super very important &otherwise causes crash...
-        this.entityData.define(DATA_ID_VARIANT, Variant.UNTIPPED.ordinal());
+        this.entityData.define(DATA_ID_VARIANT, Variant.UNTIPPED.str);
     }
-    
-    public Item getEntitySourceItem() {
-        return null;
-    }
+
 
     public void setEffectsFromNBT(ItemStack dart) {
         for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) { //# get effect as list.
@@ -98,20 +94,21 @@ public class DartProjectileEntity extends AbstractArrow implements DartVariants 
 
     public void setDartVariant(Item ref) {
         System.out.println(Variant.byStr(getRgStr(ref))); //# magic solution, sets entityData when entity created... YEET.
-        this.entityData.set(DATA_ID_VARIANT, Variant.byStr(getRgStr(ref)).ordinal());
+        this.entityData.set(DATA_ID_VARIANT, Variant.byStr(getRgStr(ref)).str);
     }
     public void setDartVariant(Variant var) {
-        this.entityData.set(DATA_ID_VARIANT, var.ordinal());
+        this.entityData.set(DATA_ID_VARIANT, var.str);
     }
     public Variant getDartVariant() {
-        return Variant.byId(this.entityData.get(DATA_ID_VARIANT));
+        return Variant.byStr(this.entityData.get(DATA_ID_VARIANT));
+        //return Variant.byId(this.entityData.get(DATA_ID_VARIANT));
     }
 
 
     static {
-        DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.INT);
+        DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.STRING);
     }
-    public enum Variant {
+    public enum Variant { //# .ordinal() can be used to get [i] of values()...
         UNTIPPED("untipped_dart"),
         POISON("poison_dart"),
         HEALING("dart_of_healing");
@@ -126,11 +123,11 @@ public class DartProjectileEntity extends AbstractArrow implements DartVariants 
             this.str = name;
         }
 
-        public static Variant byId(int idx) {
-            Variant[] v = values();
-            idx = idx < 0 || idx > v.length ? 0 : idx; //# make sure I in range 0 to lengthOf enum...
-            return v[idx];
-        }
+        //public static Variant byId(int idx) {
+        //    Variant[] v = values();
+        //    idx = idx < 0 || idx > v.length ? 0 : idx; //# make sure I in range 0 to lengthOf enum...
+        //    return v[idx];
+        //}
         public static Variant byStr(String str) {
             Variant[] var = values();
             for (Variant entry : var) {
