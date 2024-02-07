@@ -43,6 +43,20 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
     }
 
 
+    public void setDartVariant(Item ref) {
+        System.out.println(Variant.byStr(getRgStr(ref))); //# magic solution, sets entityData when entity created... YEET.
+        this.entityData.set(DATA_ID_VARIANT, Variant.byStr(getRgStr(ref)).str);
+    }
+    public void setDartVariant(Variant var) {
+        this.entityData.set(DATA_ID_VARIANT, var.str);
+    }
+
+    public Variant getDartVariant() {
+        return Variant.byStr(this.entityData.get(DATA_ID_VARIANT));
+    }
+
+
+
     public void setEffectsFromNBT(ItemStack dart) {
         for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) { //# get effect as list.
             effects.add(new MobEffectInstance(entry)); //# new keyword important to not cause hard-soft copy issues...
@@ -54,6 +68,7 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             entity.addEffect(effect, this.getEffectSource()); //# iterate through list &add to entity.
         }
     }
+
    /* public void tick() {
         super.tick();
         if (this.level.isClientSide) {
@@ -91,43 +106,19 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             this.setDartVariant(Variant.byStr(tag.getString("Type")));
         }
     }
-
-    public void setDartVariant(Item ref) {
-        System.out.println(Variant.byStr(getRgStr(ref))); //# magic solution, sets entityData when entity created... YEET.
-        this.entityData.set(DATA_ID_VARIANT, Variant.byStr(getRgStr(ref)).str);
-    }
-    public void setDartVariant(Variant var) {
-        this.entityData.set(DATA_ID_VARIANT, var.str);
-    }
-    public Variant getDartVariant() {
-        return Variant.byStr(this.entityData.get(DATA_ID_VARIANT));
-        //return Variant.byId(this.entityData.get(DATA_ID_VARIANT));
-    }
-
-
-    static {
-        DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.STRING);
-    }
     public enum Variant { //# .ordinal() can be used to get [i] of values()...
         UNTIPPED("untipped_dart"),
         POISON("poison_dart"),
         HEALING("dart_of_healing");
 
-        //private final int id;
         private final String str;
-        public String getStr() {
-            return this.str;
-        }
 
         Variant(String name) {
             this.str = name;
         }
-
-        //public static Variant byId(int idx) {
-        //    Variant[] v = values();
-        //    idx = idx < 0 || idx > v.length ? 0 : idx; //# make sure I in range 0 to lengthOf enum...
-        //    return v[idx];
-        //}
+        public String getStr() {
+            return this.str;
+        }
         public static Variant byStr(String str) {
             Variant[] var = values();
             for (Variant entry : var) {
@@ -137,6 +128,9 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             }
             return var[0];
         }
+    }
+    static {
+        DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.STRING);
     }
 
     @Override
