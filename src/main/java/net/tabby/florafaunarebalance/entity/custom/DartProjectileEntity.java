@@ -1,5 +1,6 @@
 package net.tabby.florafaunarebalance.entity.custom;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,13 +12,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
+import net.tabby.florafaunarebalance.client.renderer.entity.core.DartVariants;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class DartProjectileEntity extends AbstractArrow { //# implements DartVariants
+import static net.tabby.florafaunarebalance.util.all.FFRUtil.getRgStr;
+
+public class DartProjectileEntity extends AbstractArrow implements DartVariants { //# implements DartVariants
     private static final EntityDataAccessor<Integer> DATA_ID_VARIANT;
     private final Item referenceItem;
     private final Set<MobEffectInstance> effects;
@@ -31,12 +35,17 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
     public DartProjectileEntity(LivingEntity shooter, Level level, Item ref) {
         super(FFRet.DART.get(), shooter, level);
         this.referenceItem = ref;
+        setDartVariant(ref);
         effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.
     }
     protected void defineSynchedData() {
+        super.defineSynchedData(); //# calling super very important &otherwise causes crash...
         this.entityData.define(DATA_ID_VARIANT, Variant.UNTIPPED.ordinal());
     }
-
+    
+    public Item getEntitySourceItem() {
+        return null;
+    }
 
     public void setEffectsFromNBT(ItemStack dart) {
         for (MobEffectInstance entry : PotionUtils.getCustomEffects(dart)) { //# get effect as list.
@@ -76,15 +85,33 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             }
         }
     }*/
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("Type", this.getDartVariant().getStr());
+    }
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("Type", 8)) {
+            this.setDartVariant(Variant.byStr(tag.getString("Type")));
+        }
+    }
+
+    public void setDartVariant(Item ref) {
+        System.out.println(Variant.byStr(getRgStr(ref))); //# magic solution, sets entityData when entity created... YEET.
+        this.entityData.set(DATA_ID_VARIANT, Variant.byStr(getRgStr(ref)).ordinal());
+    }
+    public void setDartVariant(Variant var) {
+        this.entityData.set(DATA_ID_VARIANT, var.ordinal());
+    }
     public Variant getDartVariant() {
-        return Variant.byId((Integer) this.entityData.get(DATA_ID_VARIANT));
+        return Variant.byId(this.entityData.get(DATA_ID_VARIANT));
     }
 
 
     static {
         DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.INT);
     }
-    public static enum Variant {
+    public enum Variant {
         UNTIPPED("untipped_dart"),
         POISON("poison_dart"),
         HEALING("dart_of_healing");
@@ -99,10 +126,19 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             this.str = name;
         }
 
-        public static Variant byId(int i) {
+        public static Variant byId(int idx) {
             Variant[] v = values();
-            i = i < 0 || i > v.length ? 0 : i; //# make sure I in range 0 to lengthOf enum...
-            return v[i];
+            idx = idx < 0 || idx > v.length ? 0 : idx; //# make sure I in range 0 to lengthOf enum...
+            return v[idx];
+        }
+        public static Variant byStr(String str) {
+            Variant[] var = values();
+            for (Variant entry : var) {
+                if (entry.getStr().equals(str)) {
+                    return entry;
+                }
+            }
+            return var[0];
         }
     }
 
