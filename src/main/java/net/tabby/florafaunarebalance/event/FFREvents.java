@@ -47,7 +47,7 @@ public class FFREvents {
         @SubscribeEvent
         public static void onComputeFovModifierEvent(ComputeFovModifierEvent event) {
             if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().getItem() instanceof ChuteItem) {
-                float drawTimeInTicks = 12.0f;
+                float drawTimeInTicks = 14.0f; //# 12 -> 14...
                 float dT = event.getPlayer().getTicksUsingItem() / drawTimeInTicks;
                 dT = dT > 1.0f ? 1.0f : dT*dT;
                 event.setNewFovModifier(1.0f - dT * 0.175f);

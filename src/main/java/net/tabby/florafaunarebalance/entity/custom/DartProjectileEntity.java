@@ -50,7 +50,6 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
     public void setDartVariant(Variant var) {
         this.entityData.set(DATA_ID_VARIANT, var.str);
     }
-
     public Variant getDartVariant() {
         return Variant.byStr(this.entityData.get(DATA_ID_VARIANT));
     }
@@ -137,4 +136,6 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
     public @NotNull ItemStack getPickupItem() { //# doesnt return nbt item...
         return ((DartItem) this.referenceItem).setDefaultTag(new ItemStack(this.referenceItem)); //# cast item to DartItem, then use method to set effect tag for pickup...
     }
+    //# TODO: OVERRIDE sound effects here...
+    //oo pretti color :3.
 }
