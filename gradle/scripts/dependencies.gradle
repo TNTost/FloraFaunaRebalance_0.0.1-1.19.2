@@ -3,6 +3,6 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     //implementation fg.deobf("com.gregtechceu.gtceu:gtceu-forge-${minecraft_version}:${gtceu_version}") {transitive = false}
+    //implementation files("run/mods/gtceu-${minecraft_version}-${gtceu_version}.jar") //# manual gtceu dependency add...
     implementation fg.deobf("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") {transitive = false}
-    //implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 }

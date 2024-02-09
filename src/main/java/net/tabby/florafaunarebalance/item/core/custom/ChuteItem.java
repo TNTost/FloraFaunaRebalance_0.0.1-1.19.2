@@ -1,6 +1,8 @@
 package net.tabby.florafaunarebalance.item.core.custom;
 
 
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -8,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
@@ -40,7 +43,7 @@ public class ChuteItem extends ProjectileWeaponItem {
                 }
                 float pow = getPowerForTime(getUseDuration(chuteItem) - t);
                 if ((double) pow >= 0.35) {
-                    Entity projectile = ammo.is(Items.FIREWORK_ROCKET) ? new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true) : null; //# set as new firework rocket when ammo matches, otherwise null.
+                    Projectile projectile = ammo.is(Items.FIREWORK_ROCKET) ? new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true) : null; //# set as new firework rocket when ammo matches, otherwise null.
                     shootProjectile(projectile, level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) {
@@ -75,23 +78,30 @@ public class ChuteItem extends ProjectileWeaponItem {
         //# remember setAirSupply.TEMP.
     }
 
-    protected static void shootProjectile(Entity projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
+    protected static void shootProjectile(Projectile projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
-            if (projectile == null) {
-                DartProjectileEntity dartProjectile = (DartProjectileEntity) ((DartItem) ammo.getItem()).createDart(level, ammo, player); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
-                dartProjectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, pow * 2.0f, 1.0f); //# casting is important...
-                if (pow == 1.0f) {
-                    dartProjectile.setCritArrow(true);
-                }
-                if (inf) {
-                    dartProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                }
-                projectile = dartProjectile;
+            if (projectile == null) { //# default to dart.
+                projectile = getDart(level, player, ammo, pow, inf);
             }
+            float relativeYaw = 0.0f;
+            Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
+            Vector3f vec = new Vector3f(player.getViewVector(1.0f));
+            vec.transform(q);
+            projectile.shoot(vec.x(), vec.y(), vec.z(), pow * 2.0f, 1.0f);
+
             //# enchant handler /> [unbreaking], [mending], [power], [barrage], [gathering]
             chuteItem.hurtAndBreak(1, player, (breakEvent) -> breakEvent.broadcastBreakEvent(player.getUsedItemHand())); //# odd naming.
             level.addFreshEntity(projectile);
         }
+    }
+    protected static DartProjectileEntity getDart(Level level, Player player, ItemStack ammo, float pow, boolean inf) {
+        DartProjectileEntity dart = (DartProjectileEntity) ((DartItem) ammo.getItem()).createDart(level, ammo, player); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
+        if (pow == 1.0f) { //# or if insta-shot.                        //# casting is important...
+            dart.setCritArrow(true);
+        } if (inf) { //# if in /gmc, don't pickup leftover arrow.
+            dart.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+        }
+        return dart;
     }
 
     //public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
