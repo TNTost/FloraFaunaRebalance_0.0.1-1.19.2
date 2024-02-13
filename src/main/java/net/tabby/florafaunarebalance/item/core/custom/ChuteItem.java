@@ -14,7 +14,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.util.all.FFRUtil;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -27,8 +26,8 @@ import static net.tabby.florafaunarebalance.util.all.FFRUtil.getAmmo;
 //# make it so ChuteItem extends ProjectileWeaponItem instead...
 public class ChuteItem extends ProjectileWeaponItem {
     public static final float BREATH_DURATION_CAP = 17.0f;
-    public static final Predicate<ItemStack> DART_ONLY = itemStack -> itemStack.is(DART_TAG);
-    public static final Predicate<ItemStack> DART_OR_FIREWORKS = DART_ONLY.or(itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
+    public static final Predicate<ItemStack> ALL_DARTS = itemStack -> itemStack.is(DART_TAG);
+    public static final Predicate<ItemStack> DART_OR_FIREWORKS = ALL_DARTS.or(itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
 
     public ChuteItem(Properties p_40660_) {
         super(p_40660_);
@@ -51,23 +50,21 @@ public class ChuteItem extends ProjectileWeaponItem {
     public void releaseUsing(ItemStack chuteItem, Level level, LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
             ItemStack ammo = getProjectile(player, chuteItem, getAllSupportedProjectiles()); //# loops through inv to find item.
+            //# TODO: make <ammo>  a list of items it must each have or have..
             boolean inf = player.getAbilities().instabuild;
 
             if (!ammo.isEmpty() || inf) {
-                if (ammo.isEmpty() || ammo.is(Items.ARROW)) { //# remove arrow...
-                    ammo = new ItemStack(FFRii.DART.get()); //# set dart in case of no item present.
-                }
+                ammo = ammo.isEmpty() ? new ItemStack(FFRii.DART.get()) : ammo; //# set dart in case of no item present.
                 float pow = getPowerForTime(t = getUseDuration(chuteItem) - t);
+                boolean fwFull = false;
                 if (ammo.is(Items.FIREWORK_ROCKET)) {
-                    pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f;
-                    ammo = getProjectile(player, chuteItem, itemStack -> itemStack.is(Items.FIREWORK_ROCKET)); //# predicate usage...
+                    fwFull = (pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f) >= 0.9f; //# if
+                    //ammo = getProjectile(player, chuteItem, itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
                 }
-                if (pow >= 0.15f) { //# TODO: fireworks calls getArrow despite not firing due to low power...
-                    //Projectile projectile = fwFullPow ? new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true) : null; //# set as new firework rocket when ammo matches, otherwise null.
-                    //System.out.println(projectile);
-                    shootProjectile(null, level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
+                if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
+                    shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
-                    if (!inf) { //# if in creative, do-not test for fireworks here...
+                    if (!inf || fwFull) { //# if in creative, do-not test for fireworks here...
                         ammo.shrink(1);
                         if (ammo.isEmpty()) {
                             player.getInventory().removeItem(ammo);
@@ -82,15 +79,17 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
     //# math was here, but redundant float > double.
     public ItemStack getProjectile(Player player, ItemStack rangedWpn, Predicate<ItemStack> predicate) {
-        return net.minecraftforge.common.ForgeHooks.getProjectile(player, rangedWpn, FFRUtil.getAmmo(player, predicate));
+        return net.minecraftforge.common.ForgeHooks.getProjectile(player, rangedWpn, getAmmo(player, predicate));
     }
 
 
-    protected static void shootProjectile(Projectile projectile, Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
+    protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
-            if (projectile == null) { //# default to dart.
-                projectile = getDart(level, player, ammo, pow, inf);
-            }
+            System.out.println(ammo.getItem());
+            Projectile projectile = switch (ammo.getItem().toString()) {
+                case "firework_rocket" -> new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
+                default -> getDart(level, player, ammo, pow, inf);
+            }; //# TODO: if hasn't ash-fire-powder then drop fireworks as if 'Q'...
             float relativeYaw = 0.0f;
             Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
             Vector3f vec = new Vector3f(player.getViewVector(1.0f));
@@ -104,9 +103,9 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
     protected static DartProjectileEntity getDart(Level level, Player player, ItemStack ammo, float pow, boolean inf) {
         DartProjectileEntity dart = (DartProjectileEntity) ((DartItem) ammo.getItem()).createDart(level, ammo, player); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
-        if (pow == 1.0f) { //# or if insta-shot.                        //# casting is important...
+        if (pow == 1.0f) { //or if insta-shot.                        //# casting is important...
             dart.setCritArrow(true);
-        } if (inf) { //# if in /gmc, don't pickup leftover arrow.
+        } if (inf) {
             dart.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
         return dart;

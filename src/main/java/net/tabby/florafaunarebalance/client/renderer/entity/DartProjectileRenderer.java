@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> {
@@ -20,7 +21,7 @@ public class DartProjectileRenderer extends ArrowRenderer<DartProjectileEntity> 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DartProjectileEntity dartEntity) {
+    public @NotNull ResourceLocation getTextureLocation(DartProjectileEntity dartEntity) {
         return switch (dartEntity.getDartVariant().getStr()) { //# you can return a switch statement...
             case "untipped_dart" -> DART_TEXTURE; //# choose between diff dart textures.
             case "poison_dart" -> POISON_DART_TEXTURE;
