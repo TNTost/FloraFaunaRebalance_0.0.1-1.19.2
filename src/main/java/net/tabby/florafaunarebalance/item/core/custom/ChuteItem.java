@@ -47,7 +47,7 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
 
 
-    public void releaseUsing(ItemStack chuteItem, Level level, LivingEntity entity, int t) {
+    public void releaseUsing(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
             ItemStack ammo = getProjectile(player, chuteItem, getAllSupportedProjectiles()); //# loops through inv to find item.
             //# TODO: make <ammo>  a list of items it must each have or have..
@@ -55,16 +55,16 @@ public class ChuteItem extends ProjectileWeaponItem {
 
             if (!ammo.isEmpty() || inf) {
                 ammo = ammo.isEmpty() ? new ItemStack(FFRii.DART.get()) : ammo; //# set dart in case of no item present.
-                float pow = getPowerForTime(t = getUseDuration(chuteItem) - t);
-                boolean fwFull = false;
-                if (ammo.is(Items.FIREWORK_ROCKET)) {
-                    fwFull = (pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f) >= 0.9f; //# if
-                    //ammo = getProjectile(player, chuteItem, itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
-                }
+                float pow = getPowerForTime(t = getUseDuration(chuteItem) - t) - 1.0f;
+                boolean fwFull = (pow = ammo.is(Items.FIREWORK_ROCKET) ? getPowerForTime(t / 1.6f) / 6.0f : pow + 1.0f) >= 0.15f; //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
+                //if (ammo.is(Items.FIREWORK_ROCKET)) {
+                //    fwFull = (pow = ammo.is(Items.FIREWORK_ROCKET) ? getPowerForTime(t / 1.6f) / 6.0f : pow) >= 0.15f;
+                //    //ammo = getProjectile(player, chuteItem, itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
+                //}
                 if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
                     shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
-                    if (!inf || fwFull) { //# if in creative, do-not test for fireworks here...
+                    if (!inf) { //# for fwFull to be true -> ammo needs to be present as inf defaults to dart, so an extra if!inf check is redundant...
                         ammo.shrink(1);
                         if (ammo.isEmpty()) {
                             player.getInventory().removeItem(ammo);
