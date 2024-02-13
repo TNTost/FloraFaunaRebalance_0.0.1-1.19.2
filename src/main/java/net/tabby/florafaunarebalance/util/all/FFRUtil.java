@@ -12,9 +12,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class FFRUtil {
-    public static ItemStack getAmmo(Player ply, Predicate<ItemStack> predicate) {
-        for (int idx = 0; idx < ply.getInventory().getContainerSize(); ++idx) {
-            ItemStack ammo = ply.getInventory().getItem(idx);
+    public static ItemStack getAmmo(Player player, Predicate<ItemStack> predicate) {
+        for (int idx = 0; idx < player.getInventory().getContainerSize(); ++idx) {
+            ItemStack ammo = player.getInventory().getItem(idx);
             if (predicate.test(ammo)) {
                 return ammo;
             }

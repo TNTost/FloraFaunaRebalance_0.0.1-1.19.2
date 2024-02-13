@@ -21,6 +21,7 @@ public class FFRii {
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
 
+
     public static final RegistryObject<Item> DART = ITEMS.register("untipped_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
                     1.20f, null));
@@ -30,6 +31,25 @@ public class FFRii {
     public static final RegistryObject<Item> DART_OF_HEALING = ITEMS.register("dart_of_healing",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
                     0.35f, List.of(new MobEffectInstance(MobEffects.HEAL, 1, 0), (new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5 * TPS, 0)))));
+
+
+
+
+    //# TODO: fire/ash powder to ignite fireworks in chute...
+    public static final RegistryObject<Item> FIRE_ASH_POWDER = ITEMS.register("fire_ash_powder",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+
+    public static final RegistryObject<Item> TAPERED_FLINT = ITEMS.register("tapered_flint",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB))); //# rock + flint makes it sharp...
+    //# lashing is when a sharp object is attached to a stick.
+
+
+
+    public static final RegistryObject<Item> TWIG = ITEMS.register("twig",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+    public static final RegistryObject<Item> POINTED_STICK = ITEMS.register("pointed_stick",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+
 
     
     public static final RegistryObject<Item> SAPPHIRE = ITEMS.register("sapphire",

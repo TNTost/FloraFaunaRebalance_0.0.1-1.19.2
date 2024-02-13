@@ -61,7 +61,7 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
             effects.add(new MobEffectInstance(entry)); //# new keyword important to not cause hard-soft copy issues...
         }
     }
-    protected void doPostHurtEffects(LivingEntity entity) {
+    protected void doPostHurtEffects(@NotNull LivingEntity entity) {
         super.doPostHurtEffects(entity); //# not sure why super required.
         for (MobEffectInstance effect : effects) {
             entity.addEffect(effect, this.getEffectSource()); //# iterate through list &add to entity.
