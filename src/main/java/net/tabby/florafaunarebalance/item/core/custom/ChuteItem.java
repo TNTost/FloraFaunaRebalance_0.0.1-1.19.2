@@ -3,8 +3,10 @@ package net.tabby.florafaunarebalance.item.core.custom;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -29,8 +31,10 @@ public class ChuteItem extends ProjectileWeaponItem {
     public static final Predicate<ItemStack> ALL_DARTS = itemStack -> itemStack.is(DART_TAG);
     public static final Predicate<ItemStack> DART_OR_FIREWORKS = ALL_DARTS.or(itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
 
+    private int scheduled;
     public ChuteItem(Properties p_40660_) {
         super(p_40660_);
+        this.scheduled = 0;
     }
     //# make it allow fireworks to be pulled only / require ignition source...
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
@@ -45,24 +49,33 @@ public class ChuteItem extends ProjectileWeaponItem {
         //# not sure if introduces bug due to not use forgeEvents.onArrowNock...
         //# remember setAirSupply.TEMP.
     }
-
+    @Override
+    public void inventoryTick(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull Entity entity, int i, boolean flag) {
+        if (this.scheduled > 0) {
+            if (!level.isClientSide) {
+                CompoundTag tag = chuteItem.getOrCreateTag();
+            }
+        }
+    }
 
     public void releaseUsing(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
             ItemStack ammo = getProjectile(player, chuteItem, getAllSupportedProjectiles()); //# loops through inv to find item.
-            //# TODO: make <ammo>  a list of items it must each have or have..
             boolean inf = player.getAbilities().instabuild;
 
             if (!ammo.isEmpty() || inf) {
-                ammo = ammo.isEmpty() ? new ItemStack(FFRii.DART.get()) : ammo; //# set dart in case of no item present.
-                float pow = getPowerForTime(t = getUseDuration(chuteItem) - t) - 1.0f;
-                boolean fwFull = (pow = ammo.is(Items.FIREWORK_ROCKET) ? getPowerForTime(t / 1.6f) / 6.0f : pow + 1.0f) >= 0.15f; //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
-                //if (ammo.is(Items.FIREWORK_ROCKET)) {
-                //    fwFull = (pow = ammo.is(Items.FIREWORK_ROCKET) ? getPowerForTime(t / 1.6f) / 6.0f : pow) >= 0.15f;
-                //    //ammo = getProjectile(player, chuteItem, itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
-                //}
+                ammo = ammo.isEmpty() ? new ItemStack(FFRii.DART.get()) : ammo;
+                float pow = getPowerForTime(t = getUseDuration(chuteItem) - t); //# set dart in case of no item present.
+
+                if (ammo.is(Items.FIREWORK_ROCKET)) {
+                    pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f;
+                }
+
+                //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
+
                 if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
                     shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
+                    this.scheduled = 60;
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) { //# for fwFull to be true -> ammo needs to be present as inf defaults to dart, so an extra if!inf check is redundant...
                         ammo.shrink(1);
