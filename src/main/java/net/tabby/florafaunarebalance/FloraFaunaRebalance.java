@@ -14,6 +14,7 @@ import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.FFRii;
+import net.tabby.florafaunarebalance.item.core.custom.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFRItemProperties;
 import org.slf4j.Logger;
 
@@ -28,9 +29,11 @@ public class FloraFaunaRebalance
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 
-        FFRii.register(modEventBus);
-        FFRib.register(modEventBus);
-        FFRet.register(modEventBus);
+        FFRii.register(modEventBus); //# items.
+        FFRib.register(modEventBus); //# blocks.
+        FFRet.register(modEventBus); //# entities.
+
+        FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
 
         modEventBus.addListener(this::Setup);
         modEventBus.addListener(this::clientSetup);
@@ -39,7 +42,6 @@ public class FloraFaunaRebalance
 
         MinecraftForge.EVENT_BUS.register(this);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFRConfig.SPEC);
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void Setup(final FMLCommonSetupEvent event) {

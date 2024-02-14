@@ -2,7 +2,9 @@ package net.tabby.florafaunarebalance.item;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
 import org.jetbrains.annotations.NotNull;
 
 public class FFRCreativeTab {
@@ -16,7 +18,7 @@ public class FFRCreativeTab {
         public @NotNull ItemStack makeIcon() {
             return new ItemStack(FFRii.DART_CHUTE.get());
         }
-    };
+    }.setEnchantmentCategories(new EnchantmentCategory[]{EnchantmentCategory.create("barrage", item -> item instanceof ChuteItem)});
 
 
 }
