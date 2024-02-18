@@ -22,10 +22,8 @@ import org.jetbrains.annotations.NotNull;
 
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
-import static java.lang.StrictMath.pow;
 import static java.lang.StrictMath.sqrt;
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 import static net.tabby.florafaunarebalance.util.all.FFRUtil.getAmmo;
@@ -63,7 +61,7 @@ public class ChuteItem extends ProjectileWeaponItem {
                         queue[j]--;
                         if (queue[j] == 0 && entity instanceof Player player) {
                             ItemStack ammo = getProjectileFrom(player, chuteItem);
-                            shootProjectile(level, player, chuteItem, ammo, 1.0f, player.getAbilities().instabuild);
+                            shootProjectile(level, player, chuteItem, ammo, 0.65f);
                         }
                     }
                     nbt.putIntArray("queue", Arrays.stream(queue).filter(e -> e > 0).toArray());
@@ -96,18 +94,12 @@ public class ChuteItem extends ProjectileWeaponItem {
                         player.drop(ammo.split(1), false);
                     }
                 }
-                //boolean fwFull = ammo.is(Items.FIREWORK_ROCKET) && consumePowder(player);
-                //if (ammo.is(Items.FIREWORK_ROCKET)) {
-                //    if (!consumePowder(player)) {
-                //        player.drop(ammo.split(1), false);
-                //        pow = 0.0f;
-                //    }
-                //    pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f;
-                //}
                 //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
                 if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
-                    chuteItem.getOrCreateTag().put("queue", new IntArrayTag(IntArrayList.of(20, 40, 50)));
-                    shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
+                    if (ammo.is(DART_TAG)) {
+                        chuteItem.getOrCreateTag().put("queue", new IntArrayTag(IntArrayList.of(20, 40, 50)));
+                    }
+                    shootProjectile(level, player, chuteItem, ammo, pow); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) { //# for fwFull to be true -> ammo needs to be present as inf defaults to dart, so an extra if!inf check is redundant...
                         ammo.shrink(1);
@@ -133,12 +125,12 @@ public class ChuteItem extends ProjectileWeaponItem {
         return (ivt = (float) (1 - sqrt(1 - ivt / BREATH_DURATION_CAP))) >= 1.0f || (ivt != ivt) ? 1.0f : ivt; //# 1 minus sqrt of 1 minus x...
     }
 
-    protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
+    protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
             System.out.println(ammo.getItem());
             Projectile projectile = switch (ammo.getItem().toString()) {
                 case "firework_rocket" -> new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
-                default -> getDart(level, player, ammo, pow, inf);
+                default -> getDart(level, player, ammo, pow);
             }; //# TODO: if hasn't ash-fire-powder then drop fireworks as if 'Q'...
             float relativeYaw = 0.0f;
             Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
@@ -151,11 +143,11 @@ public class ChuteItem extends ProjectileWeaponItem {
             level.addFreshEntity(projectile);
         }
     }
-    protected static DartProjectileEntity getDart(Level level, Player player, ItemStack ammo, float pow, boolean inf) {
+    protected static DartProjectileEntity getDart(Level level, Player player, ItemStack ammo, float pow) {
         DartProjectileEntity dart = (DartProjectileEntity) ((DartItem) ammo.getItem()).createDart(level, ammo, player); //# convert item -> dartItem /> createDart -> dartEntity /> shoot that.
         if (pow == 1.0f) { //or if insta-shot.                        //# casting is important...
             dart.setCritArrow(true);
-        } if (inf) {
+        } if (player.getAbilities().instabuild) {
             dart.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
         return dart;
