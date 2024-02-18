@@ -62,6 +62,7 @@ public class ChuteItem extends ProjectileWeaponItem {
                         if (queue[j] == 0 && entity instanceof Player player) {
                             ItemStack ammo = getProjectileFrom(player, chuteItem);
                             shootProjectile(level, player, chuteItem, ammo, 0.65f);
+                            reduce(ammo, player);
                         }
                     }
                     nbt.putIntArray("queue", Arrays.stream(queue).filter(e -> e > 0).toArray());
@@ -101,25 +102,23 @@ public class ChuteItem extends ProjectileWeaponItem {
                     }
                     shootProjectile(level, player, chuteItem, ammo, pow); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
-                    if (!inf) { //# for fwFull to be true -> ammo needs to be present as inf defaults to dart, so an extra if!inf check is redundant...
-                        ammo.shrink(1);
-                        if (ammo.isEmpty()) {
-                            player.getInventory().removeItem(ammo);
-                        }
-                    }
+                    reduce(ammo, player);
                 }
             }
         }
     }
-    public boolean consumePowder(Player player) {
+    protected boolean consumePowder(Player player) {
         ItemStack powder = getAmmo(player, itemStack -> itemStack.is(FFRii.FIRE_ASH_POWDER.get()));
-        if (!powder.isEmpty() && !player.getAbilities().instabuild) {
-            powder.shrink(1);
-            if (powder.isEmpty()) {
-                player.getInventory().removeItem(powder);
+        if (!powder.isEmpty()) reduce(powder, player);
+        return !powder.isEmpty();
+    }
+    public void reduce(ItemStack item, Player ply) { //# handles itemStack deletion and resize..
+        if (!ply.getAbilities().instabuild) {
+            item.shrink(1);
+            if (item.isEmpty()) {
+                ply.getInventory().removeItem(item);
             }
         }
-        return !powder.isEmpty();
     }
     public static float getPowerForTime(float ivt) { //# inverse of time
         return (ivt = (float) (1 - sqrt(1 - ivt / BREATH_DURATION_CAP))) >= 1.0f || (ivt != ivt) ? 1.0f : ivt; //# 1 minus sqrt of 1 minus x...
