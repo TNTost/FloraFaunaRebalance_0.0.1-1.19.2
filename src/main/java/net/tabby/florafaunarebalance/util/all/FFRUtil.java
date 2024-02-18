@@ -18,7 +18,7 @@ public class FFRUtil {
             if (predicate.test(ammo)) {
                 return ammo;
             }
-        }
+        } //# loops through inv to find item.
         return ItemStack.EMPTY;
     }
 

@@ -3,7 +3,9 @@ package net.tabby.florafaunarebalance.item.core.custom;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -19,8 +21,11 @@ import net.tabby.florafaunarebalance.item.FFRii;
 import org.jetbrains.annotations.NotNull;
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
+import static java.lang.StrictMath.pow;
 import static java.lang.StrictMath.sqrt;
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 import static net.tabby.florafaunarebalance.util.all.FFRUtil.getAmmo;
@@ -31,10 +36,8 @@ public class ChuteItem extends ProjectileWeaponItem {
     public static final Predicate<ItemStack> ALL_DARTS = itemStack -> itemStack.is(DART_TAG);
     public static final Predicate<ItemStack> DART_OR_FIREWORKS = ALL_DARTS.or(itemStack -> itemStack.is(Items.FIREWORK_ROCKET));
 
-    private int scheduled;
     public ChuteItem(Properties p_40660_) {
         super(p_40660_);
-        this.scheduled = 0;
     }
     //# make it allow fireworks to be pulled only / require ignition source...
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
@@ -51,31 +54,60 @@ public class ChuteItem extends ProjectileWeaponItem {
     }
     @Override
     public void inventoryTick(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull Entity entity, int i, boolean flag) {
-        if (this.scheduled > 0) {
-            if (!level.isClientSide) {
-                CompoundTag tag = chuteItem.getOrCreateTag();
+        if (!level.isClientSide) {
+            CompoundTag nbt = chuteItem.getOrCreateTag();
+            if (nbt.contains("queue", 11)) {
+                int[] queue = nbt.getIntArray("queue");
+                if (queue.length >= 1) {
+                    for (int j = 0; j < queue.length; j++) {
+                        queue[j]--;
+                        if (queue[j] == 0 && entity instanceof Player player) {
+                            ItemStack ammo = getProjectileFrom(player, chuteItem);
+                            shootProjectile(level, player, chuteItem, ammo, 1.0f, player.getAbilities().instabuild);
+                        }
+                    }
+                    nbt.putIntArray("queue", Arrays.stream(queue).filter(e -> e > 0).toArray());
+                    System.out.println(Arrays.toString(nbt.getIntArray("queue")));
+                }
             }
+            // TODO: make scheduler which calls ShootProjectile() when int -in ListTag at chuteItem runs out...
         }
+    }
+    public static ItemStack getProjectileFrom(Player player, ItemStack chuteItem) {
+        ItemStack ammo = player.getProjectile(chuteItem);
+        if (!ammo.isEmpty() || player.getAbilities().instabuild) {
+            return ammo.isEmpty() || ammo.is(Items.ARROW) ? new ItemStack(FFRii.DART.get()) : ammo;
+        }
+        return ItemStack.EMPTY;
     }
 
     public void releaseUsing(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
-            ItemStack ammo = getProjectile(player, chuteItem, getAllSupportedProjectiles()); //# loops through inv to find item.
+            ItemStack ammo = player.getProjectile(chuteItem);
             boolean inf = player.getAbilities().instabuild;
 
             if (!ammo.isEmpty() || inf) {
-                ammo = ammo.isEmpty() ? new ItemStack(FFRii.DART.get()) : ammo;
-                float pow = getPowerForTime(t = getUseDuration(chuteItem) - t); //# set dart in case of no item present.
+                ammo = ammo.isEmpty() || ammo.is(Items.ARROW) ? new ItemStack(FFRii.DART.get()) : ammo; //# set dart in case of no item present or remove defaultArrow..
+                float pow = getPowerForTime(t = this.getUseDuration(chuteItem) - t);
 
                 if (ammo.is(Items.FIREWORK_ROCKET)) {
                     pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f;
+                    if (pow >= 0.3f && !consumePowder(player)) {
+                        player.drop(ammo.split(1), false);
+                    }
                 }
-
+                //boolean fwFull = ammo.is(Items.FIREWORK_ROCKET) && consumePowder(player);
+                //if (ammo.is(Items.FIREWORK_ROCKET)) {
+                //    if (!consumePowder(player)) {
+                //        player.drop(ammo.split(1), false);
+                //        pow = 0.0f;
+                //    }
+                //    pow = (pow = getPowerForTime(t / 1.6f)) >= 0.9f ? pow : 0.0f;
+                //}
                 //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
-
                 if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
+                    chuteItem.getOrCreateTag().put("queue", new IntArrayTag(IntArrayList.of(20, 40, 50)));
                     shootProjectile(level, player, chuteItem, ammo, pow, inf); //# shoot the projectile, duh.
-                    this.scheduled = 60;
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
                     if (!inf) { //# for fwFull to be true -> ammo needs to be present as inf defaults to dart, so an extra if!inf check is redundant...
                         ammo.shrink(1);
@@ -87,14 +119,19 @@ public class ChuteItem extends ProjectileWeaponItem {
             }
         }
     }
+    public boolean consumePowder(Player player) {
+        ItemStack powder = getAmmo(player, itemStack -> itemStack.is(FFRii.FIRE_ASH_POWDER.get()));
+        if (!powder.isEmpty() && !player.getAbilities().instabuild) {
+            powder.shrink(1);
+            if (powder.isEmpty()) {
+                player.getInventory().removeItem(powder);
+            }
+        }
+        return !powder.isEmpty();
+    }
     public static float getPowerForTime(float ivt) { //# inverse of time
         return (ivt = (float) (1 - sqrt(1 - ivt / BREATH_DURATION_CAP))) >= 1.0f || (ivt != ivt) ? 1.0f : ivt; //# 1 minus sqrt of 1 minus x...
     }
-    //# math was here, but redundant float > double.
-    public ItemStack getProjectile(Player player, ItemStack rangedWpn, Predicate<ItemStack> predicate) {
-        return net.minecraftforge.common.ForgeHooks.getProjectile(player, rangedWpn, getAmmo(player, predicate));
-    }
-
 
     protected static void shootProjectile(Level level, Player player, ItemStack chuteItem, ItemStack ammo, float pow, boolean inf) {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
@@ -124,9 +161,6 @@ public class ChuteItem extends ProjectileWeaponItem {
         return dart;
     }
 
-    //public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
-    //    //# make scheduler for arrow fire to allow gatling/barrage enchant to fire multiple arrows with time delta...
-    //}
     //public static void shootProjectileWithCooldown(Level level, LivingEntity player, InteractionHand hand, ItemStack itemStack) {
     //}
 

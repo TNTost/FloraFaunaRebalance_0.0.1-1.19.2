@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,10 +28,6 @@ public class DartItem extends ArrowItem {
         this.effects = effects;
     }
 
-    public Item getRef() {
-        return this;
-    }
-
     public AbstractArrow createDart(Level level, ItemStack itemStack, LivingEntity shooter) {
         DartProjectileEntity dart = new DartProjectileEntity(shooter, level, this); //# 'this'  is a life-saver
         dart.setBaseDamage(this.damage);
@@ -39,7 +36,7 @@ public class DartItem extends ArrowItem {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemList) { //# generate default nbt alongside item...
+    public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> itemList) { //# generate default nbt alongside item...
         if (this.allowedIn(tab)) {
             ItemStack dart = new ItemStack(this); //# item to itemStack...
             itemList.add(setDefaultTag(dart)); //# splitting this into a method call makes it more readable.
