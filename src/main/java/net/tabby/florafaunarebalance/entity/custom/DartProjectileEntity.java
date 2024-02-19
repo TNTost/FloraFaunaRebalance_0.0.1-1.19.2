@@ -4,6 +4,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -131,7 +133,10 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
     static {
         DATA_ID_VARIANT = SynchedEntityData.defineId(DartProjectileEntity.class, EntityDataSerializers.STRING);
     }
-
+    @Override
+    protected @NotNull SoundEvent getDefaultHitGroundSoundEvent() {
+        return SoundEvents.MANGROVE_ROOTS_HIT;
+    }
     @Override
     public @NotNull ItemStack getPickupItem() { //# doesnt return nbt item...
         return ((DartItem) this.referenceItem).setDefaultTag(new ItemStack(this.referenceItem)); //# cast item to DartItem, then use method to set effect tag for pickup...

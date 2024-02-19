@@ -141,11 +141,8 @@ public class ChuteItem extends ProjectileWeaponItem {
             Projectile projectile = switch (ammo.getItem().toString()) {
                 case "firework_rocket" -> new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
                 default -> getDart(level, player, ammo, pow);
-            }; //# TODO: if hasn't ash-fire-powder then drop fireworks as if 'Q'...
-            float relativeYaw = 0.0f;
-            Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
-            Vector3f vec = new Vector3f(player.getViewVector(1.0f));
-            vec.transform(q);
+            };
+            Vector3f vec = getVec(player);
             projectile.shoot(vec.x(), vec.y(), vec.z(), pow * 2.0f, 1.0f);
 
             //# enchant handler /> [unbreaking], [mending], [power], [barrage], [gathering]
@@ -161,6 +158,13 @@ public class ChuteItem extends ProjectileWeaponItem {
             dart.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
         return dart;
+    }
+    protected static Vector3f getVec(Player player) {
+        float relativeYaw = 1.0f;
+        Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
+        Vector3f vec = new Vector3f(player.getViewVector(1.0f));
+        vec.transform(q);
+        return vec;
     }
 
     //public static void shootProjectileWithCooldown(Level level, LivingEntity player, InteractionHand hand, ItemStack itemStack) {
