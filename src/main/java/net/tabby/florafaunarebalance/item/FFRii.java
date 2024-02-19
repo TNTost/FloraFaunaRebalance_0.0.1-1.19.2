@@ -24,7 +24,7 @@ public class FFRii {
 
     public static final RegistryObject<Item> DART = ITEMS.register("untipped_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
-                    1.20f, null));
+                    1.65f, null));
     public static final RegistryObject<Item> POISON_DART = ITEMS.register("poison_dart",
             () -> new DartItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB),
                     0.85f, List.of(new MobEffectInstance(MobEffects.POISON, 9 * TPS, 1), new MobEffectInstance(MobEffects.WEAKNESS, 27 * TPS, 0))));
