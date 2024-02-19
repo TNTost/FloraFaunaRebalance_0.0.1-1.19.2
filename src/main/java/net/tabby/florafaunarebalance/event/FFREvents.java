@@ -16,9 +16,9 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.block.core.custom.BuddingLog;
+import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
+import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
 import net.tabby.florafaunarebalance.util.FFRTags;
 
 

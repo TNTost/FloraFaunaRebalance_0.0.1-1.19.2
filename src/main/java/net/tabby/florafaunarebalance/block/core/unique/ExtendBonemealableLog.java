@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.block.core.custom;
+package net.tabby.florafaunarebalance.block.core.unique;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

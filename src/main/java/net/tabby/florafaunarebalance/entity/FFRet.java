@@ -8,7 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
+import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
 
 public class FFRet {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =

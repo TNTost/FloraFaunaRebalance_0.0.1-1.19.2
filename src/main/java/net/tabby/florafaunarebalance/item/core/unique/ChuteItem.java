@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.core.custom;
+package net.tabby.florafaunarebalance.item.core.unique;
 
 
 import com.mojang.math.Quaternion;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
+import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;

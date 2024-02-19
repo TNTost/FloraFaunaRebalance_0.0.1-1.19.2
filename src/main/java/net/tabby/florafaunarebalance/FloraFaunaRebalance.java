@@ -14,7 +14,7 @@ import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.item.core.custom.enchantment.FFRie;
+import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFRItemProperties;
 import org.slf4j.Logger;
 

@@ -4,7 +4,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.item.core.custom.ChuteItem;
+import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
 import org.jetbrains.annotations.NotNull;
 
 public class FFRCreativeTab {

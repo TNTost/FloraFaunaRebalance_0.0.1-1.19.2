@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.entity.custom;
+package net.tabby.florafaunarebalance.entity.unique;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,9 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
 import net.tabby.florafaunarebalance.entity.FFRet;
-import net.tabby.florafaunarebalance.item.core.custom.DartItem;
+import net.tabby.florafaunarebalance.item.core.unique.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
