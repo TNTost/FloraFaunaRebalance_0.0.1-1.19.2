@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.client.renderer.entity;
+package net.tabby.florafaunarebalance.entity.client.renderer;
 
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

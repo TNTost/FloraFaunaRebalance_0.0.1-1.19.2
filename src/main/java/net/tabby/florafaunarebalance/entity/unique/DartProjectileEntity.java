@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
-import net.tabby.florafaunarebalance.entity.FFRet;
+import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.item.core.unique.DartItem;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +34,7 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
         effects = new HashSet<>();
     }
     public DartProjectileEntity(LivingEntity shooter, Level level, Item ref) {
-        super(FFRet.DART.get(), shooter, level);
+        super(FFRenty.DART.get(), shooter, level);
         this.referenceItem = ref;
         setDartVariant(ref);
         effects = new HashSet<>(); //# creates new HashSet foreach DartProjectile.

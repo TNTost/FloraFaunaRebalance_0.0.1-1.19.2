@@ -5,7 +5,7 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
-import net.tabby.florafaunarebalance.entity.FFRet;
+import net.tabby.florafaunarebalance.entity.FFRenty;
 import org.jetbrains.annotations.Nullable;
 
 public class FFREntityTagGenerator extends EntityTypeTagsProvider {
@@ -16,6 +16,6 @@ public class FFREntityTagGenerator extends EntityTypeTagsProvider {
     @Override
     protected void addTags() {
         tag(EntityTypeTags.ARROWS)
-                .add(FFRet.DART.get());
+                .add(FFRenty.DART.get());
     }
 }

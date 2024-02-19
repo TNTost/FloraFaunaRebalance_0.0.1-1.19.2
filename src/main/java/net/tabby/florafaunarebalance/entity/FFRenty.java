@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
 
-public class FFRet {
+public class FFRenty {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FloraFaunaRebalance.MOD_ID);
 

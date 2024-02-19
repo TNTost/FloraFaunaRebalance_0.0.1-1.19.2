@@ -11,8 +11,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.client.renderer.entity.DartProjectileRenderer;
-import net.tabby.florafaunarebalance.entity.FFRet;
+import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRenderer;
+import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFRItemProperties;
@@ -31,7 +31,7 @@ public class FloraFaunaRebalance
 
         FFRii.register(modEventBus); //# items.
         FFRib.register(modEventBus); //# blocks.
-        FFRet.register(modEventBus); //# entities.
+        FFRenty.register(modEventBus); //# entities.
 
         FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
 
@@ -49,6 +49,6 @@ public class FloraFaunaRebalance
 
     private void clientSetup(final FMLClientSetupEvent event) { //# subscribes to eventbus and does client-setupEvents...
         FFRItemProperties.addCustomItemProperties();
-        EntityRenderers.register(FFRet.DART.get(), DartProjectileRenderer::new); //# renders Darts..
+        EntityRenderers.register(FFRenty.DART.get(), DartProjectileRenderer::new); //# renders Darts..
     }
   }
