@@ -18,12 +18,15 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.custom.DartProjectileEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 
+import java.io.DataOutput;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import static com.lowdragmc.lowdraglib.utils.JsonUtil.getIntArray;
 import static java.lang.StrictMath.sqrt;
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 import static net.tabby.florafaunarebalance.util.all.FFRUtil.getAmmo;
@@ -67,6 +70,8 @@ public class ChuteItem extends ProjectileWeaponItem {
                     }
                     nbt.putIntArray("queue", Arrays.stream(queue).filter(e -> e > 0).toArray());
                     System.out.println(Arrays.toString(nbt.getIntArray("queue")));
+                } else {
+                    nbt.remove("queue");
                 }
             }
             // TODO: make scheduler which calls ShootProjectile() when int -in ListTag at chuteItem runs out...
@@ -98,7 +103,13 @@ public class ChuteItem extends ProjectileWeaponItem {
                 //# if pow >= 0.9f same as powCalculation() / 6.0f >= 0.15f
                 if (pow >= 0.15f) { //# TODO: have firing fireworks consume 1 fire-ash-power even when under-powered then it does light damage without release...
                     if (ammo.is(DART_TAG)) {
-                        chuteItem.getOrCreateTag().put("queue", new IntArrayTag(IntArrayList.of(20, 40, 50)));
+                        CompoundTag tag = chuteItem.getOrCreateTag();//.put("queue", new IntArrayTag(IntArrayList.of(20, 40, 50)));
+                        if (tag.contains("queue", 11)) {
+                            int[] both = ArrayUtils.addAll(tag.getIntArray("queue"), 3, 6, 9);
+                            tag.put("queue", new IntArrayTag(both));
+                        } else {
+                            tag.put("queue", new IntArrayTag(IntArrayList.of(3, 6, 9)));
+                        }
                     }
                     shootProjectile(level, player, chuteItem, ammo, pow); //# shoot the projectile, duh.
                     //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
