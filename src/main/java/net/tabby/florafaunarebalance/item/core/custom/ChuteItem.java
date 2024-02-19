@@ -22,11 +22,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 
-import java.io.DataOutput;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import static com.lowdragmc.lowdraglib.utils.JsonUtil.getIntArray;
 import static java.lang.StrictMath.sqrt;
 import static net.tabby.florafaunarebalance.util.FFRTags.Items.*;
 import static net.tabby.florafaunarebalance.util.all.FFRUtil.getAmmo;
@@ -139,6 +137,7 @@ public class ChuteItem extends ProjectileWeaponItem {
         if (!level.isClientSide) { //# set Entity to null when firing non-dart...
             System.out.println(ammo.getItem());
             Projectile projectile = switch (ammo.getItem().toString()) {
+                //case "sand" ->
                 case "firework_rocket" -> new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15000000596046448, player.getZ(), true);
                 default -> getDart(level, player, ammo, pow);
             };
@@ -160,17 +159,14 @@ public class ChuteItem extends ProjectileWeaponItem {
         return dart;
     }
     protected static Vector3f getVec(Player player) {
-        float relativeYaw = 1.0f;
+        float relativeYaw = 1.0f; //a reminder>..
         Quaternion q = new Quaternion(new Vector3f(player.getUpVector(1.0f)), relativeYaw, true);
         Vector3f vec = new Vector3f(player.getViewVector(1.0f));
         vec.transform(q);
         return vec;
     }
 
-    //public static void shootProjectileWithCooldown(Level level, LivingEntity player, InteractionHand hand, ItemStack itemStack) {
-    //}
-
-
+    //# TODO: shootProjectile but-with a cooldown...
 
 
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_40678_) {

@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import net.tabby.florafaunarebalance.entity.FFRet;
 import net.tabby.florafaunarebalance.item.core.custom.DartItem;
 import org.jetbrains.annotations.NotNull;
@@ -64,39 +65,39 @@ public class DartProjectileEntity extends AbstractArrow { //# implements DartVar
         }
     }
     protected void doPostHurtEffects(@NotNull LivingEntity entity) {
-        super.doPostHurtEffects(entity); //# not sure why super required.
+        entity.invulnerableTime = 1; //# YUSHHHH..
         for (MobEffectInstance effect : effects) {
             entity.addEffect(effect, this.getEffectSource()); //# iterate through list &add to entity.
         }
     }
 
-   /* public void tick() {
-        super.tick();
-        if (this.level.isClientSide) {
-            if (this.inGround) {
-                if (this.inGroundTime % 5 == 0) {
-                    this.makeParticle(1);
+    /* public void tick() {
+            super.tick();
+            if (this.level.isClientSide) {
+                if (this.inGround) {
+                    if (this.inGroundTime % 5 == 0) {
+                        this.makeParticle(1);
+                    }
+                } else {
+                    this.makeParticle(2);
                 }
-            } else {
-                this.makeParticle(2);
+            } else if (this.inGround && this.inGroundTime != 0 && this.effect.isEmpty() && this.inGroundTime >= 600) {
+                this.level.broadcastEntityEvent(this, (byte) 0);
+                this.effect.clear();
             }
-        } else if (this.inGround && this.inGroundTime != 0 && this.effect.isEmpty() && this.inGroundTime >= 600) {
-            this.level.broadcastEntityEvent(this, (byte) 0);
-            this.effect.clear();
         }
-    }
-    private void makeParticle(int p_36877_Amount) {
-        int colour = this.col;
-        if (colour != -1 && p_36877_Amount > 0) {
-            double ColP1 = (double) (colour >> 16 & 255) / 255;
-            double ColP2 = (double) (colour >> 8 & 255) / 255;
-            double ColP3 = (double) (colour & 255) / 255;
+        private void makeParticle(int p_36877_Amount) {
+            int colour = this.col;
+            if (colour != -1 && p_36877_Amount > 0) {
+                double ColP1 = (double) (colour >> 16 & 255) / 255;
+                double ColP2 = (double) (colour >> 8 & 255) / 255;
+                double ColP3 = (double) (colour & 255) / 255;
 
-            for (int i = 0; i < p_36877_Amount; i++) {
-                this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getRandomX( 0.5), this.getRandomY(), this.getRandomZ( 0.5), ColP1, ColP2, ColP3);
+                for (int i = 0; i < p_36877_Amount; i++) {
+                    this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getRandomX( 0.5), this.getRandomY(), this.getRandomZ( 0.5), ColP1, ColP2, ColP3);
+                }
             }
-        }
-    }*/
+        }*/
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putString("Type", this.getDartVariant().getStr());

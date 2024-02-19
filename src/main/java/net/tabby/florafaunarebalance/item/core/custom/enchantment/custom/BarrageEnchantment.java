@@ -18,19 +18,6 @@ public class BarrageEnchantment extends Enchantment {
         return 3;
     }
 
-    @Override
-    public void doPostAttack(LivingEntity living, Entity entity, int i) {
-        super.doPostAttack(living, entity, i);
-        entity.invulnerableTime = 0;
-        living.invulnerableTime = 0;
-    }
-
-    @Override
-    public void doPostHurt(@NotNull LivingEntity living, @NotNull Entity entity, int i) {
-        super.doPostHurt(living, entity, i);
-        entity.invulnerableTime = 0;
-        living.invulnerableTime = 0;
-    }
 
     @Override
     public boolean allowedInCreativeTab(Item book, CreativeModeTab tab) {
