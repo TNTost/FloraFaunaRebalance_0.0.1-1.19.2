@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
+import net.tabby.florafaunarebalance.entity.unique.SandDustCloud;
 
 public class FFRenty {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -21,6 +22,12 @@ public class FFRenty {
                             .sized(0.5f,0.5f).clientTrackingRange(4).updateInterval(20)
                             .build(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "dart")
                                     .toString()));
+
+    public static final RegistryObject<EntityType<SandDustCloud>> DUST_CLOUD = ENTITY_TYPES.register("dust_cloud",
+            () -> EntityType.Builder.<SandDustCloud>of(SandDustCloud::new, MobCategory.MISC)
+                    .sized(3.2f, 2.7f).updateInterval(10)
+                    .build(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "dust_cloud")
+                            .toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

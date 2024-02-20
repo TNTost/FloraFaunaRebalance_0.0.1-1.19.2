@@ -1,6 +1,7 @@
 package net.tabby.florafaunarebalance;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.entity.client.renderer.CloudRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.item.FFRii;
@@ -49,6 +51,7 @@ public class FloraFaunaRebalance
 
     private void clientSetup(final FMLClientSetupEvent event) { //# subscribes to eventbus and does client-setupEvents...
         FFRItemProperties.addCustomItemProperties();
-        EntityRenderers.register(FFRenty.DART.get(), DartProjectileRenderer::new); //# renders Darts..
+        EntityRenderers.register(FFRenty.DART.get(), DartProjectileRenderer::new); // renders Darts..
+        EntityRenderers.register(FFRenty.DUST_CLOUD.get(), CloudRenderer::new); // renders dust-Clouds..
     }
   }
