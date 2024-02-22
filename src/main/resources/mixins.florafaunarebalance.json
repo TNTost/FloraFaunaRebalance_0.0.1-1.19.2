@@ -5,6 +5,7 @@
   "refmap": "mixins.florafaunarebalance.refmap.json",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "LilyPadMixin"
   ],
   "client": [
   ],

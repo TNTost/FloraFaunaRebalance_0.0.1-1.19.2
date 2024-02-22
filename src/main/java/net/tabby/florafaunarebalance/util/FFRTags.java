@@ -12,6 +12,7 @@ import javax.swing.text.html.HTML;
 
 public class FFRTags {
     public static class Blocks {
+        public static final TagKey<Block> CUTOUT = tag("cutout");
         public static final TagKey<Block> SPLICEABLE_LOGS = tag("spliceable_logs");
         public static final TagKey<Block> BAMBOO_LOGS = tag("bamboo_logs");
 

@@ -19,6 +19,7 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
 import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
 import net.tabby.florafaunarebalance.block.core.unique.ExtendBonemealableLog;
+import net.tabby.florafaunarebalance.block.core.unique.WaterLilyFlower;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
@@ -27,6 +28,16 @@ import java.util.function.Supplier;
 public class FFRib {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
+
+
+
+    //# nymphaeaceae -> /nɪmfiːˈeɪsiː/
+    public static final RegistryObject<Block> NYMPHAEACEAE = registerBlock("nymphaeaceae",
+            () -> new WaterLilyFlower(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<HangingRootsBlock> WATER_LILY_ROOTS = registerBlock("water_lily_roots",
+            () -> new HangingRootsBlock(BlockBehaviour.Properties.copy(Blocks.HANGING_ROOTS)), FFRCreativeTab.FFR_TAB);
+
+
 
 
     public static final RegistryObject<Block> BAMBOO_PLANKS = registerBlock("bamboo_planks",

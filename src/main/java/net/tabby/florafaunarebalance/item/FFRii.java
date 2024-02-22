@@ -18,6 +18,9 @@ public class FFRii {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FloraFaunaRebalance.MOD_ID);
 
 
+
+
+
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
 
@@ -42,6 +45,7 @@ public class FFRii {
     public static final RegistryObject<Item> TAPERED_FLINT = ITEMS.register("tapered_flint",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB))); //# rock + flint makes it sharp...
     //# lashing is when a sharp object is attached to a stick.
+
 
 
 

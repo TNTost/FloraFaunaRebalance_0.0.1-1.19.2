@@ -39,6 +39,13 @@ public class FFRBlockLootTables extends BlockLoot {
 
     @Override
     protected void addTables() {
+
+        dropSelf(FFRib.NYMPHAEACEAE.get()); //# createCropDrops..
+        add(FFRib.WATER_LILY_ROOTS.get(), BlockLoot::createShearsOnlyDrop);
+        //add(FFRib.NYMPHAEACEAE.get(),
+        //        (pad) -> );
+        // TODO: think of loot-table for water lilies...
+
         dropSelf(FFRib.BAMBOO_PLANKS.get());
         dropSelf(FFRib.BAMBOO_MOSAIC.get());
 

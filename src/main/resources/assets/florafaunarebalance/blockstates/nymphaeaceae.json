@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "florafaunarebalance:block/nymphaeaceae"
+      },
+      {
+        "model": "florafaunarebalance:block/nymphaeaceae",
+        "y": 90
+      },
+      {
+        "model": "florafaunarebalance:block/nymphaeaceae",
+        "y": 180
+      },
+      {
+        "model": "florafaunarebalance:block/nymphaeaceae",
+        "y": 270
+      }
+    ]
+  }
+}

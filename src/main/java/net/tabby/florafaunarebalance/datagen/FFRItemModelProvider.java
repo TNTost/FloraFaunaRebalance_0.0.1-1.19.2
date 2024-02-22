@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.item.FFRii;
 
 public class FFRItemModelProvider extends ItemModelProvider {

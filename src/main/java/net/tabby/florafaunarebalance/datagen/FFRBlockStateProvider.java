@@ -20,6 +20,9 @@ public class FFRBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        simpleBlock(FFRib.WATER_LILY_ROOTS.get());
+            //simpleBlockItem(FFRib.WATER_LILY_ROOTS.get(), models().singleTexture("water_lily_roots.png", mcLoc("block"), blockItemTexture(FFRib.WATER_LILY_ROOTS.get())));
+
         simpleBlockWithItem(FFRib.BAMBOO_PLANKS);
         simpleBlockWithItem(FFRib.BAMBOO_MOSAIC);
 
@@ -36,27 +39,27 @@ public class FFRBlockStateProvider extends BlockStateProvider {
             simpleBlockItem(FFRib.BUDDING_BAMBOO_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_BAMBOO_WOOD.get(), FFRib.BUDDING_BAMBOO_LOG.get()));
 
 
-            logWithItem(FFRib.BUDDING_OAK_LOG);
-            axisBlock(FFRib.BUDDING_OAK_WOOD.get(), blockTexture(FFRib.BUDDING_OAK_LOG.get()), blockTexture(FFRib.BUDDING_OAK_LOG.get()));
-                simpleBlockItem(FFRib.BUDDING_OAK_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_OAK_WOOD.get(), FFRib.BUDDING_OAK_LOG.get()));
-                logWithItem(FFRib.BUDDING_BIRCH_LOG);
-                axisBlock(FFRib.BUDDING_BIRCH_WOOD.get(), blockTexture(FFRib.BUDDING_BIRCH_LOG.get()), blockTexture(FFRib.BUDDING_BIRCH_LOG.get()));
-                    simpleBlockItem(FFRib.BUDDING_BIRCH_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_BIRCH_WOOD.get(), FFRib.BUDDING_BIRCH_LOG.get()));
-                    logWithItem(FFRib.BUDDING_SPRUCE_LOG);
-                    axisBlock(FFRib.BUDDING_SPRUCE_WOOD.get(), blockTexture(FFRib.BUDDING_SPRUCE_LOG.get()), blockTexture(FFRib.BUDDING_SPRUCE_LOG.get()));
-                        simpleBlockItem(FFRib.BUDDING_SPRUCE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_SPRUCE_WOOD.get(), FFRib.BUDDING_SPRUCE_LOG.get()));
-                        logWithItem(FFRib.BUDDING_JUNGLE_LOG);
-                        axisBlock(FFRib.BUDDING_JUNGLE_WOOD.get(), blockTexture(FFRib.BUDDING_JUNGLE_LOG.get()), blockTexture(FFRib.BUDDING_JUNGLE_LOG.get()));
-                            simpleBlockItem(FFRib.BUDDING_JUNGLE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_JUNGLE_WOOD.get(), FFRib.BUDDING_JUNGLE_LOG.get()));
-                            logWithItem(FFRib.BUDDING_ACACIA_LOG);
-                            axisBlock(FFRib.BUDDING_ACACIA_WOOD.get(), blockTexture(FFRib.BUDDING_ACACIA_LOG.get()), blockTexture(FFRib.BUDDING_ACACIA_LOG.get()));
-                                simpleBlockItem(FFRib.BUDDING_ACACIA_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_ACACIA_WOOD.get(), FFRib.BUDDING_ACACIA_LOG.get()));
-                                logWithItem(FFRib.BUDDING_DARK_OAK_LOG);
-                                axisBlock(FFRib.BUDDING_DARK_OAK_WOOD.get(), blockTexture(FFRib.BUDDING_DARK_OAK_LOG.get()), blockTexture(FFRib.BUDDING_DARK_OAK_LOG.get()));
-                                    simpleBlockItem(FFRib.BUDDING_DARK_OAK_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_DARK_OAK_WOOD.get(), FFRib.BUDDING_DARK_OAK_LOG.get()));
-                                    logWithItem(FFRib.BUDDING_MANGROVE_LOG);
-                                    axisBlock(FFRib.BUDDING_MANGROVE_WOOD.get(), blockTexture(FFRib.BUDDING_MANGROVE_LOG.get()), blockTexture(FFRib.BUDDING_MANGROVE_LOG.get()));
-                                        simpleBlockItem(FFRib.BUDDING_MANGROVE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_MANGROVE_WOOD.get(), FFRib.BUDDING_MANGROVE_LOG.get()));
+        logWithItem(FFRib.BUDDING_OAK_LOG);
+        axisBlock(FFRib.BUDDING_OAK_WOOD.get(), blockTexture(FFRib.BUDDING_OAK_LOG.get()), blockTexture(FFRib.BUDDING_OAK_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_OAK_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_OAK_WOOD.get(), FFRib.BUDDING_OAK_LOG.get()));
+        logWithItem(FFRib.BUDDING_BIRCH_LOG);
+        axisBlock(FFRib.BUDDING_BIRCH_WOOD.get(), blockTexture(FFRib.BUDDING_BIRCH_LOG.get()), blockTexture(FFRib.BUDDING_BIRCH_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_BIRCH_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_BIRCH_WOOD.get(), FFRib.BUDDING_BIRCH_LOG.get()));
+        logWithItem(FFRib.BUDDING_SPRUCE_LOG);
+        axisBlock(FFRib.BUDDING_SPRUCE_WOOD.get(), blockTexture(FFRib.BUDDING_SPRUCE_LOG.get()), blockTexture(FFRib.BUDDING_SPRUCE_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_SPRUCE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_SPRUCE_WOOD.get(), FFRib.BUDDING_SPRUCE_LOG.get()));
+        logWithItem(FFRib.BUDDING_JUNGLE_LOG);
+        axisBlock(FFRib.BUDDING_JUNGLE_WOOD.get(), blockTexture(FFRib.BUDDING_JUNGLE_LOG.get()), blockTexture(FFRib.BUDDING_JUNGLE_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_JUNGLE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_JUNGLE_WOOD.get(), FFRib.BUDDING_JUNGLE_LOG.get()));
+        logWithItem(FFRib.BUDDING_ACACIA_LOG);
+        axisBlock(FFRib.BUDDING_ACACIA_WOOD.get(), blockTexture(FFRib.BUDDING_ACACIA_LOG.get()), blockTexture(FFRib.BUDDING_ACACIA_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_ACACIA_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_ACACIA_WOOD.get(), FFRib.BUDDING_ACACIA_LOG.get()));
+        logWithItem(FFRib.BUDDING_DARK_OAK_LOG);
+        axisBlock(FFRib.BUDDING_DARK_OAK_WOOD.get(), blockTexture(FFRib.BUDDING_DARK_OAK_LOG.get()), blockTexture(FFRib.BUDDING_DARK_OAK_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_DARK_OAK_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_DARK_OAK_WOOD.get(), FFRib.BUDDING_DARK_OAK_LOG.get()));
+        logWithItem(FFRib.BUDDING_MANGROVE_LOG);
+        axisBlock(FFRib.BUDDING_MANGROVE_WOOD.get(), blockTexture(FFRib.BUDDING_MANGROVE_LOG.get()), blockTexture(FFRib.BUDDING_MANGROVE_LOG.get()));
+            simpleBlockItem(FFRib.BUDDING_MANGROVE_WOOD.get(), cubeColumnOffset(FFRib.BUDDING_MANGROVE_WOOD.get(), FFRib.BUDDING_MANGROVE_LOG.get()));
 
 
         simpleBlockWithItem(FFRib.SAPPHIRE_BLOCK);
@@ -105,6 +108,10 @@ public class FFRBlockStateProvider extends BlockStateProvider {
     public ResourceLocation blockTexture(Block block) {
         ResourceLocation name = this.key(block);
         return new ResourceLocation(name.getNamespace(), "block/" + name.getPath());
+    }
+    public ResourceLocation blockItemTexture(Block block) {
+        ResourceLocation name = this.key(block);
+        return new ResourceLocation(name.getNamespace(), "item/" + name.getPath());
     }
     private ResourceLocation extend(ResourceLocation rl, String suffix) {
         String var10002 = rl.getNamespace();
