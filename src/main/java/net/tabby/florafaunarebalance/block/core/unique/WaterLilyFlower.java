@@ -4,18 +4,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.PlantType;
@@ -27,6 +22,7 @@ public class WaterLilyFlower extends BushBlock {
     public WaterLilyFlower(Properties p_58162_) {
         super(p_58162_);
     }
+
     protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos) {
         return (getter.getFluidState(pos).getType() == Fluids.WATER || state.getMaterial() == Material.ICE) && getter.getFluidState(pos.above()).getType() == Fluids.EMPTY;
     }
@@ -39,6 +35,8 @@ public class WaterLilyFlower extends BushBlock {
             level.setBlockAndUpdate(pos.below(), FFRib.WATER_LILY_ROOTS.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
         }
     }
+
+
     @Override
     public net.minecraftforge.common.PlantType getPlantType(BlockGetter getter, BlockPos pos) {
         return PlantType.WATER;

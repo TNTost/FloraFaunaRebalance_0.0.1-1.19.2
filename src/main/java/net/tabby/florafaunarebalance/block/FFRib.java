@@ -32,8 +32,8 @@ public class FFRib {
 
 
     //# nymphaeaceae -> /nɪmfiːˈeɪsiː/
-    public static final RegistryObject<Block> NYMPHAEACEAE = registerBlock("nymphaeaceae",
-            () -> new WaterLilyFlower(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).randomTicks()), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> NYMPHAEACEAE = BLOCKS.register("nymphaeaceae",
+            () -> new WaterLilyFlower(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).randomTicks()));
     public static final RegistryObject<HangingRootsBlock> WATER_LILY_ROOTS = registerBlock("water_lily_roots",
             () -> new HangingRootsBlock(BlockBehaviour.Properties.copy(Blocks.HANGING_ROOTS)), FFRCreativeTab.FFR_TAB);
 

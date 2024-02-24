@@ -8,14 +8,23 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,41 +38,50 @@ import net.tabby.florafaunarebalance.util.FFRTags;
 import oshi.util.tuples.Pair;
 
 
+
 public class FFRForgeEvents {
     @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID)
     public static class ForgeEvents {
 
-        @SubscribeEvent
-        public static void onPlaceLilyAimWater(PlayerInteractEvent.RightClickItem event) {
-            if (event.getItemStack().is(FFRib.NYMPHAEACEAE.get().asItem())) {
-                if (ray(event));
-            }
-        }
-        @SubscribeEvent
-        public static void onPlaceLilyAimBottom(PlayerInteractEvent.RightClickBlock event) {
-            if (event.getItemStack().is(FFRib.NYMPHAEACEAE.get().asItem())) {
-                if (ray(event));
-            }
-        }
-        private static boolean ray (PlayerInteractEvent event) {
-            Level lvl = event.getLevel();
-            if (true) {
-                Player ply = event.getEntity();
-
-                HitResult result = ply.pick(5, 1.0f, true); //# cast ray at view angle...
-                BlockPos pos = new BlockPos(result.getLocation());
-                Pair<BlockState, BlockState> state = new Pair<>(lvl.getBlockState(pos.above()), lvl.getBlockState(pos));
-                if (state.getA().isAir() && state.getB().is(Blocks.WATER) && state.getB().getFluidState().getAmount() == 8) { //# check if water + air above.
-
-                    //TODO: check for entity occupying block..
-                    lvl.setBlockAndUpdate(pos.above(), FFRib.NYMPHAEACEAE.get().defaultBlockState());
-                    ply.swing(InteractionHand.MAIN_HAND, true);
-                    lvl.playSound(null, pos, new SoundEvent(new ResourceLocation("minecraft", "block.lily_pad.place")), SoundSource.BLOCKS, 1.0f, 1.0f);
-                    return true;
-                }
-            }
-            return false;
-        }
+        //@SubscribeEvent
+        //public static void onPlaceLilyAimWater(PlayerInteractEvent.RightClickItem event) {
+        //    if (event.getItemStack().is(FFRib.NYMPHAEACEAE.get().asItem())) {
+        //        if (ray(event));
+        //    }
+        //}
+        //@SubscribeEvent
+        //public static void onPlaceLilyAimBottom(PlayerInteractEvent.RightClickBlock event) {
+        //    if (event.getItemStack().is(FFRib.NYMPHAEACEAE.get().asItem())) {
+        //        if (ray(event));
+        //    }
+        //}
+        //private static boolean ray (PlayerInteractEvent event) {
+        //    Level lvl = event.getLevel();
+        //    if (true) {
+        //        Player ply = event.getEntity();
+//
+        //        HitResult result = ply.pick(5, 1.0f, true); //# cast ray at view angle...
+        //        BlockPos pos = new BlockPos(result.getLocation());
+        //        Pair<BlockState, BlockState> state = new Pair<>(lvl.getBlockState(pos.above()), lvl.getBlockState(pos));
+        //        if (state.getA().getFluidState().getType() == Fluids.EMPTY && state.getB().is(Blocks.WATER) && state.getB().getFluidState().getAmount() == 8) { //# check if water + air above.
+        //            // TODO check player collision...
+        //            if (lvl.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, ply, new AABB(pos)).isEmpty() &&) {
+        //                lvl.setBlockAndUpdate(pos.above(), FFRib.NYMPHAEACEAE.get().defaultBlockState());
+        //                ply.swing(InteractionHand.MAIN_HAND, true);
+        //                lvl.playSound(null, pos, new SoundEvent(new ResourceLocation("minecraft", "block.lily_pad.place")), SoundSource.BLOCKS, 1.0f, 1.0f);
+        //                ItemStack itm = event.getItemStack();
+        //                if (!ply.getAbilities().instabuild) {
+        //                    itm.shrink(1);
+        //                    if (itm.isEmpty()) {
+        //                        ply.getInventory().removeItem(itm);
+        //                    }
+        //                }
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}
 
         @SubscribeEvent
         public static void onBoneMealLog (PlayerInteractEvent.RightClickBlock event) {

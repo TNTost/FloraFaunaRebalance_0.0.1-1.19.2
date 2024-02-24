@@ -3,11 +3,13 @@ package net.tabby.florafaunarebalance.item;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.core.unique.DartItem;
 
@@ -20,7 +22,8 @@ public class FFRii {
 
 
 
-
+    public static final RegistryObject<Item> NYMPHAEACEAE = ITEMS.register("nymphaeaceae",
+            () -> new PlaceOnWaterBlockItem(FFRib.NYMPHAEACEAE.get(), new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
     public static final RegistryObject<Item> DART_CHUTE = ITEMS.register("dart_chute",
             () -> new ChuteItem(new Item.Properties().tab(FFRCreativeTab.FFR_TAB).durability(43)));
 
