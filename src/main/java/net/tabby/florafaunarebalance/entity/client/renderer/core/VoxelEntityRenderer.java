@@ -64,4 +64,5 @@ public abstract class VoxelEntityRenderer<T extends Entity, M extends EntityMode
     }
     protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
     }
+    //TODO: fix water transparency issue..
 }

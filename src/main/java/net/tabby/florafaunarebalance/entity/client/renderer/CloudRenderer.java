@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.client.FFRml;
-import net.tabby.florafaunarebalance.entity.client.SandDustCloudModel;
+import net.tabby.florafaunarebalance.entity.client.models.SandDustCloudModel;
 import net.tabby.florafaunarebalance.entity.client.renderer.core.VoxelEntityRenderer;
 import net.tabby.florafaunarebalance.entity.unique.SandDustCloud;
 import org.jetbrains.annotations.NotNull;

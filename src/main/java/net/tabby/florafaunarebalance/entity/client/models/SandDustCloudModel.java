@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.entity.client;// Made with Blockbench 4.9.4
+package net.tabby.florafaunarebalance.entity.client.models;// Made with Blockbench 4.9.4
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
