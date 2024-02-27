@@ -36,7 +36,7 @@ public class DuckEntity extends Animal {
         ai.addGoal(3, new TemptGoal(this, 1.75, Ingredient.of(Items.BREAD), false));
         ai.addGoal(2, new FollowParentGoal(this, 1.2));
         ai.addGoal(4, new RandomSwimmingGoal(this, 1.15, 70)); //mob, speed, interval.
-        ai.addGoal(5, new RandomStrollGoal(this, 1));
+        ai.addGoal(5, new RandomStrollGoal(this, 1)); //TODO: fix: ducks speedy on land compared to water...
 
         ai.addGoal(6, new LookAtPlayerGoal(this, Player.class, 4.7f));
         ai.addGoal(7, new RandomLookAroundGoal(this));

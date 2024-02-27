@@ -13,8 +13,16 @@ public class Mh { //# damnit intelIj, why not allow unicode chars....
     public static float rad(float degree) {
         return degree * piOver180;
     }
-    public static double getFraction(double y) {
+    public static double frac(double y) {
         return y - Mth.floor(y);
+    }
+    public static int mod(int num, int div) {
+        if (num < 100) {
+            while (num >= div) {
+                num -= div;
+            }
+        }
+        return num;
     }
 
 }
