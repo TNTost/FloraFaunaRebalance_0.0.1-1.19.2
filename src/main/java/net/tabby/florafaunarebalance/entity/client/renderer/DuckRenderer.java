@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.client.FFRml;
 import net.tabby.florafaunarebalance.entity.client.models.DuckModel;
@@ -29,6 +31,7 @@ public class DuckRenderer extends MobRenderer<DuckEntity, DuckModel<DuckEntity>>
     public void render(@NotNull DuckEntity duck, float p_115456_, float subTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource source, int light) {
         if (duck.isBaby()) {
             poseStack.scale(0.50f, 0.50f, 0.50f);
+            duck.setBoundingBox(new AABB(new Vec3(duck.getX() - 0.3, duck.getY(), duck.getZ() - 0.3), new Vec3(duck.getX() + 0.3, duck.getY() + 0.4875, duck.getZ() + 0.3)));
         }
         super.render(duck, p_115456_, subTicks, poseStack, source, light);
     }
