@@ -28,7 +28,7 @@ public class FFRenty {
 
     public static final RegistryObject<EntityType<SandDustCloud>> DUST_CLOUD = ENTITY_TYPES.register("dust_cloud",
             () -> EntityType.Builder.<SandDustCloud>of(SandDustCloud::new, MobCategory.MISC)
-                    .sized(3.2f, 2.7f).updateInterval(10)
+                    .sized(2.9f, 2.4f).updateInterval(10)
                     .build(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "dust_cloud")
                             .toString()));
 

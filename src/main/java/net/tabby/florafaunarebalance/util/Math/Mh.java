@@ -1,9 +1,6 @@
-package net.tabby.florafaunarebalance.util.all;
+package net.tabby.florafaunarebalance.util.Math;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.HitResult;
-import oshi.util.tuples.Pair;
 
 public class Mh { //# damnit intelIj, why not allow unicode chars....
     public static float piOver180 = 0.017453292519943295769f;
@@ -16,13 +13,7 @@ public class Mh { //# damnit intelIj, why not allow unicode chars....
     public static double frac(double y) {
         return y - Mth.floor(y);
     }
-    public static int mod(int num, int div) {
-        if (num < 100) {
-            while (num >= div) {
-                num -= div;
-            }
-        }
-        return num;
-    }
+
+
 
 }
