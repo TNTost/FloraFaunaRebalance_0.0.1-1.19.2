@@ -16,6 +16,7 @@ import net.tabby.florafaunarebalance.entity.client.renderer.CloudRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.entity.client.renderer.DuckRenderer;
+import net.tabby.florafaunarebalance.entity.client.renderer.SkeeterRenderer;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
@@ -57,5 +58,6 @@ public class FloraFaunaRebalance
 
         Minecraft.getInstance().getBlockColors().register((p_92567_, p_92568_, p_92569_, p_92570_) -> p_92568_ != null && p_92569_ != null ? 2129968 : 7455580, FFRib.NYMPHAEACEAE.get()); // registers new plant colours for blocks x &y &z &...
         EntityRenderers.register(FFRenty.DUCK.get(), DuckRenderer::new); // renders ducks;
+        EntityRenderers.register(FFRenty.WATER_SKEETER.get(), SkeeterRenderer::new); // renders funny water-bug;
     }
   }

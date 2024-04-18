@@ -8,6 +8,7 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.client.FFRml;
 import net.tabby.florafaunarebalance.entity.client.models.DuckModel;
 import net.tabby.florafaunarebalance.entity.client.models.SandDustCloudModel;
+import net.tabby.florafaunarebalance.entity.client.models.SkeeterModel;
 
 @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class FFReBusClientEvents {
@@ -15,6 +16,7 @@ public class FFReBusClientEvents {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(FFRml.DUST_CLOUD_LAYER, SandDustCloudModel::createBodyLayer);
         event.registerLayerDefinition(FFRml.DUCK_LAYER, DuckModel::createBodyLayer);
+        event.registerLayerDefinition(FFRml.SKEETER_LAYER, SkeeterModel::createBodyLayer);
     }
 
 }

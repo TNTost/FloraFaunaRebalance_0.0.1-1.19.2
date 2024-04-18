@@ -1,10 +1,8 @@
 package net.tabby.florafaunarebalance.entity;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -13,6 +11,7 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
 import net.tabby.florafaunarebalance.entity.unique.DuckEntity;
 import net.tabby.florafaunarebalance.entity.unique.SandDustCloud;
+import net.tabby.florafaunarebalance.entity.unique.SkeeterEntity;
 
 public class FFRenty {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -37,6 +36,10 @@ public class FFRenty {
     public static final RegistryObject<EntityType<DuckEntity>> DUCK = ENTITY_TYPES.register("duck",
             () -> EntityType.Builder.of(DuckEntity::new, MobCategory.CREATURE)
                     .sized(0.8f, 0.65f).build("duck"));
+
+    public static final RegistryObject<EntityType<SkeeterEntity>> WATER_SKEETER = ENTITY_TYPES.register("water_skeeter",
+            () -> EntityType.Builder.of(SkeeterEntity::new, MobCategory.WATER_CREATURE)
+                    .sized(2.3f, 1.2f).build("water_skeeter"));
 
 
     public static void register(IEventBus eventBus) {

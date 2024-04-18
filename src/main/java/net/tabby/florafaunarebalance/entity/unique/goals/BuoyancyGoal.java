@@ -46,7 +46,7 @@ public class BuoyancyGoal extends Goal {
      */
 
 
-    public void tick() { // TODO: if depth > entity-height, apply full force.
+    public void tick() {
         double depthPrc = Math.min(getDepth() * (1 / this.animal.getBbHeight()), 1.0d) * 10; //reciprocal has to be calculated here or will grab wrong BbHeight..
         int ptr = (int) Math.ceil(depthPrc);
         double frac = ptr - depthPrc; // percentage of lower number multiplicant.

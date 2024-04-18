@@ -25,6 +25,8 @@ public class FFRii {
 
     public static final RegistryObject<Item> DUCK_SPAWN_EGG = ITEMS.register("duck_spawn_egg",
             () -> new ForgeSpawnEggItem(FFRenty.DUCK, 0x856B5B, 0x70df92, new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+    public static final RegistryObject<Item> SKEETER_SPAWN_EGG = ITEMS.register("skeeter_spawn_egg",
+            () -> new ForgeSpawnEggItem(FFRenty.WATER_SKEETER, 0x5D3FD3, 0xCF9FFF, new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
     public static final RegistryObject<Item> NYMPHAEACEAE = ITEMS.register("nymphaeaceae",
             () -> new PlaceOnWaterBlockItem(FFRib.NYMPHAEACEAE.get(), new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
 

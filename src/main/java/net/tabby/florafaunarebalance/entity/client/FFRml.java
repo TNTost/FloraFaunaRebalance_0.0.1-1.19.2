@@ -10,4 +10,7 @@ public class FFRml {
 
     public static final ModelLayerLocation DUCK_LAYER = new ModelLayerLocation(
             new ResourceLocation(FloraFaunaRebalance.MOD_ID, "duck_layer"), "main");
+
+    public static final ModelLayerLocation SKEETER_LAYER = new ModelLayerLocation(
+            new ResourceLocation(FloraFaunaRebalance.MOD_ID, "water_skeeter_layer"), "main");
 }

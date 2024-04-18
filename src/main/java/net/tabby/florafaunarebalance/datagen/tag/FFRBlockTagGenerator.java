@@ -3,12 +3,11 @@ package net.tabby.florafaunarebalance.datagen.tag;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.util.FFRTags;
+import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 import org.jetbrains.annotations.Nullable;
 
 public class FFRBlockTagGenerator extends BlockTagsProvider {

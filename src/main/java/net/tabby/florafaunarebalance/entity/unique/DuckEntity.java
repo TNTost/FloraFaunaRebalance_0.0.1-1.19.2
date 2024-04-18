@@ -56,7 +56,7 @@ public class DuckEntity extends Avian {
         // TODO: mix between panic and attack goal...
         ai.addGoal(10, new BreedGoal(this, 0.9)); // eggs, nests. //auto breed, auto die by age.
         //# replace with peas.
-        ai.addGoal(30, new TemptGoal(this, 1.75, Ingredient.of(Items.BREAD), false));
+        ai.addGoal(30, new TemptGoal(this, 1.75, Ingredient.of(Items.BREAD), false));//#TODO: lower speed of tempt,. maybe.
         ai.addGoal(20, new FollowParentGoal(this, 1.2));
         ai.addGoal(40, new RandomSwimmingGoal(this, 2.4, 70)); //mob, speed, interval.
         ai.addGoal(50, new RandomStrollGoal(this, 0.2)); //TODO: fix: ducks speedy on land compared to water...
