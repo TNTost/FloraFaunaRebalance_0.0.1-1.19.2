@@ -47,18 +47,18 @@ public class BuoyancyGoal extends Goal {
 
 
     public void tick() { // TODO: if depth > entity-height, apply full force.
-        double depthPrc = Math.min(getDepth() * (1 / animal.getBbHeight()), 1.0d) * 10; //reciprocal has to be calculated here or will grab wrong BbHeight..
+        double depthPrc = Math.min(getDepth() * (1 / this.animal.getBbHeight()), 1.0d) * 10; //reciprocal has to be calculated here or will grab wrong BbHeight..
         int ptr = (int) Math.ceil(depthPrc);
         double frac = ptr - depthPrc; // percentage of lower number multiplicant.
 
         float intermediate = (float) (vMap[ptr + 1] * (1 - frac) + vMap[ptr] * frac);
-        //System.out.println(intermediate);
 
         float force = this.animal.getBuoyantForce();
-        this.animal.moveRelative(intermediate * force, Vec3.atLowerCornerOf(Direction.UP.getNormal()));
-
-       //this.animal.moveRelative((float) Math.min(getDepth() * reciprocal, 2.0d), new Vec3(0, 0.014, 0)); //use prc for percentage.
-    } //this.animal.getJumpControl().jump(); <<--- alternative...
+        if (this.animal.isBaby()) {
+            force *= 0.75f;
+        }
+        this.animal.moveRelative(intermediate * force, Vec3.atLowerCornerOf(Direction.UP.getNormal())); //use prc for percentage.
+    }
 
     protected double getDepth() {
         Mob ani = this.animal;
@@ -67,7 +67,7 @@ public class BuoyancyGoal extends Goal {
         for (int i = 0; i < 42; i++) {
             BlockPos pos = ani.blockPosition().relative(Direction.UP, i + 1); // plus due block broken when sit not accounting for gap compared to water delay.
             if (ani.getLevel().getBlockState(pos).getFluidState().is(Fluids.EMPTY)) {
-                if (i >= 2 || (i >= 1 && ani.getY() - ani.getBlockY() < 1 - ani.getBbHeight())) {
+                if (i >= 2 || (i == 1 && ani.getY() - ani.getBlockY() < 1 - ani.getBbHeight())) {
                     return i + Mh.frac(pDepth); // if position .2above == air OR if .1above along ani.getY() - ani.getBlockY() smaller than 1 - ani.getBbHeight().
                 } else return pDepth;
             }
