@@ -33,9 +33,11 @@ public class FFRenty {
 
 
 
+    public static final float duckWidth = 0.8f;
+    public static final float duckHeight = 0.65f;
     public static final RegistryObject<EntityType<DuckEntity>> DUCK = ENTITY_TYPES.register("duck",
             () -> EntityType.Builder.of(DuckEntity::new, MobCategory.CREATURE)
-                    .sized(0.8f, 0.65f).build("duck"));
+                    .sized(duckWidth, duckHeight).build("duck"));
 
     public static final RegistryObject<EntityType<SkeeterEntity>> WATER_SKEETER = ENTITY_TYPES.register("water_skeeter",
             () -> EntityType.Builder.of(SkeeterEntity::new, MobCategory.WATER_CREATURE)
