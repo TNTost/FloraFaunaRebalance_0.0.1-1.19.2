@@ -15,16 +15,16 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
+import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.core.FFRBlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static net.tabby.florafaunarebalance.util.all.FFRUtil.getRgStr;
+import static net.tabby.florafaunarebalance.util.FFRUtil.getRgStr;
 
 
-public class BuddingLog extends LogRotatedPillarBlock {
+public class BuddingLog extends RotatedLogCore {
     public static final int GROWTH_CHANCE = 3;
     public static final Direction[] DIRECTIONS = Direction.values();
     public static final IntegerProperty NUTRIENTS;
@@ -34,7 +34,7 @@ public class BuddingLog extends LogRotatedPillarBlock {
         registerDefaultState(defaultBlockState().setValue(NUTRIENTS, 0));
     }
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(NUTRIENTS);
     }

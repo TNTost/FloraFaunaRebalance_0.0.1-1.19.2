@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "florafaunarebalance:item/èlysian_wood"
+  }
+}

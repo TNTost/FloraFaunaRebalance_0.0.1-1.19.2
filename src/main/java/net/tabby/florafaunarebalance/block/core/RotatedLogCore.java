@@ -7,12 +7,15 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraftforge.common.ToolAction;
 import net.tabby.florafaunarebalance.block.FFRib;
 import org.jetbrains.annotations.Nullable;
 
-public class LogRotatedPillarBlock extends RotatedPillarBlock {
-    public LogRotatedPillarBlock(Properties p_55926_) {
+public class RotatedLogCore extends RotatedPillarBlock {
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public RotatedLogCore(Properties p_55926_) {
         super(p_55926_);
     }
 

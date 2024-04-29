@@ -16,9 +16,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
-import net.tabby.florafaunarebalance.block.core.LogRotatedPillarBlock;
 import net.tabby.florafaunarebalance.block.core.unique.ExtendBonemealableLog;
+import net.tabby.florafaunarebalance.block.core.unique.HollowLog;
 import net.tabby.florafaunarebalance.block.core.unique.WaterLilyFlower;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
@@ -29,6 +30,64 @@ public class FFRib {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
+
+
+    public static final RegistryObject<RotatedLogCore> HOLLOW_LOG = registerBlock("hollow_log",
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
+    public static final RegistryObject<RotatedLogCore> ENHANCED_HOLLOW_LOG = registerBlock("enhanced_hollow_log",
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_TAB);
+
+
+    public static final RegistryObject<RotatedPillarBlock> ELYSIAN_LOG = registerBlock("elysian_log",
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedPillarBlock> ELYSIAN_WOOD = registerBlock("elysian_wood",
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<Block> ELYSIAN_PLANKS = registerBlock("elysian_planks",
+            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)) { //# bug, cannot copy OAK_LOG as axis property interferes.
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+            }, FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> VIBRANT_ELYSIAN_PLANKS = registerBlock("vibrant_elysian_planks",
+            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+            }, FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> ELYSIAN_LEAVES = registerBlock("elysian_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+            }, FFRCreativeTab.FFR_TAB);
 
 
     //# nymphaeaceae -> /nɪmfiːˈeɪsiː/
@@ -76,9 +135,9 @@ public class FFRib {
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_WOOD = registerBlock("bamboo_wood",
             () -> new ExtendBonemealableLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_BAMBOO_LOG = registerBlock("stripped_bamboo_log",
-            () -> new LogRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_BAMBOO_WOOD = registerBlock("stripped_bamboo_wood",
-            () -> new LogRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);
 
     public static final RegistryObject<Block> BAMBOO_LEAVES = registerBlock("bamboo_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){

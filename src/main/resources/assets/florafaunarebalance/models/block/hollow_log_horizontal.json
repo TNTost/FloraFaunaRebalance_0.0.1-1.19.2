@@ -1,0 +1,8 @@
+{
+  "parent": "florafaunarebalance:block/column_orientable",
+  "textures": {
+    "end": "florafaunarebalance:block/elysian_log_top",
+    "side": "florafaunarebalance:block/elysian_log",
+    "front": "florafaunarebalance:block/hollow_log"
+  }
+}

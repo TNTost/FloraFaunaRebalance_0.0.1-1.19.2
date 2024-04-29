@@ -2,6 +2,7 @@ package net.tabby.florafaunarebalance;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -12,6 +13,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.block.entity.FFRbe;
+import net.tabby.florafaunarebalance.block.entity.unique.menu.FFRmt;
+import net.tabby.florafaunarebalance.block.entity.unique.menu.unique.HollowLogScreen;
 import net.tabby.florafaunarebalance.entity.client.renderer.CloudRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRenty;
@@ -35,6 +39,10 @@ public class FloraFaunaRebalance
 
         FFRii.register(modEventBus); //# items.
         FFRib.register(modEventBus); //# blocks.
+
+        FFRbe.register(modEventBus); //# block-entities.
+        FFRmt.register(modEventBus); //# be^-menus.
+
         FFRenty.register(modEventBus); //# entities.
 
         FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
@@ -59,5 +67,7 @@ public class FloraFaunaRebalance
         Minecraft.getInstance().getBlockColors().register((p_92567_, p_92568_, p_92569_, p_92570_) -> p_92568_ != null && p_92569_ != null ? 2129968 : 7455580, FFRib.NYMPHAEACEAE.get()); // registers new plant colours for blocks x &y &z &...
         EntityRenderers.register(FFRenty.DUCK.get(), DuckRenderer::new); // renders ducks;
         EntityRenderers.register(FFRenty.WATER_SKEETER.get(), SkeeterRenderer::new); // renders funny water-bug;
+
+        MenuScreens.register(FFRmt.HOLLOW_LOG_MENU.get(), HollowLogScreen::new);
     }
   }

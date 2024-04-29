@@ -57,6 +57,8 @@ public class FFRii {
 
 
 
+    public static final RegistryObject<Item> BARK_SCRAP = ITEMS.register("bark_scrap",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
 
     public static final RegistryObject<Item> TWIG = ITEMS.register("twig",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
