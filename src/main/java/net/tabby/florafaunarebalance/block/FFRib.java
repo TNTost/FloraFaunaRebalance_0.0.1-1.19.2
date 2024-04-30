@@ -32,15 +32,14 @@ public class FFRib {
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
 
-
     public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
     public static final RegistryObject<RotatedLogCore> ENHANCED_VALYRIAN_HOLLOW_LOG = registerBlock("enhanced_valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedLogCore> VALYRIAN_LOG = registerBlock("valyrian_log.json",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedLogCore> VALYRIAN_WOOD = registerBlock("valyrian_wood",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
 
     public static final RegistryObject<Block> VALYRIAN_PLANKS = registerBlock("valyrian_planks",
             () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);

@@ -24,9 +24,13 @@ import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.menu.unique.HollowLogMenu;
 import org.jetbrains.annotations.NotNull;
 
-public class HollowLogEntity extends RandomizableContainerBlockEntity implements MenuProvider {
+import java.util.Objects;
+import java.util.Optional;
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(HollowLog.SIZE, ItemStack.EMPTY);
+public class HollowLogEntity extends RandomizableContainerBlockEntity implements MenuProvider {
+    public static int SLOT_NUMBER;
+
+    private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_NUMBER, ItemStack.EMPTY); //# TODO: size isn't initialised correctly... ...
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
@@ -47,29 +51,29 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
             } else return false;
         }
     };
-
-    protected final ContainerData data;
     public HollowLogEntity(BlockPos pos, BlockState state) {
         super(FFRbe.HOLLOW_LOG_BE.get(), pos, state);
-        this.data = new ContainerData() {
-            @Override
-            public int get(int p_39284_) {
-                return 0;
-            }
-            @Override
-            public void set(int p_39285_, int p_39286_) {
-
-            }
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        };
     }
+
+    protected final ContainerData data = new ContainerData() {
+        @Override
+        public int get(int p_39284_) {
+            return 0;
+        }
+        @Override
+        public void set(int p_39285_, int p_39286_) {
+        }
+        @Override
+        public int getCount() {
+            return SLOT_NUMBER;
+        }
+    };
+
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
         if (!this.trySaveLootTable(tag)) {
             ContainerHelper.saveAllItems(tag, this.items);
+            tag.putInt("size", SLOT_NUMBER);
         }
     }
     public void load(@NotNull CompoundTag tag) {
@@ -77,6 +81,9 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(tag)) {
             ContainerHelper.loadAllItems(tag, this.items);
+            if (tag.contains("size")) {
+                SLOT_NUMBER = tag.getInt("size");
+            }
         }
     }
 
@@ -96,22 +103,22 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
 
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int id, @NotNull Inventory inv) {
-        return new HollowLogMenu(id, inv, this, this.data);
+        return new HollowLogMenu(id, inv, this, Optional.of(this.data));
     }
 
     public void startOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.openersCounter.incrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
         }
     }
     public void stopOpen(@NotNull Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.decrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.openersCounter.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
         }
     }
     public void recheckOpen() {
         if (!this.remove) {
-            this.openersCounter.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.openersCounter.recheckOpeners(Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
         }
     }
 
@@ -126,17 +133,17 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
         double d0 = (double)this.worldPosition.getX() + 0.5D + (double)vec3i.getX() / 2.0D;
         double d1 = (double)this.worldPosition.getY() + 0.5D + (double)vec3i.getY() / 2.0D;
         double d2 = (double)this.worldPosition.getZ() + 0.5D + (double)vec3i.getZ() / 2.0D;
-        this.level.playSound(null, d0, d1, d2, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+        Objects.requireNonNull(this.level).playSound(null, d0, d1, d2, sound, SoundSource.BLOCKS, 1.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HollowLogEntity hollowLogEntity) {
     }
 
     public void drops() {
-        SimpleContainer inv = new SimpleContainer(HollowLog.SIZE);
+        SimpleContainer inv = new SimpleContainer(7);
         for (ItemStack itemStack : this.items) {
             inv.addItem(itemStack);
         }
-        Containers.dropContents(this.level, this.worldPosition, inv);
+        Containers.dropContents(Objects.requireNonNull(this.level), this.worldPosition, inv);
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import org.jetbrains.annotations.NotNull;
 
 public class HollowLogScreen extends AbstractContainerScreen<HollowLogMenu> {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(FloraFaunaRebalance.MOD_ID, "textures/gui/container/hollow_log_gui.png");
@@ -23,7 +24,7 @@ public class HollowLogScreen extends AbstractContainerScreen<HollowLogMenu> {
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(@NotNull PoseStack poseStack, float p_97788_, int p_97789_, int p_97790_) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
@@ -33,7 +34,7 @@ public class HollowLogScreen extends AbstractContainerScreen<HollowLogMenu> {
         this.blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
     }
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float p_97798_) {
+    public void render(@NotNull PoseStack poseStack, int mouseX, int mouseY, float p_97798_) {
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, p_97798_);
         renderTooltip(poseStack, mouseX, mouseY);

@@ -29,14 +29,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class HollowLog extends RotatedLogCore implements EntityBlock {
-    public static int SIZE;
+    public int size;
     protected static final DirectionProperty HOLE = BlockStateProperties.FACING;
 
     public HollowLog(Properties p_49224_, int size) {
         super(p_49224_);
-        HollowLog.SIZE = 4;
+        this.size = size;
         registerDefaultState(defaultBlockState().setValue(HOLE, Direction.EAST));
     }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
@@ -54,7 +55,9 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new HollowLogEntity(pos, state);
+        BlockEntity h = new HollowLogEntity(pos, state);
+        h.serializeNBT().putInt("size", this.size);
+        return h;
     }
 
     @Override
