@@ -23,6 +23,10 @@ public class FFRii {
 
 
 
+    public static final RegistryObject<Item> VALYRIAN_STEEL = ITEMS.register("valyrian_steel",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+
+
     public static final RegistryObject<Item> DUCK_SPAWN_EGG = ITEMS.register("duck_spawn_egg",
             () -> new ForgeSpawnEggItem(FFRenty.DUCK, 0x856B5B, 0x70df92, new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
     public static final RegistryObject<Item> SKEETER_SPAWN_EGG = ITEMS.register("skeeter_spawn_egg",

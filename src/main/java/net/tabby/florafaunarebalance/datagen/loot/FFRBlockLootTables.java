@@ -40,6 +40,8 @@ public class FFRBlockLootTables extends BlockLoot {
     @Override
     protected void addTables() {
 
+
+
         dropSelf(FFRib.NYMPHAEACEAE.get()); //# createCropDrops..
         add(FFRib.WATER_LILY_ROOTS.get(), BlockLoot::createShearsOnlyDrop);
         //add(FFRib.NYMPHAEACEAE.get(),
@@ -53,6 +55,11 @@ public class FFRBlockLootTables extends BlockLoot {
         dropSelf(FFRib.STRIPPED_BAMBOO_LOG.get());
         dropSelf(FFRib.BAMBOO_WOOD.get());
         dropSelf(FFRib.STRIPPED_BAMBOO_WOOD.get());
+
+        add(FFRib.VALYRIAN_HOLLOW_LOG.get(),
+                (block -> blockWithSilkAnd2Drops(FFRib.VALYRIAN_HOLLOW_LOG.get(), FFRii.BARK_SCRAP.get(), FFRii.TWIG.get())));
+
+
 
         add(FFRib.BAMBOO_LEAVES.get(),
                 (block) -> createBambooLeavesDrops(FFRib.BAMBOO_LEAVES.get(), Items.CHORUS_FRUIT,  BAMBOO_FRUIT_CHANCES));
@@ -85,6 +92,13 @@ public class FFRBlockLootTables extends BlockLoot {
     protected @NotNull Iterable<Block> getKnownBlocks() {
         return FFRib.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
+    protected static LootTable.Builder blockWithSilkAnd2Drops(Block block, ItemLike a, ItemLike b) {
+        return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(a).apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0f, 5.0f)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(applyExplosionDecay(block, LootItem.lootTableItem(b).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))));
+    }
+
+
+
     protected static LootTable.Builder dropBudWhenSilkElseLogAndSapling(Block pBud, Block pLog, ItemLike pSapling) {
         return createSilkTouchDispatchTable(pBud, applyExplosionDecay(pBud, LootItem.lootTableItem(pLog)))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(applyExplosionDecay(pBud, LootItem.lootTableItem(pSapling).apply(SetItemCountFunction.setCount(UniformGenerator.between(-5.0f, 2.0f))).apply(LimitCount.limitCount(IntRange.lowerBound(0))))));

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "florafaunarebalance:block/valyrian_log",
+    "side": "florafaunarebalance:block/valyrian_log"
+  }
+}

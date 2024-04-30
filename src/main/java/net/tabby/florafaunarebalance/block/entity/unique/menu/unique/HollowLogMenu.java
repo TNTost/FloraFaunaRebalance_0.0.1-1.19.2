@@ -65,7 +65,7 @@ public class HollowLogMenu extends AbstractContainerMenu {
 
 
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, be.getBlockPos()), player, FFRib.HOLLOW_LOG.get());
+        return stillValid(ContainerLevelAccess.create(level, be.getBlockPos()), player, FFRib.VALYRIAN_HOLLOW_LOG.get());
     }
 
     private void addPlayerInventory(Inventory inv) {

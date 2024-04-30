@@ -3,6 +3,6 @@
   "textures": {
     "end": "florafaunarebalance:block/elysian_log_top",
     "side": "florafaunarebalance:block/elysian_log",
-    "front": "florafaunarebalance:block/hollow_log"
+    "front": "florafaunarebalance:block/elysian_hollow_log"
   }
 }

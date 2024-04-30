@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "florafaunarebalance:item/elysian_leaves"
-  }
+  "parent": "florafaunarebalance:block/elysian_leaves"
 }

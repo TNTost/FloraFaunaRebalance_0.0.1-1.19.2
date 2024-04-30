@@ -14,7 +14,7 @@ public class FFRbe {
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, FloraFaunaRebalance.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<HollowLogEntity>> HOLLOW_LOG_BE = BLOCK_ENTITY.register("hollow_low_be",
-            () -> BlockEntityType.Builder.of(HollowLogEntity::new, FFRib.HOLLOW_LOG.get()).build(null));
+            () -> BlockEntityType.Builder.of(HollowLogEntity::new, FFRib.VALYRIAN_HOLLOW_LOG.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY.register(eventBus);

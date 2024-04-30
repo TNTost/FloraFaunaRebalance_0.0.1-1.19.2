@@ -16,6 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.block.core.Planks;
 import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
 import net.tabby.florafaunarebalance.block.core.unique.ExtendBonemealableLog;
@@ -32,47 +33,46 @@ public class FFRib {
 
 
 
-    public static final RegistryObject<RotatedLogCore> HOLLOW_LOG = registerBlock("hollow_log",
+    public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
-    public static final RegistryObject<RotatedLogCore> ENHANCED_HOLLOW_LOG = registerBlock("enhanced_hollow_log",
+    public static final RegistryObject<RotatedLogCore> ENHANCED_VALYRIAN_HOLLOW_LOG = registerBlock("enhanced_valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedLogCore> VALYRIAN_LOG = registerBlock("valyrian_log.json",
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedLogCore> VALYRIAN_WOOD = registerBlock("valyrian_wood",
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+
+    public static final RegistryObject<Block> VALYRIAN_PLANKS = registerBlock("valyrian_planks",
+            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> VIBRANT_VALYRIAN_PLANKS = registerBlock("vibrant_elysian_planks",
+            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> VALYRIAN_LEAVES = registerBlock("valyrian_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+            }, FFRCreativeTab.FFR_TAB);
 
 
-    public static final RegistryObject<RotatedPillarBlock> ELYSIAN_LOG = registerBlock("elysian_log",
+    public static final RegistryObject<RotatedLogCore> ELYSIAN_HOLLOW_LOG = registerBlock("elysian_hollow_log",
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<RotatedLogCore> ELYSIAN_LOG = registerBlock("elysian_log", //#TODO: grows sprouts faster and has differing effects as opposed to valyrian.
             () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
-    public static final RegistryObject<RotatedPillarBlock> ELYSIAN_WOOD = registerBlock("elysian_wood",
+    public static final RegistryObject<RotatedLogCore> ELYSIAN_WOOD = registerBlock("elysian_wood",
             () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
 
     public static final RegistryObject<Block> ELYSIAN_PLANKS = registerBlock("elysian_planks",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)) { //# bug, cannot copy OAK_LOG as axis property interferes.
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 5;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 20;
-                }
-            }, FFRCreativeTab.FFR_TAB);
-    public static final RegistryObject<Block> VIBRANT_ELYSIAN_PLANKS = registerBlock("vibrant_elysian_planks",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 5;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 20;
-                }
-            }, FFRCreativeTab.FFR_TAB);
+            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+                //# bug, cannot copy OAK_LOG as axis property interferes.
     public static final RegistryObject<Block> ELYSIAN_LEAVES = registerBlock("elysian_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){
                 @Override
@@ -100,35 +100,9 @@ public class FFRib {
 
 
     public static final RegistryObject<Block> BAMBOO_PLANKS = registerBlock("bamboo_planks",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.BAMBOO)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 5;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 20;
-                }
-            }, FFRCreativeTab.FFR_VANILLA);
+            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_VANILLA);
     public static final RegistryObject<Block> BAMBOO_MOSAIC = registerBlock("bamboo_mosaic",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.BAMBOO)) {
-                @Override
-                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return true;
-                }
-                @Override
-                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 5;
-                }
-                @Override
-                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-                    return 20;
-                }
-            }, FFRCreativeTab.FFR_VANILLA);
+            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_VANILLA);
 
     public static final RegistryObject<RotatedPillarBlock> BAMBOO_LOG = registerBlock("bamboo_log",
             () -> new ExtendBonemealableLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).sound(SoundType.BAMBOO)), FFRCreativeTab.FFR_VANILLA);

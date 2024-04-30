@@ -26,6 +26,8 @@ public class FFRBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(FFRib.BAMBOO_PLANKS);
         simpleBlockWithItem(FFRib.BAMBOO_MOSAIC);
 
+        axisBlock(FFRib.VALYRIAN_HOLLOW_LOG.get(), this.blockTexture(FFRib.VALYRIAN_HOLLOW_LOG.get()), this.extend(this.blockTexture(FFRib.VALYRIAN_HOLLOW_LOG.get()), "_top"));
+
         logWithItem(FFRib.BAMBOO_LOG);
         axisBlock(FFRib.BAMBOO_WOOD.get(), blockTexture(FFRib.BAMBOO_LOG.get()), blockTexture(FFRib.BAMBOO_LOG.get()));
             simpleBlockItem(FFRib.BAMBOO_WOOD.get(), cubeColumnOffset(FFRib.BAMBOO_WOOD.get(), FFRib.BAMBOO_LOG.get()));
