@@ -36,14 +36,14 @@ public class FFRib {
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
     public static final RegistryObject<RotatedLogCore> ENHANCED_VALYRIAN_HOLLOW_LOG = registerBlock("enhanced_valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_TAB);
-    public static final RegistryObject<RotatedLogCore> VALYRIAN_LOG = registerBlock("valyrian_log.json",
+    public static final RegistryObject<RotatedLogCore> VALYRIAN_LOG = registerBlock("valyrian_log",
             () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<RotatedLogCore> VALYRIAN_WOOD = registerBlock("valyrian_wood",
             () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
 
     public static final RegistryObject<Block> VALYRIAN_PLANKS = registerBlock("valyrian_planks",
             () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
-    public static final RegistryObject<Block> VIBRANT_VALYRIAN_PLANKS = registerBlock("vibrant_elysian_planks",
+    public static final RegistryObject<Block> VIBRANT_VALYRIAN_PLANKS = registerBlock("vibrant_valyrian_planks",
             () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
     public static final RegistryObject<Block> VALYRIAN_LEAVES = registerBlock("valyrian_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){

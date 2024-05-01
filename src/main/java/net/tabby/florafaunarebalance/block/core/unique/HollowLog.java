@@ -55,8 +55,7 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        BlockEntity h = new HollowLogEntity(pos, state);
-        h.serializeNBT().putInt("size", this.size);
+        BlockEntity h = new HollowLogEntity(pos, state, this.size);
         return h;
     }
 

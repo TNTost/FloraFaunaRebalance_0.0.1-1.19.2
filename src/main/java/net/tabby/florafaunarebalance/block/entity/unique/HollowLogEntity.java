@@ -28,9 +28,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class HollowLogEntity extends RandomizableContainerBlockEntity implements MenuProvider {
-    public static int SLOT_NUMBER;
+    public int size;
+    private NonNullList<ItemStack> items; //# TODO: size isn't initialised correctly... ...
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_NUMBER, ItemStack.EMPTY); //# TODO: size isn't initialised correctly... ...
+
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
@@ -54,6 +55,10 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
     public HollowLogEntity(BlockPos pos, BlockState state) {
         super(FFRbe.HOLLOW_LOG_BE.get(), pos, state);
     }
+    public HollowLogEntity(BlockPos pos, BlockState state, int size) {
+        super(FFRbe.HOLLOW_LOG_BE.get(), pos, state);
+        items = NonNullList.withSize(size, ItemStack.EMPTY);
+    }
 
     protected final ContainerData data = new ContainerData() {
         @Override
@@ -65,7 +70,7 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
         }
         @Override
         public int getCount() {
-            return SLOT_NUMBER;
+            return size;
         }
     };
 
@@ -73,7 +78,9 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
         super.saveAdditional(tag);
         if (!this.trySaveLootTable(tag)) {
             ContainerHelper.saveAllItems(tag, this.items);
-            tag.putInt("size", SLOT_NUMBER);
+            if (this.size != 0) tag.putInt("size", this.size); //# important for allowing <size> to function.
+
+            this.setChanged();
         }
     }
     public void load(@NotNull CompoundTag tag) {
@@ -81,9 +88,9 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(tag)) {
             ContainerHelper.loadAllItems(tag, this.items);
-            if (tag.contains("size")) {
-                SLOT_NUMBER = tag.getInt("size");
-            }
+            if (tag.contains("size")) this.size = tag.getInt("size"); //# important for allowing <size> to function.
+
+            this.setChanged();
         }
     }
 
