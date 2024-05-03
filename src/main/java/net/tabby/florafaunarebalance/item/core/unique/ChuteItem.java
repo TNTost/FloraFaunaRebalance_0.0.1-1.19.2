@@ -125,7 +125,7 @@ public class ChuteItem extends ProjectileWeaponItem implements Vanishable {
                     }
                 }
                 shootProjectile(level, player, chuteItem, ammo, pow); //# shoot the projectile, duh.
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
+                //level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0f, (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f); //# interesting sound <- accidental creation
             }
         }
     }
