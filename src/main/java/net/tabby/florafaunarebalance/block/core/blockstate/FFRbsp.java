@@ -1,8 +1,8 @@
-package net.tabby.florafaunarebalance.block.core;
+package net.tabby.florafaunarebalance.block.core.blockstate;
 
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class FFRBlockStateProperties {
+public class FFRbsp {
     public static final IntegerProperty NUTRIENTS;
 
     static {

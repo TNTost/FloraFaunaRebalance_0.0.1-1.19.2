@@ -18,10 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.Planks;
 import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
-import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
-import net.tabby.florafaunarebalance.block.core.unique.ExtendBonemealableLog;
-import net.tabby.florafaunarebalance.block.core.unique.HollowLog;
-import net.tabby.florafaunarebalance.block.core.unique.WaterLilyFlower;
+import net.tabby.florafaunarebalance.block.core.unique.*;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
@@ -31,6 +28,9 @@ public class FFRib {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
+
+    public static final RegistryObject<Block> IGNEOUS_ROCK = registerBlock("igneous_rock",
+            () -> new IgneousRock(BlockBehaviour.Properties.of(Material.STONE).randomTicks()), FFRCreativeTab.FFR_TAB); //# when lava source meets stone or smthn.
 
     public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
