@@ -29,6 +29,9 @@ public class FFRib {
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
 
+    public static final RegistryObject<Block> PYRITE_ORE = registerBlock("pyrite_ore",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)), FFRCreativeTab.FFR_TAB);
+
     public static final RegistryObject<Block> IGNEOUS_ROCK = registerBlock("igneous_rock",
             () -> new IgneousRock(BlockBehaviour.Properties.of(Material.STONE).randomTicks()), FFRCreativeTab.FFR_TAB); //# when lava source meets stone or smthn.
 
@@ -60,6 +63,8 @@ public class FFRib {
                     return 60;
                 }
             }, FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> VALYRIAN_SAPLING = registerBlock("valyrian_sapling",
+            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_TAB);
 
 
     public static final RegistryObject<RotatedLogCore> ELYSIAN_HOLLOW_LOG = registerBlock("elysian_hollow_log",
@@ -87,6 +92,8 @@ public class FFRib {
                     return 60;
                 }
             }, FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> ELYSIAN_SAPLING = registerBlock("elysian_sapling",
+            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_TAB);
 
 
     //# nymphaeaceae -> /nɪmfiːˈeɪsiː/
