@@ -31,8 +31,10 @@ public class FFRib {
 
     public static final RegistryObject<Block> PYRITE_ORE = registerBlock("pyrite_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)), FFRCreativeTab.FFR_TAB);
+    public static final RegistryObject<Block> DEEPSLATE_PYRITE_ORE = registerBlock("deepslate_pyrite_ore",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE)), FFRCreativeTab.FFR_TAB);
 
-    public static final RegistryObject<Block> IGNEOUS_ROCK = registerBlock("igneous_rock",
+    public static final RegistryObject<Block> RHYOLITIC_PUMICE = registerBlock("igneous_rock",
             () -> new IgneousRock(BlockBehaviour.Properties.of(Material.STONE).randomTicks()), FFRCreativeTab.FFR_TAB); //# when lava source meets stone or smthn.
 
     public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",

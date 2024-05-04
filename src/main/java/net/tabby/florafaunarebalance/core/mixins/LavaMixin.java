@@ -27,7 +27,7 @@ public abstract class LavaMixin extends FlowingFluid {
             if (state.is(Blocks.STONE)) {
                 System.out.println("stone found");
 
-                level.setBlock(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(level, pos, pos, FFRib.IGNEOUS_ROCK.get().defaultBlockState()), 1);
+                level.setBlock(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(level, pos, pos, FFRib.RHYOLITIC_PUMICE.get().defaultBlockState()), 1);
                 this.fizz(level, pos);
             }
         }

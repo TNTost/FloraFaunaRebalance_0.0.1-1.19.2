@@ -17,7 +17,10 @@
   "item.florafaunarebalance.twig": "Twig",
   "item.florafaunarebalance.pointed_stick": "Pointed Stick",
 
-  "block.florafaunarebalance.igneous_rock": "Igneous Rock",
+
+  "block.florafaunarebalance.igneous_rock": "Rhyolitic Pumice",
+  "block.florafaunarebalance.pyrite_ore": "Pyrite Ore",
+  "block.florafaunarebalance.deepslate_pyrite_ore": "Deepslate Pyrite Ore",
 
 
   "block.florafaunarebalance.elysian_log": "Elysian Log",
