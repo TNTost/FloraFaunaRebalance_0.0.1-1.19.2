@@ -24,8 +24,6 @@ import net.tabby.florafaunarebalance.entity.client.renderer.SkeeterRenderer;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
-import net.tabby.florafaunarebalance.world.feature.FFRcf;
-import net.tabby.florafaunarebalance.world.feature.FFRpf;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -42,8 +40,8 @@ public class FloraFaunaRebalance
         FFRii.register(modEventBus); //# items.
 
         FFRib.register(modEventBus); //# blocks.
-        FFRcf.register(modEventBus); //# <ores> configured-feature.
-        FFRpf.register(modEventBus); //# <ores> placed-feature.
+        //FFRcf.register(modEventBus); //# <ores> configured-feature.
+        //FFRpf.register(modEventBus); //# <ores> placed-feature.
 
         FFRbe.register(modEventBus); //# block-entities.
         FFRmt.register(modEventBus); //# be^-menus.

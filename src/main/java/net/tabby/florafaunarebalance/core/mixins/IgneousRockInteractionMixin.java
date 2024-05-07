@@ -25,7 +25,7 @@ public abstract class IgneousRockInteractionMixin { //# must inherit everything 
     @Inject(method = "canInteract", at = @At("HEAD"), cancellable = true, remap = false)
     private static void FFRSolidInteraction(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         for (Direction d : LiquidBlock.POSSIBLE_FLOW_DIRECTIONS) {
-            BlockPos relative = pos.relative(d.getOpposite());
+            BlockPos relative = pos.relative(d);
             for (Pair<FluidType, BlockState> p : SOLID_INTERACTIONS.getOrDefault(level.getBlockState(relative).getBlock(), Collections.emptyList())) {
                 if (level.getBlockState(pos).getFluidState().getFluidType().equals(p.getA())) {
                     level.setBlockAndUpdate(relative, p.getB());
