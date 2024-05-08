@@ -6,8 +6,8 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "LilyPadMixin",
-    "LavaMixin",
-    "IgneousRockInteractionMixin"
+    "IgneousRockInteractionMixin",
+    "ChunkGeneratorMixin"
   ],
   "client": [
   ],
