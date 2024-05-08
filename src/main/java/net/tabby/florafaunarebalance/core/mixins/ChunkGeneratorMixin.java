@@ -37,13 +37,14 @@ public class ChunkGeneratorMixin {
         ChunkPos chunkPos = chunk.getPos();
         if (!SharedConstants.debugVoidTerrain(chunkPos)) {
             LevelChunkSection[] lcs = chunk.getSections(); //# getHighestSection() gets top layer of dirt
-            for (LevelChunkSection lc : lcs) {
+            for (int index = 0; index < lcs.length; index++) {
+                LevelChunkSection lc = lcs[index];
                 for (int x = 0; x < 16; x++) {
                     for (int y = 0; y < 16; y++) {
                         for (int z = 0; z < 16; z++) {
                             BlockState iron = lc.getBlockState(x, y, z);
                             if (iron.is(Blocks.IRON_ORE) || iron.is(Blocks.DEEPSLATE_IRON_ORE)) {
-                                if (checkRelative(lc, new BlockPos(x, y, z))) {
+                                if (checkRelative(lcs, index, new BlockPos(x, y, z))) {
                                     if (iron.is(Blocks.DEEPSLATE_IRON_ORE)) {
                                         lc.setBlockState(x, y, z, FFRib.DEEPSLATE_PYRITE_ORE.get().defaultBlockState());
                                         System.out.println("<DEEPSLATE IRON ORE> found AND replaced at '" + x + " " + y + " " + z + "'");
@@ -60,17 +61,20 @@ public class ChunkGeneratorMixin {
             }
         }
     }
-    private boolean checkRelative(LevelChunkSection lsc, BlockPos pos) {
+    private boolean checkRelative(LevelChunkSection[] lsc, int index, BlockPos pos) {
         for (Direction d : Direction.values()) {
             BlockPos rlt = pos.relative(d);
             int x = rlt.getX();
             int y = rlt.getY();
             int z = rlt.getZ();
-            if (x >= 0 && x < 16 && y >= 0 && y < 16 && z >= 0 && z < 16) { //# TODO: get neighbor chunks if direction out of bounds...
-                if (lsc.getBlockState(rlt.getX(), rlt.getY(), rlt.getZ()).getFluidState().is(FluidTags.LAVA)) {
+            int sign = y == 16 ? 1 : y < 0 ? -1 : 0;
+            y -= sign * 16;
+            if (x >= 0 && x < 16 && z >= 0 && z < 16) { //# TODO: get neighbor chunks if direction out of bounds...
+                if (lsc[index + sign].getBlockState(x, y, z).getFluidState().is(FluidTags.LAVA)) {
                     return true; //# might cause out of bounds error, if possible check each position of iron for the entire chunk and then calculate coordinates from there
                     //# if IF possible turn chunk into stream and filter out iron blocks and lava blocks then compare at offsets od Direction.values().
                 }
+            } else if (false) {
             }
         }
         return false;
