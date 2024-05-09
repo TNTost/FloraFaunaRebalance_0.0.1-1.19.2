@@ -1,5 +1,12 @@
 {
   "values": [
+    "florafaunarebalance:valyrian_log",
+    "florafaunarebalance:valyrian_wood",
+    "florafaunarebalance:valyrian_planks",
+    "florafaunarebalance:vibrant_valyrian_planks",
+    "florafaunarebalance:valyrian_hollow_log",
+    "florafaunarebalance:enhanced_valyrian_hollow_log",
+
     "florafaunarebalance:sapphire_ore",
     "florafaunarebalance:deepslate_sapphire_ore",
     "florafaunarebalance:sapphire_block"

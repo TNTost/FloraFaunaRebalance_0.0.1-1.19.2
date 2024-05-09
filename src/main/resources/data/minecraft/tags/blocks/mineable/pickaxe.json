@@ -2,6 +2,9 @@
   "values": [
     "florafaunarebalance:sapphire_ore",
     "florafaunarebalance:deepslate_sapphire_ore",
-    "florafaunarebalance:sapphire_block"
+    "florafaunarebalance:sapphire_block",
+
+    "florafaunarebalance:pyrite_ore",
+    "florafaunarebalance:deepslate_pyrite_ore"
   ]
 }

@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -38,6 +39,7 @@ public class FloraFaunaRebalance
 
 
         FFRii.register(modEventBus); //# items.
+        ToolAction.get("shovel_hollow");
 
         FFRib.register(modEventBus); //# blocks.
         //FFRcf.register(modEventBus); //# <ores> configured-feature.
