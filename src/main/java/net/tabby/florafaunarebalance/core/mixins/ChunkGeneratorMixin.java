@@ -3,6 +3,7 @@ package net.tabby.florafaunarebalance.core.mixins;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
@@ -31,13 +32,18 @@ import java.util.stream.Stream;
 public class ChunkGeneratorMixin {
     @Unique
     private final OrePlacer orePlacer = new OrePlacer();
+
     @Inject(method = "applyBiomeDecoration", at = @At("TAIL"))
     private void ffr$applyBiomeDecorations(WorldGenLevel level, ChunkAccess chunk, StructureManager struct, CallbackInfo ci) {
-        orePlacer.placeOres(level, (ChunkGenerator) ((Object)this), chunk);
+        orePlacer.placeOresIn(chunk, level);
+
         ChunkPos chunkPos = chunk.getPos();
-        if (!SharedConstants.debugVoidTerrain(chunkPos)) {
+        if (!SharedConstants.debugVoidTerrain(chunkPos) && false) {
+
             LevelChunkSection[] lcs = chunk.getSections(); //# getHighestSection() gets top layer of dirt
             for (int index = 0; index < lcs.length; index++) {
+                SectionPos sectionPos = SectionPos.of(chunkPos, index);
+                sectionPos.blocksInside();
                 LevelChunkSection lc = lcs[index];
                 for (int x = 0; x < 16; x++) {
                     for (int y = 0; y < 16; y++) {
@@ -69,7 +75,7 @@ public class ChunkGeneratorMixin {
             int z = rlt.getZ();
             int sign = y == 16 ? 1 : y < 0 ? -1 : 0;
             y -= sign * 16;
-            if (x >= 0 && x < 16 && z >= 0 && z < 16) { //# TODO: get neighbor chunks if direction out of bounds...
+            if (x >= 0 && x < 16 && z >= 0 && z < 16) {
                 if (lsc[index + sign].getBlockState(x, y, z).getFluidState().is(FluidTags.LAVA)) {
                     return true; //# might cause out of bounds error, if possible check each position of iron for the entire chunk and then calculate coordinates from there
                     //# if IF possible turn chunk into stream and filter out iron blocks and lava blocks then compare at offsets od Direction.values().

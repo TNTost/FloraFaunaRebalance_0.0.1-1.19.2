@@ -21,4 +21,8 @@ public class IgneousRock extends Block {
         super(p);
     }
 
+    @Override
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        //# make it spark
+    }
 }

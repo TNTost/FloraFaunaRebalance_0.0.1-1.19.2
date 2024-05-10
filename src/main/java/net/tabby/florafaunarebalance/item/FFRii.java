@@ -23,6 +23,8 @@ public class FFRii {
 
 
 
+    public static final RegistryObject<Item> PYRITE = ITEMS.register("pyrite",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
     public static final RegistryObject<Item> VALYRIAN_STEEL = ITEMS.register("valyrian_steel",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
 
