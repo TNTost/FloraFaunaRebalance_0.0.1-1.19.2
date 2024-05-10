@@ -4,8 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import oshi.util.tuples.Pair;
@@ -13,6 +15,7 @@ import oshi.util.tuples.Pair;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -22,30 +25,25 @@ import java.util.stream.Stream;
 public class OrePlacer {
 
 
-    private static <K, V> Map<K, V> listToMap(List<K> keys, List<V> vals) {
-        return IntStream.range(0, keys.size()).boxed().collect(Collectors.toMap(keys::get, vals::get));
+    private static <K, V> Map<K, V> listToMap(Set<K> keys, List<V> vals) {
+        return IntStream.range(0, keys.size()).boxed().collect(Collectors.toMap(keys.stream().toList()::get, vals::get));
     }
 
     public void placeOresIn(ChunkAccess chunk, WorldGenLevel level) {
         FFRcd cd = new FFRcd();
         Map<Block, Pair<?, BlockState>> definition = listToMap(cd.getPredicate(), cd.getConvert());
-        LevelChunkSection[] lcs = chunk.getSections();
-        for (int index = 0; index < lcs.length; index++) {
-            LevelChunkSection lc = lcs[index];
+        ChunkPos c = chunk.getPos();
 
-            Stream<BlockPos> replaceableOres = SectionPos.of(chunk.getPos(), index).blocksInside().filter( //# in world coordinates..
-                    pos -> cd.getPredicate().stream().anyMatch(Predicate.isEqual(lc.getBlockState(
-                            (pos.getX() % 16 + 16) % 16, (pos.getY() % 16 + 16) % 16,  (pos.getZ() % 16 + 16) % 16).getBlock())));
-            //# if pos.get(x) = 352, then pos.get(x) >> 4 = 22 and 352 - 22 isn't in bounds...
+        Stream<SectionPos> sec = SectionPos.betweenClosedStream(c.x, chunk.getMinSection(), c.z, c.x, chunk.getMaxSection(), c.z).parallel();
+        List<Stream<BlockPos>> secStreams = sec.parallel().map(e -> e.blocksInside().filter(
+                pos -> cd.getPredicate().contains(level.getBlockState(pos).getBlock()))).toList();
+        //# TODO: optimise out the 2 for loops and include function <checkRelative> in stream..
 
+        for (Stream<BlockPos> replaceableOres : secStreams) {
             for (BlockPos pos : replaceableOres.toList()) {
-                BlockPos check = new BlockPos((pos.getX() % 16 + 16) % 16, (pos.getY() % 16 + 16) % 16,  (pos.getZ() % 16 + 16) % 16);
-                System.out.println(lc.getBlockState(check.getX(), check.getY(), check.getZ()).getBlock());
                 System.out.println(level.getBlockState(pos).getBlock());
-
-                Pair<?, BlockState> convert = definition.get(lc.getBlockState(
-                        (pos.getX() % 16 + 16) % 16, (pos.getY() % 16 + 16) % 16,  (pos.getZ() % 16 + 16) % 16).getBlock());
-                if (checkRelative(level, pos, lcs, index, Predicate.isEqual(convert.getA()))) {
+                Pair<?, BlockState> convert = definition.get(level.getBlockState(pos).getBlock());
+                if (checkRelative(level, pos, Predicate.isEqual(convert.getA()))) {
                     level.setBlock(pos, convert.getB(), 0);
                     System.out.println(pos);
                 }
@@ -53,7 +51,7 @@ public class OrePlacer {
         }
     }
 
-    protected boolean checkRelative(WorldGenLevel level, BlockPos pos, LevelChunkSection[] lcs, int index, Predicate<Block> predicate) {
+    protected boolean checkRelative(WorldGenLevel level, BlockPos pos, Predicate<Block> predicate) {
         for (Direction d : Direction.values()) {
             BlockPos rlt = pos.relative(d);
             //int x = rlt.getX();
