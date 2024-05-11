@@ -35,21 +35,19 @@ public class OrePlacer {
         ChunkPos c = chunk.getPos();
 
         Stream<SectionPos> sec = SectionPos.betweenClosedStream(c.x, chunk.getMinSection(), c.z, c.x, chunk.getMaxSection(), c.z).parallel();
-        List<Stream<BlockPos>> secStreams = sec.map(e -> e.blocksInside().filter(
+        List<BlockPos> replaceableOres = sec.flatMap(e -> e.blocksInside().filter(
                 pos -> cd.getPredicate().contains(level.getBlockState(pos).getBlock()))).toList();
         // .filter() does not work correctly it returns EVERY block...
         //# TODO: optimise out the 2 for loops and include function <checkRelative> in stream..
 
-        for (Stream<BlockPos> replaceableOres : secStreams) {
-            for (BlockPos pos : replaceableOres.toList()) {
-                System.out.println(level.getBlockState(pos));
-            }
+        for (BlockPos pos : replaceableOres) {
+            System.out.println(level.getBlockState(pos));
+        }
                 //Pair<?, BlockState> convert = definition.get(level.getBlockState(pos).getBlock());
                 //if (checkRelative(level, pos, Predicate.isEqual(convert.getA()))) {
                 //    level.setBlock(pos, convert.getB(), 0);
                 //    System.out.println(pos);
                 //}
-        }
     }
 
     protected boolean checkRelative(WorldGenLevel level, BlockPos pos, Predicate<Block> predicate) {
