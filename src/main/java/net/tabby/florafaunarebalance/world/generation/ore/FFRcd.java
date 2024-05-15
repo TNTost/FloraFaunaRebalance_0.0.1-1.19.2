@@ -8,11 +8,13 @@ import net.tabby.florafaunarebalance.block.FFRib;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
+import java.util.Set;
 
 public class FFRcd {
-    private final List<Block> predicate = List.of(
+    private final Set<Block> predicate = Set.of(
             Blocks.IRON_ORE,
             Blocks.DEEPSLATE_IRON_ORE);
+
     private final List<Pair<?, BlockState>> convert = List.of(
             new Pair<>(FluidTags.LAVA, FFRib.PYRITE_ORE.get().defaultBlockState()),
             new Pair<>(FluidTags.LAVA, FFRib.DEEPSLATE_PYRITE_ORE.get().defaultBlockState()));
@@ -21,7 +23,7 @@ public class FFRcd {
     public FFRcd() {
     }
 
-    public List<Block> getPredicate() {
+    public Set<Block> getPredicate() {
         return predicate;
     }
     public List<Pair<?, BlockState>> getConvert() {

@@ -1,5 +1,6 @@
 package net.tabby.florafaunarebalance.world.generation.ore;
 
+import it.unimi.dsi.fastutil.objects.Object2ShortArrayMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
@@ -9,14 +10,18 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.chunk.*;
 import oshi.util.tuples.Pair;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.BaseStream;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -33,22 +38,25 @@ public class OrePlacer {
         FFRcd cd = new FFRcd();
         Map<Block, Pair<?, BlockState>> definition = listToMap(cd.getPredicate(), cd.getConvert());
         ChunkPos c = chunk.getPos();
+        Set<Block> set = cd.getPredicate();
 
         Stream<SectionPos> sec = SectionPos.betweenClosedStream(c.x, chunk.getMinSection(), c.z, c.x, chunk.getMaxSection(), c.z).parallel();
-        List<BlockPos> replaceableOres = sec.flatMap(e -> e.blocksInside().filter(
-                pos -> cd.getPredicate().contains(level.getBlockState(pos).getBlock()))).toList();
+        Stream<BlockPos> replaceableOres = sec.flatMap(SectionPos::blocksInside).filter(pos -> set.contains(level.getBlockState(pos).getBlock())).peek(pos -> System.out.println(level.getBlockState(pos)));
+
         // .filter() does not work correctly it returns EVERY block...
         //# TODO: optimise out the 2 for loops and include function <checkRelative> in stream..
 
-        for (BlockPos pos : replaceableOres) {
-            System.out.println(level.getBlockState(pos));
+        for (BlockPos pos : replaceableOres.toList()) {
+            Pair<?, BlockState> convert = definition.getOrDefault(level.getBlockState(pos).getBlock(), new Pair<>(Blocks.EMERALD_BLOCK, Blocks.EMERALD_BLOCK.defaultBlockState())); //# remove null..
+            if (checkRelative(level, pos, Predicate.isEqual(convert.getA()))) {
+                level.setBlock(pos, convert.getB(), 0);
+                System.out.println(pos);
+            }
         }
-                //Pair<?, BlockState> convert = definition.get(level.getBlockState(pos).getBlock());
-                //if (checkRelative(level, pos, Predicate.isEqual(convert.getA()))) {
-                //    level.setBlock(pos, convert.getB(), 0);
-                //    System.out.println(pos);
-                //}
     }
+    //private void sift(Stream<BlockPos> posStream, FFRcd cd, Map<Block, Pair<?, BlockState>> definition) {
+    //    Pair<?, BlockState> convert = definition.getOrDefault()    ;
+    //}
 
     protected boolean checkRelative(WorldGenLevel level, BlockPos pos, Predicate<Block> predicate) {
         for (Direction d : Direction.values()) {
