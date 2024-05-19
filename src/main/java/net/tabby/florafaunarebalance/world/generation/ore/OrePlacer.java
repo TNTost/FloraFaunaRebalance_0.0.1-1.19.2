@@ -3,40 +3,52 @@ package net.tabby.florafaunarebalance.world.generation.ore;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.SectionPos;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
-import net.minecraft.world.level.material.Fluid;
-import net.tabby.florafaunarebalance.block.FFRib;
+import net.minecraftforge.registries.RegistryObject;
+import net.tabby.florafaunarebalance.Registry.FFRgr;
+import net.tabby.florafaunarebalance.item.FFRii;
+import net.tabby.florafaunarebalance.world.generation.ore.unique.ConversionDefinition;
+import net.tabby.florafaunarebalance.world.generation.ore.unique.VeinMask;
 import oshi.util.tuples.Triplet;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 public class OrePlacer {
+    public void placeVeins(ChunkAccess chunk, WorldGenLevel level) {
+        //# range, chance, clustering
+        //# mask generated with noise gets put over entire function so some areas have and some don't;
+        ChunkPos cp = chunk.getPos();
+        Set<BlockPos> mask = new VeinMask<>(cp).generate();
 
+        Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x, chunk.getMinSection(), cp.z, cp.x, chunk.getMaxSection(), cp.z)
+                .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains);
+    }
 
-
-
-    public void placeOresIn(ChunkAccess chunk, WorldGenLevel level) {
-        Map<Block, Triplet<Integer, ?, BlockState>> definition = new ConversionDefinition<>( //#TODO: replace raw data with call to registry...
-                Set.of(Blocks.IRON_ORE, Blocks.DEEPSLATE_IRON_ORE),
-                Set.of(new Triplet<>(1, Blocks.LAVA, FFRib.PYRITE_ORE.get().defaultBlockState()), new Triplet<>(1, Blocks.LAVA, FFRib.DEEPSLATE_PYRITE_ORE.get().defaultBlockState())))
-                .getMap();
+    public void replaceOres(ChunkAccess chunk, WorldGenLevel level) {
+        Map<Block, Triplet<Integer, ?, BlockState>> definition = new HashMap<>();
+        for (RegistryObject<ConversionDefinition<?, ?>> r : FFRgr.CONVERSION_DEFINITION.getEntries()) {
+            definition.put(r.get().getPredicate(), r.get().getConvert());
+            System.out.println(r.get().getMap());
+            System.out.println(r.get().getPredicate());
+            System.out.println(r.get().getConvert());
+            System.out.println(" ");
+        }
         Set<Block> set = definition.keySet();
-        Triplet<Integer, ?, BlockState> defaultTriplet = new Triplet<>(6, Blocks.NETHERITE_BLOCK, Blocks.REDSTONE_LAMP.defaultBlockState());
+        ChunkPos cp = chunk.getPos();
 
-        Stream<BlockPos> replaceableOres = SectionPos.betweenClosedStream(chunk.getPos().x, chunk.getMinSection(), chunk.getPos().z, chunk.getPos().x, chunk.getMaxSection(), chunk.getPos().z).parallel().flatMap(SectionPos::blocksInside).filter(
-                pos -> set.contains(level.getBlockState(pos).getBlock())).filter(
-                        pos -> {
-                            Triplet<Integer, ?, BlockState> convert = definition.getOrDefault(level.getBlockState(pos).getBlock(), defaultTriplet);
+        Stream<BlockPos> replaceableOres = SectionPos.betweenClosedStream(cp.x, chunk.getMinSection(), cp.z, cp.x, chunk.getMaxSection(), cp.z).parallel().flatMap(SectionPos::blocksInside)
+                .filter(pos -> set.contains(level.getBlockState(pos).getBlock())).filter(
+                        pos -> { Triplet<Integer, ?, BlockState> convert = definition.get(level.getBlockState(pos).getBlock());
+                            System.out.println(level.getBlockState(pos));
+                            System.out.println(convert.getB());
                             return checkRelative(level, pos, convert.getA(), Predicate.isEqual(convert.getB()));});
 
         replaceableOres.forEach(pos -> level.setBlock(pos, definition.get(level.getBlockState(pos).getBlock()).getC(), 0));
@@ -49,6 +61,10 @@ public class OrePlacer {
             BlockPos rlt = pos.relative(d);
             if (predicate.test(level.getBlockState(rlt).getBlock())) {
                 count++;
+                if (amount > 6) {
+                    // have a switch(d) to select extra blocks, test those also for stone and generate a spherical mask,
+                    //# send blockpos over to whereever
+                }
             }
         }
         return count >= amount;

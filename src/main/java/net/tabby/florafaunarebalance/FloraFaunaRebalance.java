@@ -15,7 +15,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.tabby.florafaunarebalance.Registry.FFRRegistry;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.menu.FFRmt;
@@ -28,7 +27,7 @@ import net.tabby.florafaunarebalance.entity.client.renderer.SkeeterRenderer;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
-import net.tabby.florafaunarebalance.world.generation.ore.ConversionDefinition;
+import net.tabby.florafaunarebalance.Registry.FFRgr;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -46,7 +45,7 @@ public class FloraFaunaRebalance
         ToolAction.get("shovel_hollow");
 
         FFRib.register(modEventBus); //# blocks.
-        FFRRegistry.Loc<ConversionDefinition> ORE_CONVERSIONS = new FFRRegistry.Loc<>(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "ore_conversions"));
+        FFRgr.register(modEventBus); //# ore-definition.
 
         //FFRcf.register(modEventBus); //# <ores> configured-feature.
         //FFRpf.register(modEventBus); //# <ores> placed-feature.
