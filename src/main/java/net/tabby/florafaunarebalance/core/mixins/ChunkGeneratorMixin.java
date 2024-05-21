@@ -23,12 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {
-    @Unique
-    private final OrePlacer orePlacer = new OrePlacer();
 
     @Inject(method = "applyBiomeDecoration", at = @At("TAIL"))
     private void ffr$applyBiomeDecorations(WorldGenLevel level, ChunkAccess chunk, StructureManager struct, CallbackInfo ci) {
+        OrePlacer orePlacer = new OrePlacer();
         orePlacer.replaceOres(chunk, level);
-
+        orePlacer.placeVeins(chunk, level);
     }
 }
