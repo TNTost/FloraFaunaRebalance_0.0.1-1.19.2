@@ -4,5 +4,5 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.Set;
 
-public class VeinDefinition<P extends Set<Block>> {
+public class Vein<P extends Set<Block>> {
 }

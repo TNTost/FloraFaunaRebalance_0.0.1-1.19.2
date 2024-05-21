@@ -11,7 +11,7 @@ import net.minecraft.world.level.chunk.*;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
 import net.tabby.florafaunarebalance.world.generation.ore.unique.ConversionDefinition;
-import net.tabby.florafaunarebalance.world.generation.ore.unique.VeinMask;
+import net.tabby.florafaunarebalance.world.generation.ore.unique.OreMask;
 import oshi.util.tuples.Triplet;
 
 import java.util.*;
@@ -21,13 +21,15 @@ import java.util.stream.Stream;
 
 
 public class OrePlacer {
-    private final Set<BlockPos> veinPositions = new HashSet<>();
-    public void placeVeins(ChunkAccess chunk, WorldGenLevel level) {
-        //# range, chance, clustering
-        //# mask generated with noise gets put over entire function so some areas have and some don't;
-        ChunkPos cp = chunk.getPos();
-        Set<BlockPos> mask = new VeinMask<>(cp).generate();
+    private final Set<OreMask<BlockPos, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean>> veinPositions = new HashSet<>();
 
+    //# range, chance, clustering
+    //# mask generated with noise gets put over entire function so some areas have and some don't;
+    public void placeVeins(ChunkAccess chunk, WorldGenLevel level) {
+        ChunkPos cp = chunk.getPos();
+        for (OreMask<?, ?, ?, ?, ?, ?, ?> orm : veinPositions) {
+            orm.getSphere()
+        }
         Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x, chunk.getMinSection(), cp.z, cp.x, chunk.getMaxSection(), cp.z)
                 .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains);
     }
@@ -48,16 +50,15 @@ public class OrePlacer {
 
     protected boolean checkRelative(WorldGenLevel level, BlockPos pos, int amount, Predicate<Block> predicate) {
         int count = 0;
+        List<Boolean> rltPresent = new ArrayList<>();
         for (Direction d : Direction.values()) {
             BlockPos rlt = pos.relative(d);
-            if (predicate.test(level.getBlockState(rlt).getBlock())) {
-                count++;
-                if (amount > 6) {
-                    this.veinPositions.add(rlt);
-                    // have a switch(d) to select extra blocks, test those also for stone and generate a spherical mask,
-                    //# send blockpos over to whereever
-                }
-            }
+            boolean result = predicate.test(level.getBlockState(rlt).getBlock());
+            rltPresent.add(amount > 6 && result);
+            count += result ? 1 : 0;
+        }
+        if (amount > 6) {
+            this.veinPositions.add(new OreMask<>(pos, rltPresent.get(0), rltPresent.get(1), rltPresent.get(2), rltPresent.get(3), rltPresent.get(4), rltPresent.get(5)));
         }
         return count >= amount;
     }
