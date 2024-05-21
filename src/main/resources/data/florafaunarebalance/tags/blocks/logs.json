@@ -1,21 +1,8 @@
 {
+  "replace": false,
   "values": [
-    "florafaunarebalance:elysian_log",
-    "florafaunarebalance:elysian_wood",
-    "florafaunarebalance:elysian_planks",
-    "florafaunarebalance:elysian_hollow_log",
-
-    "florafaunarebalance:valyrian_log",
-    "florafaunarebalance:valyrian_wood",
-    "florafaunarebalance:valyrian_planks",
-    "florafaunarebalance:vibrant_valyrian_planks",
-    "florafaunarebalance:valyrian_hollow_log",
-    "florafaunarebalance:enhanced_valyrian_hollow_log",
-
-
+    "minecraft:oak_log",
     "florafaunarebalance:hollow_log",
-    "florafaunarebalance:bamboo_planks",
-    "florafaunarebalance:bamboo_mosaic",
     "florafaunarebalance:bamboo_log",
     "florafaunarebalance:stripped_bamboo_log",
     "florafaunarebalance:bamboo_wood",
