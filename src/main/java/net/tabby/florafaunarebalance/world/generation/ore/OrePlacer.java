@@ -6,6 +6,7 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraftforge.registries.RegistryObject;
@@ -27,11 +28,14 @@ public class OrePlacer {
     //# mask generated with noise gets put over entire function so some areas have and some don't;
     public void placeVeins(ChunkAccess chunk, WorldGenLevel level) {
         ChunkPos cp = chunk.getPos();
-        for (OreMask<?, ?, ?, ?, ?, ?, ?> orm : veinPositions) {
-            orm.getSphere()
+        Set<BlockPos> mask = new HashSet<>();
+        for (OreMask<?, ?, ?, ?, ?, ?, ?> oreMask : veinPositions) {
+            mask.addAll(oreMask.getSphere());
         }
         Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x, chunk.getMinSection(), cp.z, cp.x, chunk.getMaxSection(), cp.z)
-                .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains);
+                .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains).filter(pos -> !level.getBlockState(pos).isAir());
+
+        cutout.forEach(pos -> level.setBlock(pos, Blocks.WAXED_COPPER_BLOCK.defaultBlockState(), 0));
     }
 
     public void replaceOres(ChunkAccess chunk, WorldGenLevel level) {

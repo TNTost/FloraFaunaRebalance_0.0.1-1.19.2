@@ -1,8 +1,10 @@
 package net.tabby.florafaunarebalance.util.FFR;
 
+import com.mojang.math.Matrix4f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
+import java.util.Arrays;
 import java.util.List;
 
 public enum DD implements Rotation {
@@ -32,6 +34,11 @@ public enum DD implements Rotation {
         this.ddx = ddx;
     }
 
+    public DD byDirection(Direction dx, Direction dy) {
+        return Arrays.stream(DD.values()).filter(dd -> dd.ddx == dx && dd.ddy == dy || dd.ddx == dy && dd.ddy == dx).findAny().get();
+    }
+
+
     public Enum<? extends Enum<?>> getX() {
         return !CENTER.contains(this) ? this.ddx : NONE;
     }
@@ -54,5 +61,11 @@ public enum DD implements Rotation {
     @Override
     public BlockPos relativeTo(BlockPos pos) {
         return relative(pos, this);
+    }
+    @Override
+    public Rotation rotate(Direction d) {
+        Direction rx = Direction.rotate(new Matrix4f(d.getRotation()), this.ddx);
+        Direction ry = Direction.rotate(new Matrix4f(d.getRotation()), this.ddy);
+        return byDirection(rx, ry);
     }
 }

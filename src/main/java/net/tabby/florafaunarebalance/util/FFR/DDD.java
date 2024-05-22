@@ -1,7 +1,12 @@
 package net.tabby.florafaunarebalance.util.FFR;
 
+import com.mojang.math.Matrix4f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public enum DDD implements Rotation {
     UP_FRONT_LEFT(Direction.UP, Direction.NORTH, Direction.WEST),
@@ -23,6 +28,10 @@ public enum DDD implements Rotation {
         this.dddz = dddz;
         this.dddx = dddx;
     }
+
+    public DDD byDirection(Direction dx, Direction dy, Direction dz) {
+        return Arrays.stream(DDD.values()).filter(ddd -> ddd.dddx == dx && ddd.dddy == dy && ddd.dddz == dz).findAny().get();
+    } //doing this for further dddd would result in d! complexity in this check.
 
     public Direction getY() {
         return this.dddy;
@@ -46,5 +55,23 @@ public enum DDD implements Rotation {
     @Override
     public BlockPos relativeTo(BlockPos pos) {
         return relative(pos, this);
+    }
+
+    private static final List<Direction> LR = List.of(Direction.EAST, Direction.WEST);
+    private static final List<Direction> FH = List.of(Direction.SOUTH, Direction.NORTH);
+    private static final List<Direction> UD = List.of(Direction.DOWN, Direction.UP);
+
+    public List<Direction> getXYZ() {
+        return List.of(this.dddx, this.dddy, this.dddz);
+    }
+
+    @Override
+    public Rotation rotate(Direction d) {
+        List<Direction> drc = new ArrayList<>();
+        getXYZ().forEach(w -> drc.add(Direction.rotate(new Matrix4f(d.getRotation()), w)));
+        Direction rx = drc.stream().filter(LR::contains).findAny().get();
+        Direction ry = drc.stream().filter(UD::contains).findAny().get();
+        Direction rz = drc.stream().filter(FH::contains).findAny().get();
+        return byDirection(rx, ry, rz);
     }
 }
