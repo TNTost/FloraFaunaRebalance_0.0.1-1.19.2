@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:logs",
     "florafaunarebalance:hollow_log",
     "florafaunarebalance:bamboo_log",
     "florafaunarebalance:stripped_bamboo_log",
