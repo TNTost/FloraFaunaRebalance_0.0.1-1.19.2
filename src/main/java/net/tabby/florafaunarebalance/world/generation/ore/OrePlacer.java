@@ -32,7 +32,7 @@ public class OrePlacer {
         for (OreMask<?, ?, ?, ?, ?, ?, ?> oreMask : veinPositions) {
             mask.addAll(oreMask.getSphere());
         }
-        Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x, chunk.getMinSection(), cp.z, cp.x, chunk.getMaxSection(), cp.z)
+        Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x - 1, chunk.getMinSection(), cp.z - 1, cp.x + 1, chunk.getMaxSection(), cp.z + 1)
                 .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains).filter(pos -> !level.getBlockState(pos).isAir());
 
         cutout.forEach(pos -> level.setBlock(pos, Blocks.WAXED_COPPER_BLOCK.defaultBlockState(), 0));

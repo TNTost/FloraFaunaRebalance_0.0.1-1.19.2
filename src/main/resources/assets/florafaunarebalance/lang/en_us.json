@@ -20,6 +20,7 @@
 
   "block.florafaunarebalance.igneous_rock": "Rhyolitic Pumice",
   "block.florafaunarebalance.pyrite_ore": "Pyrite Ore",
+  "block.florafaunarebalance.tuff_pyrite_ore": "Tuff Pyrite Ore",
   "block.florafaunarebalance.deepslate_pyrite_ore": "Deepslate Pyrite Ore",
 
   "item.florafaunarebalance.pyrite": "Pyrite",
@@ -75,5 +76,6 @@
   "enchantment.florafaunarebalance.barrage": "Barrage",
 
   "itemGroup.florafaunarebalancetab": "Flora Fauna Rebalance",
-  "itemGroup.florafaunavanillatab": "Flora Fauna Vanilla Expanded"
+  "itemGroup.florafaunavanillatab": "Flora Fauna Vanilla Expanded",
+  "itemgroup.ffr_minerals": "FFR Minerals"
 }

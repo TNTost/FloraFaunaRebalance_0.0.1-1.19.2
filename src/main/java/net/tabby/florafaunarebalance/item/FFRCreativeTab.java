@@ -20,5 +20,9 @@ public class FFRCreativeTab {
         }
     }.setEnchantmentCategories(new EnchantmentCategory[]{EnchantmentCategory.create("barrage", item -> item instanceof ChuteItem)});
 
-
+    public static final CreativeModeTab FFR_MINERALS = new CreativeModeTab("ffr_minerals") {
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(FFRii.PYRITE.get());
+        }
+    };
 }

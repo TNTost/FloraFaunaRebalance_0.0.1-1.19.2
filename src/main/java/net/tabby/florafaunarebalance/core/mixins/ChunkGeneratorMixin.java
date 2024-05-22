@@ -14,6 +14,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.world.generation.WorldExtender;
 import net.tabby.florafaunarebalance.world.generation.ore.OrePlacer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,9 +25,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {
 
+    @Unique
+    WorldExtender eX = new WorldExtender();
+
     @Inject(method = "applyBiomeDecoration", at = @At("TAIL"))
     private void ffr$applyBiomeDecorations(WorldGenLevel level, ChunkAccess chunk, StructureManager struct, CallbackInfo ci) {
-        OrePlacer orePlacer = new OrePlacer();
+        eX.bedrockPlus8();
+
+
+        OrePlacer orePlacer = new OrePlacer(); //# ore stuff
         orePlacer.replaceOres(chunk, level);
         orePlacer.placeVeins(chunk, level);
     }
