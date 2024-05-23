@@ -28,6 +28,8 @@ import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
+import net.tabby.florafaunarebalance.world.generation.ore.FFRof;
+import net.tabby.florafaunarebalance.world.generation.ore.FFRop;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -42,20 +44,18 @@ public class FloraFaunaRebalance
 
 
         FFRii.register(modEventBus); //# items.
+        FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
         ToolAction.get("shovel_hollow");
 
         FFRib.register(modEventBus); //# blocks.
         FFRgr.register(modEventBus); //# ore-definition.
-
-        //FFRcf.register(modEventBus); //# <ores> configured-feature.
-        //FFRpf.register(modEventBus); //# <ores> placed-feature.
+        FFRof.register(modEventBus); //# <ores> configured-feature.
+        FFRop.register(modEventBus); //# <ores> placed-feature.
 
         FFRbe.register(modEventBus); //# block-entities.
         FFRmt.register(modEventBus); //# be^-menus.
 
         FFRenty.register(modEventBus); //# entities.
-
-        FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
 
         modEventBus.addListener(this::Setup);
         modEventBus.addListener(this::clientSetup);

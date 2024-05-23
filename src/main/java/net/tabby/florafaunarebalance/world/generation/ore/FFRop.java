@@ -1,17 +1,32 @@
 package net.tabby.florafaunarebalance.world.generation.ore;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
+import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 
 import java.util.List;
 
 public class FFRop extends OrePlacements {
-    public static final Holder<PlacedFeature> ORE_PYRITE = PlacementUtils.register("ore_pyrite", FFRof.ORE_PYRITE, rareOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-120), VerticalAnchor.aboveBottom(60))));
-    public static final Holder<PlacedFeature> ORE_SAPHYRE = PlacementUtils.register("ore_saphyre", FFRof.ORE_SAPHYRE, rareOrePlacement(9, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-90), VerticalAnchor.aboveBottom(70))));
+    public static final DeferredRegister<PlacedFeature> PLACEMENT =
+            DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, FloraFaunaRebalance.MOD_ID);
 
+    public static final RegistryObject<PlacedFeature> ORE_PYRITE = PLACEMENT.register("ore_pyrite",
+            () -> new PlacedFeature(FFRof.ORE_PYRITE.getHolder().get(), rareOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-120), VerticalAnchor.aboveBottom(60)))));
+    public static final RegistryObject<PlacedFeature> ORE_SAPHYRE = PLACEMENT.register("ore_saphyre",
+            () -> new PlacedFeature(FFRof.ORE_SAPHYRE.getHolder().get(), rareOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-90), VerticalAnchor.aboveBottom(70)))));
+
+
+
+    public static void register(IEventBus eventBus) {
+        PLACEMENT.register(eventBus);
+    }
 
     private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());

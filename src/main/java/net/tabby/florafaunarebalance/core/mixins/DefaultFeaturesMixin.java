@@ -14,7 +14,7 @@ public class DefaultFeaturesMixin {
 
     @Inject(method = "addDefaultOres", at = @At("TAIL"))
     public static void ffr$addCustomOres(BiomeGenerationSettings.Builder builder, boolean fal, CallbackInfo ci) {
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_PYRITE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_SAPHYRE);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_PYRITE.getHolder().get());
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_SAPHYRE.getHolder().get());
     }
 }

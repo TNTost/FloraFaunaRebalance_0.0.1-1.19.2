@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
+import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.world.generation.ore.unique.ConversionDefinition;
 import net.tabby.florafaunarebalance.world.generation.ore.unique.OreMask;
 import oshi.util.tuples.Triplet;
@@ -33,7 +34,14 @@ public class OrePlacer {
             mask.addAll(oreMask.getSphere());
         }
         Stream<BlockPos> cutout = SectionPos.betweenClosedStream(cp.x - 1, chunk.getMinSection(), cp.z - 1, cp.x + 1, chunk.getMaxSection(), cp.z + 1)
-                .parallel().flatMap(SectionPos::blocksInside).filter(mask::contains).filter(pos -> !level.getBlockState(pos).isAir());
+                .parallel().flatMap(SectionPos::blocksInside).peek(e -> {
+                    if (level.getBlockState(e).is(FFRib.SAPHYRE_ORE.get()) || level.getBlockState(e).is(FFRib.DEEPSLATE_SAPHYRE_ORE.get())) {
+                        System.out.println("Saphyire found at loc: " + e);
+                    }
+                    if (level.getBlockState(e).is(FFRib.TUFF_PYRITE_ORE.get())) {
+                        System.out.println("Tuff-Pyrite found at loc: " + e);
+                    }
+                }).filter(mask::contains).filter(pos -> !level.getBlockState(pos).isAir());
 
         cutout.forEach(pos -> level.setBlock(pos, Blocks.WAXED_COPPER_BLOCK.defaultBlockState(), 0));
     }
