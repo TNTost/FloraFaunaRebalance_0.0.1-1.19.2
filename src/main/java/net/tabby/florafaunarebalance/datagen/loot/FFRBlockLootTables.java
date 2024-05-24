@@ -82,10 +82,10 @@ public class FFRBlockLootTables extends BlockLoot {
         add(FFRib.BUDDING_MANGROVE_WOOD.get(), (block) -> dropBudWhenSilkElseLogAndSapling(FFRib.BUDDING_MANGROVE_WOOD.get(), Blocks.MANGROVE_WOOD, Items.MANGROVE_PROPAGULE));
 
         dropSelf(FFRib.SAPPHIRE_BLOCK.get());
-        add(FFRib.SAPPHIRE_ORE.get(),
-                (block) -> createOreDrop(FFRib.SAPPHIRE_ORE.get(), FFRii.SAPPHIRE.get()));
-        add(FFRib.DEEPSLATE_SAPPHIRE_ORE.get(),
-                (block) -> createOreDrop(FFRib.DEEPSLATE_SAPPHIRE_ORE.get(), FFRii.SAPPHIRE.get()));
+        add(FFRib.SAPHYRE_ORE.get(),
+                (block) -> createOreDrop(FFRib.SAPHYRE_ORE.get(), FFRii.SAPPHIRE.get()));
+        add(FFRib.DEEPSLATE_SAPHYRE_ORE.get(),
+                (block) -> createOreDrop(FFRib.DEEPSLATE_SAPHYRE_ORE.get(), FFRii.SAPPHIRE.get()));
     }
 
     @Override

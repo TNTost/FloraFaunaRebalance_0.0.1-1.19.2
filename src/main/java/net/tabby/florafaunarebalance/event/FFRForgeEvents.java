@@ -28,14 +28,15 @@ import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
 import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 
+import java.util.Iterator;
 import java.util.Objects;
 
-
+@SuppressWarnings("unused")
 public class FFRForgeEvents {
     @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID)
     public static class ForgeEvents {
 
-        @SubscribeEvent
+        @SubscribeEvent //# TODO: doesn't check if block CAN or SHOULD be placed.
         public static void onOpenHollowLog(PlayerInteractEvent.RightClickBlock event) {
             BlockPos pos = event.getPos();
             BlockState s = getAt(pos);
@@ -48,7 +49,7 @@ public class FFRForgeEvents {
                         event.getLevel().playSound(null, pos, Block.byItem(itm.getItem()).getSoundType(Block.byItem(itm.getItem()).defaultBlockState(), event.getLevel(), pos.relative(event.getFace()), event.getEntity()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
                         event.getEntity().swing(event.getHand());
                     }
-                    event.setCanceled(true); //#TODO: simplify && account for log/block rotations/facing
+                    event.setCanceled(true);
                 }
             }
         }
@@ -56,6 +57,7 @@ public class FFRForgeEvents {
             Level lvl = Minecraft.getInstance().level;
             return lvl != null ? lvl.getBlockState(pos) : null;
         }
+
         //@SubscribeEvent
         //public static void onPlaceLilyAimWater(PlayerInteractEvent.RightClickItem event) {
         //    if (event.getItemStack().is(FFRib.NYMPHAEACEAE.get().asItem())) {

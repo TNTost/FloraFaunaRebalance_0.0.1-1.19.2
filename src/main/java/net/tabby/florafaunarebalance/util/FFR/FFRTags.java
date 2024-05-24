@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.util;
+package net.tabby.florafaunarebalance.util.FFR;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;

@@ -8,7 +8,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.util.FFRTags;
+import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 import org.jetbrains.annotations.Nullable;
 
 public class FFRItemTagGenerator extends ItemTagsProvider {

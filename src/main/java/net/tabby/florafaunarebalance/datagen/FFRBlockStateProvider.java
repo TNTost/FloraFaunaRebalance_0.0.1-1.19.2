@@ -65,8 +65,8 @@ public class FFRBlockStateProvider extends BlockStateProvider {
 
 
         simpleBlockWithItem(FFRib.SAPPHIRE_BLOCK);
-        simpleBlockWithItem(FFRib.SAPPHIRE_ORE);
-        simpleBlockWithItem(FFRib.DEEPSLATE_SAPPHIRE_ORE);
+        simpleBlockWithItem(FFRib.SAPHYRE_ORE);
+        simpleBlockWithItem(FFRib.DEEPSLATE_SAPHYRE_ORE);
     }
 
     public void logWithItem (RegistryObject<RotatedPillarBlock> pLog) {

@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.util;
+package net.tabby.florafaunarebalance.util.FFR;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -9,7 +9,7 @@ public class FFRItemProperties {
     public static void addCustomItemProperties() {
         makeBow(FFRii.DART_CHUTE.get());
     }
-    private static void makeBow(Item Items) {
+    private static void makeBow(Item Items) { //# TODO: add diff custom values here.
         ItemProperties.register(Items, new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {
             if (p_174637_ == null) {
                 return 0.0F;

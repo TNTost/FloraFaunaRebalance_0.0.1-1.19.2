@@ -19,6 +19,8 @@ public class FFRItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         withExistingParent(FFRii.DUCK_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(FFRii.SKEETER_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+
         simpleItem(FFRii.SAPPHIRE);
        // simpleItem(FFRii.UNTIPPED_DART);
        // simpleItem(FFRii.POISON_DART);

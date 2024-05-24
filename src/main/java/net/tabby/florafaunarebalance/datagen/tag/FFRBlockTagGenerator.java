@@ -118,12 +118,12 @@ public class FFRBlockTagGenerator extends BlockTagsProvider {
 
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(FFRib.SAPPHIRE_ORE.get())
-                .add(FFRib.DEEPSLATE_SAPPHIRE_ORE.get())
+                .add(FFRib.SAPHYRE_ORE.get())
+                .add(FFRib.DEEPSLATE_SAPHYRE_ORE.get())
                 .add(FFRib.SAPPHIRE_BLOCK.get());
         tag(BlockTags.NEEDS_DIAMOND_TOOL)
-                .add(FFRib.SAPPHIRE_ORE.get())
-                .add(FFRib.DEEPSLATE_SAPPHIRE_ORE.get())
+                .add(FFRib.SAPHYRE_ORE.get())
+                .add(FFRib.DEEPSLATE_SAPHYRE_ORE.get())
                 .add(FFRib.SAPPHIRE_BLOCK.get());
     }
 }

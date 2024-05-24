@@ -75,7 +75,7 @@ public class FFRRecipeProvider extends RecipeProvider implements IConditionBuild
 
     static {
         BUDDING_TYPES = ImmutableList.of("oak", "birch", "spruce", "jungle", "acacia", "dark_oak", "mangrove", "bamboo");
-        SAPPHIRE_SMELTABLES = ImmutableList.of(FFRib.SAPPHIRE_ORE.get().asItem(), FFRib.DEEPSLATE_SAPPHIRE_ORE.get().asItem());
+        SAPPHIRE_SMELTABLES = ImmutableList.of(FFRib.SAPHYRE_ORE.get().asItem(), FFRib.DEEPSLATE_SAPHYRE_ORE.get().asItem());
         STONE_TOOL_SET = ImmutableList.of(Items.STONE_AXE, Items.STONE_HOE, Items.STONE_PICKAXE, Items.STONE_SHOVEL, Items.STONE_SWORD);
         SET_STRINGS = ImmutableList.of("##", "I#", "I ", "##", "I ", "I ", "###", " I ", " I ", "#", "I", "I", "#", "#", "I");
     }
