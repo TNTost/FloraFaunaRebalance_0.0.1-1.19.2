@@ -30,7 +30,7 @@ public class ChunkGeneratorMixin {
 
     @Inject(method = "applyBiomeDecoration", at = @At("TAIL"))
     private void ffr$applyBiomeDecorations(WorldGenLevel level, ChunkAccess chunk, StructureManager struct, CallbackInfo ci) {
-        eX.bedrockPlus8();
+        eX.bedrockPlus8(level, chunk);
 
 
         OrePlacer orePlacer = new OrePlacer(); //# ore stuff

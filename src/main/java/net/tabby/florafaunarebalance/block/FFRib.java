@@ -30,8 +30,36 @@ public class FFRib {
 
 
 
-    //public static final RegistryObject<Block> BAUXITE_SHALE = registerBlock("alluminum_ore",
-    //        () -> new Block(BlockBehaviour.Properties.copy(Blocks.CLAY).requiresCorrectToolForDrops().strength(1.2f)), FFRCreativeTab.FFR_MINERALS);
+
+    public static final RegistryObject<Block> SAPHYRE_ORE = registerBlock("sapphire_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
+    public static final RegistryObject<Block> DEEPSLATE_SAPHYRE_ORE = registerBlock("deepslate_sapphire_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.DEEPSLATE)
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
+    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.METAL).strength(3f)), FFRCreativeTab.FFR_MINERALS);
+
+    //new nether portal uses?.
+    public static final RegistryObject<Block> TANZANITE_ORE = registerBlock("tanzanite_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
+    public static final RegistryObject<Block> DEEPSLATE_TANZANITE_ORE = registerBlock("deepslate_tanzanite_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.DEEPSLATE)
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
+    public static final RegistryObject<Block> TANZANITE_BLOCK = registerBlock("tanzanite_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.METAL).strength(3f)), FFRCreativeTab.FFR_MINERALS);
+
+
+
+    public static final RegistryObject<Block> LIMONITE = registerBlock("limonite",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.SANDSTONE).requiresCorrectToolForDrops()), FFRCreativeTab.FFR_MINERALS);
+    public static final RegistryObject<Block> HARDENED_BAUXITE_SHALE = registerBlock("terracotta_aluminum_ore",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA)), FFRCreativeTab.FFR_MINERALS);
+                            //pink ore,
+    public static final RegistryObject<Block> BAUXITE_SHALE = registerBlock("clay_aluminum_ore",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.CLAY).requiresCorrectToolForDrops().strength(1.2f)), FFRCreativeTab.FFR_MINERALS);
+
 
     public static final RegistryObject<Block> PYRITE_ORE = registerBlock("pyrite_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
@@ -40,8 +68,12 @@ public class FFRib {
     public static final RegistryObject<Block> DEEPSLATE_PYRITE_ORE = registerBlock("deepslate_pyrite_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
 
+
     public static final RegistryObject<Block> RHYOLITIC_PUMICE = registerBlock("igneous_rock",
             () -> new IgneousRock(BlockBehaviour.Properties.of(Material.STONE).randomTicks()), FFRCreativeTab.FFR_TAB); //# when lava source meets stone or smthn.
+
+
+
 
     public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",
             () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
@@ -104,11 +136,17 @@ public class FFRib {
             () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_TAB);
 
 
+
+
+
+
     //# nymphaeaceae -> /nɪmfiːˈeɪsiː/
     public static final RegistryObject<Block> NYMPHAEACEAE = BLOCKS.register("nymphaeaceae",
             () -> new WaterLilyFlower(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).randomTicks()));
     public static final RegistryObject<HangingRootsBlock> WATER_LILY_ROOTS = registerBlock("water_lily_roots",
             () -> new HangingRootsBlock(BlockBehaviour.Properties.copy(Blocks.HANGING_ROOTS)), FFRCreativeTab.FFR_TAB);
+
+
 
 
 
@@ -182,25 +220,6 @@ public class FFRib {
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_VANILLA);
     public static final RegistryObject<RotatedPillarBlock> BUDDING_MANGROVE_WOOD = registerBlock("budding_mangrove_wood",
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_VANILLA);
-
-
-
-
-
-
-
-
-
-
-    public static final RegistryObject<Block> SAPHYRE_ORE = registerBlock("sapphire_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
-    public static final RegistryObject<Block> DEEPSLATE_SAPHYRE_ORE = registerBlock("deepslate_sapphire_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.DEEPSLATE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 7)), FFRCreativeTab.FFR_MINERALS);
-
-    public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.AMETHYST).sound(SoundType.METAL).strength(3f)), FFRCreativeTab.FFR_MINERALS);
 
 
 

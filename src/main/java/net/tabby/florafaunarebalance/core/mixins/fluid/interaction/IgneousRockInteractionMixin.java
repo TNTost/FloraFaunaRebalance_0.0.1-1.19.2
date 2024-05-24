@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.core.mixins;
+package net.tabby.florafaunarebalance.core.mixins.fluid.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

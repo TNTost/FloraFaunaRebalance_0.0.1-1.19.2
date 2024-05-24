@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DefaultFeaturesMixin {
 
     @Inject(method = "addDefaultOres", at = @At("TAIL"))
-    public static void ffr$addCustomOres(BiomeGenerationSettings.Builder builder, boolean fal, CallbackInfo ci) {
+    private static void ffr$addCustomOres(BiomeGenerationSettings.Builder builder, CallbackInfo ci) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_PYRITE.getHolder().get());
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FFRop.ORE_SAPHYRE.getHolder().get());
     }
