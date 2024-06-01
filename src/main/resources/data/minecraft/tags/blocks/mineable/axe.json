@@ -1,41 +1,19 @@
 {
   "replace": false,
   "values": [
-    "florafaunarebalance:elysian_log",
-    "florafaunarebalance:elysian_wood",
-    "florafaunarebalance:elysian_planks",
-    "florafaunarebalance:elysian_hollow_log",
-
     "florafaunarebalance:valyrian_log",
     "florafaunarebalance:valyrian_wood",
-    "florafaunarebalance:valyrian_planks",
-    "florafaunarebalance:vibrant_valyrian_planks",
     "florafaunarebalance:valyrian_hollow_log",
     "florafaunarebalance:enhanced_valyrian_hollow_log",
 
+    "florafaunarebalance:valyrian_planks",
+    "florafaunarebalance:vibrant_valyrian_planks",
 
-    "florafaunarebalance:hollow_log",
-    "florafaunarebalance:bamboo_planks",
-    "florafaunarebalance:bamboo_mosaic",
-    "florafaunarebalance:bamboo_log",
-    "florafaunarebalance:stripped_bamboo_log",
-    "florafaunarebalance:bamboo_wood",
-    "florafaunarebalance:stripped_bamboo_wood",
-    "florafaunarebalance:budding_bamboo_log",
-    "florafaunarebalance:budding_bamboo_wood",
-    "florafaunarebalance:budding_oak_log",
-    "florafaunarebalance:budding_oak_wood",
-    "florafaunarebalance:budding_birch_log",
-    "florafaunarebalance:budding_birch_wood",
-    "florafaunarebalance:budding_spruce_log",
-    "florafaunarebalance:budding_spruce_wood",
-    "florafaunarebalance:budding_jungle_log",
-    "florafaunarebalance:budding_jungle_wood",
-    "florafaunarebalance:budding_acacia_log",
-    "florafaunarebalance:budding_acacia_wood",
-    "florafaunarebalance:budding_dark_oak_log",
-    "florafaunarebalance:budding_dark_oak_wood",
-    "florafaunarebalance:budding_mangrove_log",
-    "florafaunarebalance:budding_mangrove_wood"
+
+    "florafaunarebalance:elysian_log",
+    "florafaunarebalance:elysian_wood",
+    "florafaunarebalance:elysian_hollow_log",
+
+    "florafaunarebalance:elysian_planks"
   ]
 }

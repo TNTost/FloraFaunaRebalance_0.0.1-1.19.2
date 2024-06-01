@@ -3,6 +3,7 @@ package net.tabby.florafaunarebalance.block.core;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraftforge.common.ToolAction;
 import net.tabby.florafaunarebalance.block.FFRib;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.Nullable;
 
 public class RotatedLogCore extends RotatedPillarBlock {
@@ -39,6 +41,18 @@ public class RotatedLogCore extends RotatedPillarBlock {
                 return FFRib.STRIPPED_BAMBOO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             } else if (state.is(FFRib.BAMBOO_WOOD.get())) {
                 return FFRib.STRIPPED_BAMBOO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+
+            if (state.is(FFRib.VALYRIAN_LOG.get())) {
+            }
+            if (state.is(FFRib.ELYSIAN_LOG.get())) {
+            }
+        } else if (context.getItemInHand().getItem() instanceof ShovelItem) {
+            if (state.is(FFRib.VALYRIAN_LOG.get())) {
+                return FFRib.VALYRIAN_HOLLOW_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            }
+            if (state.is(FFRib.ELYSIAN_LOG.get())) {
+                return FFRib.ELYSIAN_HOLLOW_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
         }
         return super.getToolModifiedState(state, context, toolAction, simulate);
