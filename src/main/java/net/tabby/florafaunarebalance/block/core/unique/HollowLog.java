@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -23,6 +24,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.HollowLogEntity;
+import net.tabby.florafaunarebalance.util.FFR.DDD;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +40,10 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
         registerDefaultState(defaultBlockState().setValue(HOLE, Direction.EAST));
     }
 
+    public static Direction getDirectionFrom(UseOnContext context) {
+        return DDD.UD.contains(context.getClickedFace()) ? Direction.orderedByNearest(Objects.requireNonNull(context.getPlayer()))[1].getOpposite() : context.getClickedFace();
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
@@ -45,9 +51,9 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         Direction[] dd = Direction.orderedByNearest(Objects.requireNonNull(context.getPlayer()));
-        Direction d = dd[0].getOpposite(); //# opposite of nearest direction
+        Direction d = dd[0].getOpposite(); //# opposite of nearest direction.
         return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(HOLE, dd[context.getClickedFace().equals(d) ? 1 : 0].getOpposite());
         //#TODO: do funny angle math here to find hole possition, build log sprout off of this property, growing a fruit/berry in the direction of the hole, and leaves all around like BuddingLog[deprecated]
     }
@@ -55,17 +61,18 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        BlockEntity h = new HollowLogEntity(pos, state, this.size);
-        return h;
+        return new HollowLogEntity(pos, state, this.size);
     }
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
-        if (!level.isClientSide && level.getBlockState(pos).getValue(HOLE).equals(hitResult.getDirection())) { //#TODO: make container only openable by crouching...
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof HollowLogEntity) {
-                NetworkHooks.openScreen((ServerPlayer) player, (HollowLogEntity) be, pos);
-            } else throw new IllegalStateException("container provider missing");
+        if (level.getBlockState(pos).getValue(HOLE).equals(hitResult.getDirection())) { //#TODO: make container only openable by crouching...
+            if (!level.isClientSide) { //# prior if-statement layering caused client-server desync..
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be instanceof HollowLogEntity) {
+                    NetworkHooks.openScreen((ServerPlayer) player, (HollowLogEntity) be, pos);
+                } else throw new IllegalStateException("container provider missing");
+            }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;

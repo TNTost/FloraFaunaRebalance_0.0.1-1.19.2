@@ -57,9 +57,9 @@ public enum DDD implements Rotation {
         return relative(pos, this);
     }
 
-    private static final List<Direction> LR = List.of(Direction.EAST, Direction.WEST);
-    private static final List<Direction> FH = List.of(Direction.SOUTH, Direction.NORTH);
-    private static final List<Direction> UD = List.of(Direction.DOWN, Direction.UP);
+    public static final List<Direction> LR = List.of(Direction.EAST, Direction.WEST);
+    public static final List<Direction> FH = List.of(Direction.SOUTH, Direction.NORTH);
+    public static final List<Direction> UD = List.of(Direction.DOWN, Direction.UP);
 
     public List<Direction> getXYZ() {
         return List.of(this.dddx, this.dddy, this.dddz);
