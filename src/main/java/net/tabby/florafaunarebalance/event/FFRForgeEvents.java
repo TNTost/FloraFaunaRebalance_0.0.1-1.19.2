@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -36,26 +37,15 @@ public class FFRForgeEvents {
     @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID)
     public static class ForgeEvents {
 
-        @SubscribeEvent //# TODO: doesn't check if block CAN or SHOULD be placed.
+        @SubscribeEvent
         public static void onOpenHollowLog(PlayerInteractEvent.RightClickBlock event) {
-            BlockPos pos = event.getPos();
-            BlockState s = getAt(pos);
-            if (s != null && s.getBlock() instanceof HollowLog) {
-                if (event.getFace() != s.getValue(BlockStateProperties.FACING)) {
-                    ItemStack itm = event.getItemStack();
-                    if (!itm.isEmpty()) {
-                        net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), BlockSnapshot.create(event.getLevel().dimension(), event.getLevel(), pos), event.getHitVec().getDirection());
-                        event.getLevel().setBlockAndUpdate(pos.relative(Objects.requireNonNull(event.getFace())), Objects.requireNonNull(Block.byItem(itm.getItem()).getStateForPlacement(new BlockPlaceContext(event.getEntity(), event.getHand(), event.getItemStack(), event.getHitVec()))));
-                        event.getLevel().playSound(null, pos, Block.byItem(itm.getItem()).getSoundType(Block.byItem(itm.getItem()).defaultBlockState(), event.getLevel(), pos.relative(event.getFace()), event.getEntity()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
-                        event.getEntity().swing(event.getHand());
-                    }
-                    event.setCanceled(true);
-                }
-            }
+            //net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), BlockSnapshot.create(event.getLevel().dimension(), event.getLevel(), pos), event.getHitVec().getDirection());
+            //                            event.getLevel().setBlockAndUpdate(pos.relative(Objects.requireNonNull(event.getFace())), Objects.requireNonNull(Block.byItem(itm.getItem()).getStateForPlacement(new BlockPlaceContext(event.getEntity(), event.getHand(), event.getItemStack(), event.getHitVec()))));
+            //                            event.getLevel().playSound(null, pos, Block.byItem(itm.getItem()).getSoundType(Block.byItem(itm.getItem()).defaultBlockState(), event.getLevel(), pos.relative(event.getFace()), event.getEntity()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
+            //                            event.getEntity().swing(event.getHand());
         }
-        public static BlockState getAt(BlockPos pos) {
-            Level lvl = Minecraft.getInstance().level;
-            return lvl != null ? lvl.getBlockState(pos) : null;
+        public static BlockState getAt(Level level, BlockPos pos) {
+            return level.getBlockState(pos);
         }
 
         //@SubscribeEvent

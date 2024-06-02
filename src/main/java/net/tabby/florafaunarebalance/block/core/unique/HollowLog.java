@@ -48,7 +48,7 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction[] dd = Direction.orderedByNearest(Objects.requireNonNull(context.getPlayer()));
         Direction d = dd[0].getOpposite(); //# opposite of nearest direction
-        return super.getStateForPlacement(context).setValue(HOLE, dd[context.getClickedFace().equals(d) ? 1 : 0].getOpposite());
+        return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(HOLE, dd[context.getClickedFace().equals(d) ? 1 : 0].getOpposite());
         //#TODO: do funny angle math here to find hole possition, build log sprout off of this property, growing a fruit/berry in the direction of the hole, and leaves all around like BuddingLog[deprecated]
     }
 
@@ -61,13 +61,14 @@ public class HollowLog extends RotatedLogCore implements EntityBlock {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
-        if (!level.isClientSide) { //#TODO: make container only openable by crouching...
+        if (!level.isClientSide && level.getBlockState(pos).getValue(HOLE).equals(hitResult.getDirection())) { //#TODO: make container only openable by crouching...
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof HollowLogEntity) {
                 NetworkHooks.openScreen((ServerPlayer) player, (HollowLogEntity) be, pos);
             } else throw new IllegalStateException("container provider missing");
+            return InteractionResult.sidedSuccess(level.isClientSide);
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.PASS;
     }
 
     @Override

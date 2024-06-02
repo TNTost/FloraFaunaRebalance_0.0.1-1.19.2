@@ -57,6 +57,7 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
     }
     public HollowLogEntity(BlockPos pos, BlockState state, int size) {
         super(FFRbe.HOLLOW_LOG_BE.get(), pos, state);
+        this.size = size;
         items = NonNullList.withSize(size, ItemStack.EMPTY);
     }
 
@@ -80,7 +81,7 @@ public class HollowLogEntity extends RandomizableContainerBlockEntity implements
             ContainerHelper.saveAllItems(tag, this.items);
             if (this.size != 0) tag.putInt("size", this.size); //# important for allowing <size> to function.
 
-            this.setChanged();
+            //this.setChanged();
         }
     }
     public void load(@NotNull CompoundTag tag) {

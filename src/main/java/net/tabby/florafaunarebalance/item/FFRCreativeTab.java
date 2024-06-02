@@ -25,4 +25,9 @@ public class FFRCreativeTab {
             return new ItemStack(FFRii.PYRITE.get());
         }
     };
+    public static final CreativeModeTab FFR_NATURE = new CreativeModeTab("ffr_nature") {
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(FFRii.ACEQUIA_AQUA_BUCKET.get());
+        }
+    };
 }
