@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.core.unique.animation;
+package net.tabby.florafaunarebalance.item.unique.animation;
 
 public class FFRia {
     public void chuteItemAnimation() {

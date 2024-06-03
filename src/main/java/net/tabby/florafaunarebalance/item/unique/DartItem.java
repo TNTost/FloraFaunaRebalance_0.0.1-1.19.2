@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.core.unique;
+package net.tabby.florafaunarebalance.item.unique;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

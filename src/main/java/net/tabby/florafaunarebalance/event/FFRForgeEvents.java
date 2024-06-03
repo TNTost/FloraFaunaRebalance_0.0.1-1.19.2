@@ -1,6 +1,5 @@
 package net.tabby.florafaunarebalance.event;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -8,29 +7,19 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
-import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
-import net.tabby.florafaunarebalance.block.core.unique.HollowLog;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
+import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.util.FFR.FFRTags;
-
-import java.util.Iterator;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class FFRForgeEvents {

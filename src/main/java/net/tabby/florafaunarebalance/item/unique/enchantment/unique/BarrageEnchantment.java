@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.core.unique.enchantment.unique;
+package net.tabby.florafaunarebalance.item.unique.enchantment.unique;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.CreativeModeTab;

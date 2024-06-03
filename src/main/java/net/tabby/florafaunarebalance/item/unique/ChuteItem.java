@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.item.core.unique;
+package net.tabby.florafaunarebalance.item.unique;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -8,11 +8,8 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -36,7 +33,6 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static java.lang.StrictMath.pow;
 import static java.lang.StrictMath.sqrt;
 import static net.tabby.florafaunarebalance.util.FFR.FFRTags.Items.*;
 import static net.tabby.florafaunarebalance.util.FFRUtil.getItem;

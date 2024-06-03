@@ -15,12 +15,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.tabby.florafaunarebalance.entity.FFRenty;
-import net.tabby.florafaunarebalance.item.core.unique.DartItem;
+import net.tabby.florafaunarebalance.item.unique.DartItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static net.tabby.florafaunarebalance.util.all.FFRUtil.getRgStr;
+import static net.tabby.florafaunarebalance.util.FFRUtil.getRgStr;
 
 public class DartProjectileEntity extends AbstractArrow { //# implements DartVariants
     private static final EntityDataAccessor<String> DATA_ID_VARIANT;
