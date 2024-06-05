@@ -12,13 +12,26 @@
   "block.florafaunarebalance.nymphaeaceae": "Nymphaeaceae",
   "block.florafaunarebalance.water_lily_roots": "Water Lily Roots",
 
+  "item.florafaunarebalance.acequia_aqua_bucket": "Acequia Aqua Bucket",
+
 
   "item.florafaunarebalance.bark_scrap": "Bark Scrap",
   "item.florafaunarebalance.twig": "Twig",
   "item.florafaunarebalance.pointed_stick": "Pointed Stick",
 
+  "item.florafaunarebalance.plug": "Plug",
+  "item.florafaunarebalance.copper_blade": "Copper Blade",
+  "item.florafaunarebalance.carved_handle": "Carved Handle",
 
-  "block.florafaunarebalance.igneous_rock": "Rhyolitic Pumice",
+  "Item.florafaunarebalance.copper_axe": "Copper Axe",
+  "Item.florafaunarebalance.copper_chisel": "Copper Chisel",
+  "Item.florafaunarebalance.copper_hoe": "Copper Hoe",
+  "Item.florafaunarebalance.copper_pickaxe": "Copper Pickaxe",
+  "Item.florafaunarebalance.copper_shovel": "Copper Shovel",
+  "Item.florafaunarebalance.copper_sword": "Copper Sword",
+
+
+  "block.florafaunarebalance.igneous_rock": "Rhyolitic Puim",
   "block.florafaunarebalance.pyrite_ore": "Pyrite Ore",
   "block.florafaunarebalance.tuff_pyrite_ore": "Tuff Pyrite Ore",
   "block.florafaunarebalance.deepslate_pyrite_ore": "Deepslate Pyrite Ore",

@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.util.FFR;
+package net.tabby.florafaunarebalance.util.direction_enum;
 
 import com.mojang.math.Matrix4f;
 import net.minecraft.core.BlockPos;

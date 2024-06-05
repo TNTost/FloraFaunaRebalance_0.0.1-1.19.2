@@ -20,7 +20,7 @@ import net.minecraftforge.common.ToolAction;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.core.unique.HollowLog;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.item.core.unique.ChiselItem;
+import net.tabby.florafaunarebalance.item.unique.tool.unique.ChiselItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

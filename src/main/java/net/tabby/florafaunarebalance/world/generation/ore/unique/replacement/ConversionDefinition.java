@@ -1,12 +1,10 @@
-package net.tabby.florafaunarebalance.world.generation.ore.unique;
+package net.tabby.florafaunarebalance.world.generation.ore.unique.replacement;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import oshi.util.tuples.Triplet;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ConversionDefinition<P extends Block, C extends Triplet<Integer, ?, BlockState>> {
     protected static final Map<Block, Triplet<Integer, ?, BlockState>> DEFINITION = new HashMap<>();

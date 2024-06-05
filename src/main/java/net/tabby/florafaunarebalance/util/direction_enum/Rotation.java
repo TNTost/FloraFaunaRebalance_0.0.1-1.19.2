@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.util.FFR;
+package net.tabby.florafaunarebalance.util.direction_enum;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

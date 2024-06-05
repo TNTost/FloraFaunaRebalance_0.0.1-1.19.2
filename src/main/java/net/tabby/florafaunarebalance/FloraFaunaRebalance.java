@@ -4,8 +4,9 @@ import com.lowdragmc.lowdraglib.LDLib;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,17 +16,21 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.tabby.florafaunarebalance.Registry.pre.PreInitialisation;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.menu.FFRmt;
 import net.tabby.florafaunarebalance.block.entity.unique.menu.unique.HollowLogScreen;
+import net.tabby.florafaunarebalance.block.fluid.FFRfluity;
+import net.tabby.florafaunarebalance.block.fluid.FFRif;
 import net.tabby.florafaunarebalance.entity.client.renderer.CloudRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRenderer;
 import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.entity.client.renderer.DuckRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.SkeeterRenderer;
 import net.tabby.florafaunarebalance.item.FFRii;
-import net.tabby.florafaunarebalance.item.core.unique.enchantment.FFRie;
+import net.tabby.florafaunarebalance.Registry.FFRtt;
+import net.tabby.florafaunarebalance.item.unique.enchantment.FFRie;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
 import net.tabby.florafaunarebalance.world.generation.ore.FFRof;
@@ -40,25 +45,30 @@ public class FloraFaunaRebalance
 
     public FloraFaunaRebalance()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus ffrEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        PreInitialisation.register(ffrEventBus); //# cyclic dependency avoidance system, -> cdas for short.
 
-
-        FFRii.register(modEventBus); //# items.
-        FFRie.ENCHANTMENTS.register(modEventBus); //# enchants.
+        FFRtt.register(ffrEventBus); //# tool-tiers.
+        FFRii.register(ffrEventBus); //# items.
+        FFRie.ENCHANTMENTS.register(ffrEventBus); //# enchants.
         ToolAction.get("shovel_hollow");
 
-        FFRib.register(modEventBus); //# blocks.
-        FFRgr.register(modEventBus); //# ore-definition.
-        FFRof.register(modEventBus); //# <ores> configured-feature.
-        FFRop.register(modEventBus); //# <ores> placed-feature.
+        FFRib.register(ffrEventBus); //# blocks.
 
-        FFRbe.register(modEventBus); //# block-entities.
-        FFRmt.register(modEventBus); //# be^-menus.
+        FFRif.register(ffrEventBus); //# fluids.
+        FFRfluity.register(ffrEventBus); //# fluid-types.
 
-        FFRenty.register(modEventBus); //# entities.
+        FFRgr.register(ffrEventBus); //# ore-definition.
+        FFRof.register(ffrEventBus); //# <ores> configured-feature.
+        FFRop.register(ffrEventBus); //# <ores> placed-feature.
 
-        modEventBus.addListener(this::Setup);
-        modEventBus.addListener(this::clientSetup);
+        FFRbe.register(ffrEventBus); //# block-entities.
+        FFRmt.register(ffrEventBus); //# be^-menus.
+
+        FFRenty.register(ffrEventBus); //# entities.
+
+        ffrEventBus.addListener(this::Setup);
+        ffrEventBus.addListener(this::clientSetup);
 
 
 
@@ -79,6 +89,9 @@ public class FloraFaunaRebalance
         EntityRenderers.register(FFRenty.WATER_SKEETER.get(), SkeeterRenderer::new); // renders funny water-bug;
 
         MenuScreens.register(FFRmt.HOLLOW_LOG_MENU.get(), HollowLogScreen::new);
+
+        ItemBlockRenderTypes.setRenderLayer(FFRif.ACEQUIA_AQUA_SOURCE.get(), RenderType.translucent()); //# transparent liquid.
+        ItemBlockRenderTypes.setRenderLayer(FFRif.ACEQUIA_AQUA_FLOWING.get(), RenderType.translucent()); //# transparent flowing-liquid.
     }
     public static boolean isGregLoaded() {
         return LDLib.isModLoaded("gtceu");

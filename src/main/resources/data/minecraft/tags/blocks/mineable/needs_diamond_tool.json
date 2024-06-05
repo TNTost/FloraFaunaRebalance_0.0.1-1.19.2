@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "florafaunarebalance:valyrian_log",
+    "florafaunarebalance:valyrian_wood",
+    "florafaunarebalance:valyrian_hollow_log",
+    "florafaunarebalance:enhanced_valyrian_hollow_log",
+
+    "florafaunarebalance:valyrian_planks",
+    "florafaunarebalance:vibrant_valyrian_planks",
+
+
+    "florafaunarebalance:elysian_log",
+    "florafaunarebalance:elysian_wood",
+    "florafaunarebalance:elysian_hollow_log",
+
+    "florafaunarebalance:elysian_planks"
+  ]
+}

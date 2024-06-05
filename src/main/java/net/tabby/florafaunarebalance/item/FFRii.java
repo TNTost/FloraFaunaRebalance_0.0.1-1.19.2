@@ -2,6 +2,8 @@ package net.tabby.florafaunarebalance.item;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -10,10 +12,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
+import net.tabby.florafaunarebalance.Registry.pre.PreInitialisation;
 import net.tabby.florafaunarebalance.block.FFRib;
+import net.tabby.florafaunarebalance.block.fluid.FFRif;
 import net.tabby.florafaunarebalance.entity.FFRenty;
-import net.tabby.florafaunarebalance.item.core.unique.ChuteItem;
-import net.tabby.florafaunarebalance.item.core.unique.DartItem;
+import net.tabby.florafaunarebalance.item.unique.ChuteItem;
+import net.tabby.florafaunarebalance.item.unique.DartItem;
+import net.tabby.florafaunarebalance.Registry.FFRtt;
+import net.tabby.florafaunarebalance.item.unique.tool.unique.ChiselItem;
 
 import java.util.List;
 
@@ -22,6 +28,28 @@ public class FFRii {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FloraFaunaRebalance.MOD_ID);
 
 
+
+
+    public static final RegistryObject<Item> ACEQUIA_AQUA_BUCKET = ITEMS.register("acequia_aqua_bucket",
+            () -> new BucketItem(FFRif.ACEQUIA_AQUA_SOURCE, new Item.Properties().stacksTo(1)
+                    .tab(FFRCreativeTab.FFR_NATURE)));
+
+    public static final RegistryObject<Item> TANZANITE = PreInitialisation.TANZANITE; //due to cyclic dependency..
+    public static final RegistryObject<Item> MYTHRIL_INGOT = PreInitialisation.MYTHRIL_INGOT; //same as ^^
+
+
+    public static final RegistryObject<Item> COPPER_CHISEL = ITEMS.register("copper_chisel",
+            () -> new ChiselItem(FFRtt.COPPER.get(), 4.5f, 1.3f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS))); //# needs new tier registetred.
+    public static final RegistryObject<Item> COPPER_AXE = ITEMS.register("copper_axe",
+            () -> new AxeItem(FFRtt.COPPER.get(), 6f, 0.9f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
+// new Axel [idk maybe redstone related & minecart related?????].
+
+    public static final RegistryObject<Item> CARVED_HANDLE = ITEMS.register("carved_handle",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
+    public static final RegistryObject<Item> PLUG = ITEMS.register("plug",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
+    public static final RegistryObject<Item> COPPER_BLADE = ITEMS.register("copper_blade",
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
 
     public static final RegistryObject<Item> PYRITE = ITEMS.register("pyrite",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_MINERALS)));
@@ -69,12 +97,15 @@ public class FFRii {
     public static final RegistryObject<Item> TWIG = ITEMS.register("twig",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
     public static final RegistryObject<Item> POINTED_STICK = ITEMS.register("pointed_stick",
-            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+            () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB))); //# marshmellows made with sugar, and boiled leather [gelatin]
 
 
     
     public static final RegistryObject<Item> SAPPHIRE = ITEMS.register("sapphire",
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
+
+
+   //galvanised steel x3 instead of regular steel or something?...
 
 
     public static void register(IEventBus eventBus) {
