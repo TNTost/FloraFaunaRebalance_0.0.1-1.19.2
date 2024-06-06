@@ -20,6 +20,7 @@ import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.unique.DartItem;
 import net.tabby.florafaunarebalance.Registry.FFRtt;
 import net.tabby.florafaunarebalance.item.unique.tool.unique.ChiselItem;
+import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
 
 import java.util.List;
 
@@ -39,9 +40,9 @@ public class FFRii {
 
 
     public static final RegistryObject<Item> COPPER_CHISEL = ITEMS.register("copper_chisel",
-            () -> new ChiselItem(FFRtt.COPPER.get(), 4.5f, 1.3f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS))); //# needs new tier registetred.
+            () -> new ChiselItem(FFRtt.COPPER, 4.5f, 1.3f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS))); //# needs new tier registetred.
     public static final RegistryObject<Item> COPPER_AXE = ITEMS.register("copper_axe",
-            () -> new AxeItem(FFRtt.COPPER.get(), 6f, 0.9f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
+            () -> new AxeItem(FFRtt.COPPER, 6f, 0.9f, new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
 // new Axel [idk maybe redstone related & minecart related?????].
 
     public static final RegistryObject<Item> CARVED_HANDLE = ITEMS.register("carved_handle",

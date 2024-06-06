@@ -46,10 +46,12 @@ public class FloraFaunaRebalance
     public FloraFaunaRebalance()
     {
         IEventBus ffrEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        PreInitialisation.register(ffrEventBus); //# cyclic dependency avoidance system, -> cdas for short.
+        //PreInitialisation.register(ffrEventBus); //# cyclic dependency avoidance system, -> cdas for short.
+        //#TODO: commenting out ^^ fixed the crash.
 
-        FFRtt.register(ffrEventBus); //# tool-tiers.
+
         FFRii.register(ffrEventBus); //# items.
+        FFRtt.register(ffrEventBus); //# tool-tiers.
         FFRie.ENCHANTMENTS.register(ffrEventBus); //# enchants.
         ToolAction.get("shovel_hollow");
 
