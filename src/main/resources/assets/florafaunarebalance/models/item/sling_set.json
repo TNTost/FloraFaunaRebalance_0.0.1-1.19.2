@@ -1,0 +1,6 @@
+{
+  "parent": "florafaunarebalance:item/sling",
+  "textures": {
+    "layer0": "florafaunarebalance:sling_set"
+  }
+}

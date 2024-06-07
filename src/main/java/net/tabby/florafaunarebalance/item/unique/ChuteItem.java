@@ -55,7 +55,7 @@ public class ChuteItem extends ProjectileWeaponItem implements Vanishable {
             if (player.isCrouching()) {
                 player.getCooldowns().addCooldown(chuteItem.getItem(), 6);
                 if (!inf) player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 3, 5));
-                shootProjectile(level, player, chuteItem, getAmmo(player, chuteItem), 0.85f); //# replace with fancy oxygen calculation
+                shootProjectile(level, player, chuteItem, getAmmo(player, chuteItem, FFRii.DART.get()), 0.85f); //# replace with fancy oxygen calculation
                 return InteractionResultHolder.success(chuteItem);
             } else player.startUsingItem(hand); return InteractionResultHolder.consume(chuteItem);
         } else return InteractionResultHolder.fail(chuteItem);
@@ -77,7 +77,7 @@ public class ChuteItem extends ProjectileWeaponItem implements Vanishable {
                     for (int j = 0; j < queue.length; j++) {
                         queue[j]--;
                         if (queue[j] == 0 && entity instanceof Player player) {
-                            shootProjectile(level, player, chuteItem, getAmmo(player, chuteItem), 0.65f);
+                            shootProjectile(level, player, chuteItem, getAmmo(player, chuteItem, FFRii.DART.get()), 0.65f);
                         }
                     }
                     nbt.putIntArray("queue", Arrays.stream(queue).filter(e -> e > 0).toArray());
@@ -89,11 +89,11 @@ public class ChuteItem extends ProjectileWeaponItem implements Vanishable {
             // TODO: make scheduler which calls ShootProjectile() when int -in ListTag at chuteItem runs out...
         }
     }
-    public static ItemStack getAmmo(Player player, ItemStack chuteItem) {
-        ItemStack ammo = player.getProjectile(chuteItem);
+    public static ItemStack getAmmo(Player player, ItemStack weapon, Item defaultItem) {
+        ItemStack ammo = player.getProjectile(weapon);
         boolean inf = player.getAbilities().instabuild;
         if (!ammo.isEmpty() || inf) {
-            ammo = ammo.isEmpty() || ammo.is(Items.ARROW) ? new ItemStack(FFRii.DART.get()) : ammo; //# set dart in case of no item present or remove defaultArrow..
+            ammo = ammo.isEmpty() || ammo.is(Items.ARROW) ? new ItemStack(defaultItem) : ammo; //# set dart in case of no item present or remove defaultArrow..
             return ammo;
         }
         return ItemStack.EMPTY;
@@ -101,7 +101,7 @@ public class ChuteItem extends ProjectileWeaponItem implements Vanishable {
 
     public void releaseUsing(@NotNull ItemStack chuteItem, @NotNull Level level, @NotNull LivingEntity entity, int t) {
         if (entity instanceof Player player) { //# instanceof <Type> "variableName" makes new var.
-            ItemStack ammo = getAmmo(player, chuteItem);
+            ItemStack ammo = getAmmo(player, chuteItem, FFRii.DART.get());
             float pow = getPowerForTime(t = this.getUseDuration(chuteItem) - t);
 
             if (ammo.is(Items.FIREWORK_ROCKET)) {

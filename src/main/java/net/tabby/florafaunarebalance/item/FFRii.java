@@ -1,5 +1,6 @@
 package net.tabby.florafaunarebalance.item;
 
+import ca.weblite.objc.Proxy;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.AxeItem;
@@ -19,6 +20,7 @@ import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.unique.DartItem;
 import net.tabby.florafaunarebalance.Registry.FFRtt;
+import net.tabby.florafaunarebalance.item.unique.SlingItem;
 import net.tabby.florafaunarebalance.item.unique.tool.unique.ChiselItem;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
 
@@ -34,6 +36,10 @@ public class FFRii {
     public static final RegistryObject<Item> ACEQUIA_AQUA_BUCKET = ITEMS.register("acequia_aqua_bucket",
             () -> new BucketItem(FFRif.ACEQUIA_AQUA_SOURCE, new Item.Properties().stacksTo(1)
                     .tab(FFRCreativeTab.FFR_NATURE)));
+
+
+    public static final RegistryObject<Item> LEATHER_SLING = ITEMS.register("leather_sling",
+            () -> new SlingItem(new Item.Properties().tab(FFRCreativeTab.FFR_TOOLS)));
 
     public static final RegistryObject<Item> TANZANITE = PreInitialisation.TANZANITE; //due to cyclic dependency..
     public static final RegistryObject<Item> MYTHRIL_INGOT = PreInitialisation.MYTHRIL_INGOT; //same as ^^
@@ -106,7 +112,7 @@ public class FFRii {
             () -> new Item(new Item.Properties().tab(FFRCreativeTab.FFR_TAB)));
 
 
-   //galvanised steel x3 instead of regular steel or something?...
+    //galvanised steel x3 instead of regular steel or something?...
 
 
     public static void register(IEventBus eventBus) {

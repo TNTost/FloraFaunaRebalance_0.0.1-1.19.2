@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "florafaunarebalance:item/sling"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "has_pebble": 1
+      },
+      "model": "florafaunarebalance:item/sling_set"
+    }
+  ]
+}
