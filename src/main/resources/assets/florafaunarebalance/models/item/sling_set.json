@@ -1,6 +1,6 @@
 {
-  "parent": "florafaunarebalance:item/eather_sling",
+  "parent": "florafaunarebalance:item/leather_sling",
   "textures": {
-    "layer0": "florafaunarebalance:sling_set"
+    "layer0": "florafaunarebalance:item/sling_set"
   }
 }
