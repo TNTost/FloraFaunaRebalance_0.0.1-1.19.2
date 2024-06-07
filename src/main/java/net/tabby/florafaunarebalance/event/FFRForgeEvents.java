@@ -7,11 +7,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,6 +26,17 @@ import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 public class FFRForgeEvents {
     @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID)
     public static class ForgeEvents {
+
+        @SubscribeEvent
+        public static void onChangeMiningSpeed(PlayerEvent.BreakSpeed event) {
+            Player player = event.getEntity();
+            if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof TieredItem ti) {
+                if (FFRTags.tool.NST.contains(ti.getTier())) {
+                    System.out.println("##&=- reached! -=&##");
+                    event.setNewSpeed(event.getOriginalSpeed() * 0.65f);
+                }
+            }
+        }
 
         @SubscribeEvent
         public static void onOpenHollowLog(PlayerInteractEvent.RightClickBlock event) {
