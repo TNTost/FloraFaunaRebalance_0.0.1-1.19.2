@@ -8,10 +8,8 @@ import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.world.generation.ore.unique.ConversionDefinition;
+import net.tabby.florafaunarebalance.world.generation.ore.unique.replacement.ConversionDefinition;
 import oshi.util.tuples.Triplet;
-
-import java.util.logging.LogManager;
 
 public class FFRgr {
     private static boolean isFrozen = false;
@@ -34,7 +32,6 @@ public class FFRgr {
         if (isFrozen) throw new IllegalStateException("Ore-Conversion registry has already been frozen");
         CONVERSION_DEFINITION.makeRegistry(RegistryBuilder::new);
         CONVERSION_DEFINITION.register(eventBus);
-
         isFrozen = true;
     }
 }

@@ -1,9 +1,7 @@
 package net.tabby.florafaunarebalance.world.generation.ore;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.OrePlacements;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,9 +16,9 @@ public class FFRop extends OrePlacements {
             DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, FloraFaunaRebalance.MOD_ID);
 
     public static final RegistryObject<PlacedFeature> ORE_PYRITE = PLACEMENT.register("ore_pyrite",
-            () -> new PlacedFeature(FFRof.ORE_PYRITE.getHolder().get(), commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-120), VerticalAnchor.aboveBottom(60)))));
+            () -> new PlacedFeature(FFRof.ORE_PYRITE.getHolder().get(), rareOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-120), VerticalAnchor.aboveBottom(60)))));
     public static final RegistryObject<PlacedFeature> ORE_SAPHYRE = PLACEMENT.register("ore_saphyre",
-            () -> new PlacedFeature(FFRof.ORE_SAPHYRE.getHolder().get(), commonOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-90), VerticalAnchor.aboveBottom(70)))));
+            () -> new PlacedFeature(FFRof.ORE_TANZANITE.getHolder().get(), commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-90), VerticalAnchor.aboveBottom(70)))));
 
 
 

@@ -1,4 +1,4 @@
-package net.tabby.florafaunarebalance.world.generation.ore;
+package net.tabby.florafaunarebalance.world.generation.ore.unique.replacement;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraftforge.registries.RegistryObject;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
-import net.tabby.florafaunarebalance.block.FFRib;
-import net.tabby.florafaunarebalance.world.generation.ore.unique.ConversionDefinition;
 import net.tabby.florafaunarebalance.world.generation.ore.unique.OreMask;
 import oshi.util.tuples.Triplet;
 

@@ -2,17 +2,17 @@ package net.tabby.florafaunarebalance.world.generation.ore.unique;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.tabby.florafaunarebalance.util.FFR.DD;
-import net.tabby.florafaunarebalance.util.FFR.DDD;
-import net.tabby.florafaunarebalance.util.FFR.Rotation;
+import net.tabby.florafaunarebalance.util.direction_enum.DD;
+import net.tabby.florafaunarebalance.util.direction_enum.DDD;
+import net.tabby.florafaunarebalance.util.direction_enum.Rotation;
 
 import java.util.*;
 
 public class OreMask<O extends BlockPos, T extends Boolean, F extends Boolean, R extends Boolean, Y extends Boolean, H extends Boolean, L extends Boolean> {
-    protected final BlockPos position;
-    protected final List<Boolean> relativePresent = new ArrayList<>();
+    protected BlockPos position;
+    protected List<Boolean> relativePresent = new ArrayList<>();
 
-    protected final List<Rotation> cubeFace = List.of(DD.UP_FRONT, DDD.UP_FRONT_RIGHT, DD.UP_RIGHT, DDD.UP_HIND_RIGHT, DD.UP_HIND, DDD.UP_HIND_LEFT, DD.UP_LEFT, DDD.UP_FRONT_LEFT);
+    protected static final List<Rotation> CUBEFACE = List.of(DD.UP_FRONT, DDD.UP_FRONT_RIGHT, DD.UP_RIGHT, DDD.UP_HIND_RIGHT, DD.UP_HIND, DDD.UP_HIND_LEFT, DD.UP_LEFT, DDD.UP_FRONT_LEFT);
     //make direction.values esque collection of 3x3 block mask [split into sections that overlap]
     //find out how to rotate the directions in said collection
 
@@ -25,7 +25,7 @@ public class OreMask<O extends BlockPos, T extends Boolean, F extends Boolean, R
         List<BlockPos> mask = new ArrayList<>();
         for (Direction d : Direction.values()) {
             if (present(d)) {
-                for (Rotation diagonal : cubeFace) { //handle rotation magic.
+                for (Rotation diagonal : CUBEFACE) { //handle rotation magic.
                     mask.add(diagonal.rotate(d).relativeTo(position.relative(d)));
                 }
             }
