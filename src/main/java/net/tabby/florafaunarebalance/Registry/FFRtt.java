@@ -1,5 +1,6 @@
 package net.tabby.florafaunarebalance.Registry;
 
+import com.lowdragmc.lowdraglib.utils.EnumHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -26,14 +27,13 @@ public class FFRtt {
             DeferredRegister.create(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "tiers"), FloraFaunaRebalance.MOD_ID);
 
 
+
     public static final Tier COPPER = new TT("copper_tier", List.of(Tiers.STONE), List.of(Tiers.IRON),
-                    176, 5.0f, 1.6f, 1, 19, () -> Ingredient.of(Items.COPPER_INGOT)); //# more advanced repair system?
-    //public static final RegistryObject<Tier> TANZANITE = TIER.register("tanzanite_tier",
-    //        () -> new TT("tanzanite", List.of(Tiers.NETHERITE), List.of("mythril"), //# as not to break loading order, this should have the tier-name instead.
-    //                2791, 11f, 5f, 5, 18, () -> Ingredient.of(PreInitialisation.TANZANITE.get())));
-    //public static final RegistryObject<Tier> MYTHRIL = TIER.register("mythril_tier",
-    //        () -> new TT("mythril", List.of("tanzanite"), List.of(),
-    //                3621, 14f, 6.5f, 6, 23, () -> Ingredient.of(PreInitialisation.MYTHRIL_INGOT.get())));
+                    176, 5.2f, 1.4f, 1, 19, () -> Ingredient.of(Items.COPPER_INGOT)); //# more advanced repair system?
+    public static final Tier TANZANITE = new TT("tanzanite_tier", List.of(Tiers.NETHERITE), List.of("mythril"), //# as not to break loading order, this should have the tier-name instead.
+                    2791, 11f, 5f, 5, 18, () -> Ingredient.of(PreInitialisation.TANZANITE.get()));
+    public static final Tier MYTHRIL = new TT("mythril_tier", List.of("tanzanite"), List.of(),
+                    3621, 14f, 6.5f, 6, 23, () -> Ingredient.of(PreInitialisation.MYTHRIL_INGOT.get()));
 
 
     public static void register(IEventBus eventBus) {

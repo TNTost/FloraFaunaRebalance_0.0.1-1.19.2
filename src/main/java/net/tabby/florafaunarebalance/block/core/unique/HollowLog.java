@@ -24,7 +24,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.HollowLogEntity;
-import net.tabby.florafaunarebalance.util.FFR.DDD;
+import net.tabby.florafaunarebalance.util.direction_enum.DDD;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
