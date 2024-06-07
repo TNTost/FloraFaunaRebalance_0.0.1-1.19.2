@@ -12,7 +12,7 @@ public class FFRItemProperties {
     private static void makeBow(Item Items) { //# TODO: add diff custom values here.
         ItemProperties.register(Items, new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {
             if (p_174637_ == null) {
-                return 0.0F;
+                return 0.0F; //# did not understand these are lambda parameters and not some secret code pointing to a specific value in memory...
             } else {
                 return p_174637_.getUseItem() != p_174635_ ? 0.0F : (float)(p_174635_.getUseDuration() -
                         p_174637_.getUseItemRemainingTicks()) / 20.0F;

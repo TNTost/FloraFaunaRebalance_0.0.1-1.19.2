@@ -19,6 +19,8 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.Planks;
 import net.tabby.florafaunarebalance.block.core.RotatedLogCore;
 import net.tabby.florafaunarebalance.block.core.unique.*;
+import net.tabby.florafaunarebalance.block.fluid.FFRif;
+import net.tabby.florafaunarebalance.block.fluid.core.unique.FarFlowingFluidBlock;
 import net.tabby.florafaunarebalance.item.FFRCreativeTab;
 import net.tabby.florafaunarebalance.item.FFRii;
 
@@ -29,6 +31,9 @@ public class FFRib {
             DeferredRegister.create(ForgeRegistries.BLOCKS, FloraFaunaRebalance.MOD_ID);
 
 
+
+    public static final RegistryObject<LiquidBlock> ACEQUIA_AQUA = BLOCKS.register("acequia_aqua",
+            () -> new FarFlowingFluidBlock(FFRif.ACEQUIA_AQUA_SOURCE, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
 
     public static final RegistryObject<Block> SAPHYRE_ORE = registerBlock("sapphire_ore",
@@ -59,7 +64,7 @@ public class FFRib {
                             //pink ore,
     public static final RegistryObject<Block> BAUXITE_SHALE = registerBlock("clay_aluminum_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.CLAY).requiresCorrectToolForDrops().strength(1.2f)), FFRCreativeTab.FFR_MINERALS);
-
+                            //vanadium byproduct.
 
     public static final RegistryObject<Block> PYRITE_ORE = registerBlock("pyrite_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_ORE), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
@@ -67,7 +72,8 @@ public class FFRib {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.TUFF), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
     public static final RegistryObject<Block> DEEPSLATE_PYRITE_ORE = registerBlock("deepslate_pyrite_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
-
+    public static final RegistryObject<Block> BEDROCK_PYRITE_ORE = registerBlock("bedrock_pyrite_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.BEDROCK), UniformInt.of(2, 5)), FFRCreativeTab.FFR_MINERALS);
 
     public static final RegistryObject<Block> RHYOLITIC_PUMICE = registerBlock("igneous_rock",
             () -> new IgneousRock(BlockBehaviour.Properties.of(Material.STONE).randomTicks()), FFRCreativeTab.FFR_TAB); //# when lava source meets stone or smthn.
@@ -76,18 +82,18 @@ public class FFRib {
 
 
     public static final RegistryObject<RotatedLogCore> VALYRIAN_HOLLOW_LOG = registerBlock("valyrian_hollow_log",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_TAB); //#TODO: maybe change to size 7, or include 3 special slots for something
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 7), FFRCreativeTab.FFR_NATURE); //#TODO: maybe change to size 7, or include 3 special slots for something
     public static final RegistryObject<RotatedLogCore> ENHANCED_VALYRIAN_HOLLOW_LOG = registerBlock("enhanced_valyrian_hollow_log",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_TAB);
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 45), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<RotatedLogCore> VALYRIAN_LOG = registerBlock("valyrian_log",
-            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<RotatedLogCore> VALYRIAN_WOOD = registerBlock("valyrian_wood",
-            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_NATURE);
 
     public static final RegistryObject<Block> VALYRIAN_PLANKS = registerBlock("valyrian_planks",
-            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+            () -> new Planks(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<Block> VIBRANT_VALYRIAN_PLANKS = registerBlock("vibrant_valyrian_planks",
-            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+            () -> new Planks(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<Block> VALYRIAN_LEAVES = registerBlock("valyrian_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){
                 @Override
@@ -102,20 +108,20 @@ public class FFRib {
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 60;
                 }
-            }, FFRCreativeTab.FFR_TAB);
+            }, FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<Block> VALYRIAN_SAPLING = registerBlock("valyrian_sapling",
-            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_TAB);
+            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_NATURE);
 
 
     public static final RegistryObject<RotatedLogCore> ELYSIAN_HOLLOW_LOG = registerBlock("elysian_hollow_log",
-            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_TAB);
+            () -> new HollowLog(BlockBehaviour.Properties.copy(Blocks.OAK_LOG), 4), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<RotatedLogCore> ELYSIAN_LOG = registerBlock("elysian_log", //#TODO: grows sprouts faster and has differing effects as opposed to valyrian.
-            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<RotatedLogCore> ELYSIAN_WOOD = registerBlock("elysian_wood",
-            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_TAB);
+            () -> new RotatedLogCore(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)), FFRCreativeTab.FFR_NATURE);
 
     public static final RegistryObject<Block> ELYSIAN_PLANKS = registerBlock("elysian_planks",
-            () -> new Planks(BlockBehaviour.Properties.of(Material.WOOD)), FFRCreativeTab.FFR_TAB);
+            () -> new Planks(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)), FFRCreativeTab.FFR_NATURE);
                 //# bug, cannot copy OAK_LOG as axis property interferes.
     public static final RegistryObject<Block> ELYSIAN_LEAVES = registerBlock("elysian_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)){
@@ -131,9 +137,9 @@ public class FFRib {
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 60;
                 }
-            }, FFRCreativeTab.FFR_TAB);
+            }, FFRCreativeTab.FFR_NATURE);
     public static final RegistryObject<Block> ELYSIAN_SAPLING = registerBlock("elysian_sapling",
-            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_TAB);
+            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), FFRCreativeTab.FFR_NATURE);
 
 
 
@@ -220,11 +226,6 @@ public class FFRib {
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_VANILLA);
     public static final RegistryObject<RotatedPillarBlock> BUDDING_MANGROVE_WOOD = registerBlock("budding_mangrove_wood",
             () -> new BuddingLog(BlockBehaviour.Properties.copy(Blocks.MANGROVE_LOG).randomTicks()), FFRCreativeTab.FFR_VANILLA);
-
-
-
-
-
 
 
 
