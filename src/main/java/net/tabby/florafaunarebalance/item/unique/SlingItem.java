@@ -25,14 +25,17 @@ public class SlingItem extends ProjectileWeaponItem {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         PLYR = player;
         ItemStack sling = player.getItemInHand(hand);
-        if (!isSet(sling)) {
-            doSet(sling, true);
-            return InteractionResultHolder.consume(sling);
+        ItemStack pebble = ChuteItem.getAmmo(player, sling, Items.COBBLESTONE);
+        if (isSet(sling)) {
+            if (!pebble.isEmpty() || player.getAbilities().instabuild) {
+                doSet(sling, true); //# TODO: consume item here and add unload check if velocity == 0f.
+                return InteractionResultHolder.consume(sling);
+            }
         } else {
             clearStone(sling);
             return InteractionResultHolder.consume(sling);
         }
-        //return InteractionResultHolder.fail(sling);
+        return InteractionResultHolder.fail(sling);
     }
 
     public boolean isSet(ItemStack sling) {
