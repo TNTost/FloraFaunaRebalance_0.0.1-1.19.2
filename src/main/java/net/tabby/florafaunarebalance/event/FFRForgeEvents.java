@@ -20,12 +20,28 @@ import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.unique.ChuteItem;
+import net.tabby.florafaunarebalance.item.unique.SlingItem;
 import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 
 @SuppressWarnings("unused")
 public class FFRForgeEvents {
     @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID)
     public static class ForgeEvents {
+
+        @SubscribeEvent
+        public static void onWindSlingBlock(PlayerInteractEvent.LeftClickBlock blockEvent) {
+            Player player = blockEvent.getEntity();
+            if (player.getUseItem().getItem() instanceof SlingItem) {
+                //send wind particles
+            }
+        }
+        @SubscribeEvent
+        public static void onWindSlingEmpty(PlayerInteractEvent.LeftClickEmpty emptyEvent) {
+            Player player = emptyEvent.getEntity();
+            if (player.getUseItem().getItem() instanceof SlingItem) {
+                //send wind particles
+            }
+        }
 
         @SubscribeEvent
         public static void onChangeMiningSpeed(PlayerEvent.BreakSpeed event) {

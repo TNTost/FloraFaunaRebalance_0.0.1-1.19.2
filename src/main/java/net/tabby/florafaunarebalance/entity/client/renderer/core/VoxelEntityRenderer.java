@@ -35,34 +35,32 @@ public abstract class VoxelEntityRenderer<T extends Entity, M extends EntityMode
 
     public void render(T entity, float p_115309_, float subTicks, PoseStack poseStack, MultiBufferSource source, int light) {
         poseStack.pushPose();
-
-        float f2 = 0.0f; //# head-body rotation offset..
+        float opacity = getOpacity(entity);
         float f6 = Mth.lerp(subTicks, entity.xRotO, entity.getXRot());
 
-        float f7 = entity.tickCount + subTicks;
+        float time = entity.tickCount + subTicks;
         poseStack.scale(-1.0F, -1.0F, 1.0F);
-        this.scale(entity, poseStack, subTicks);
         poseStack.translate(0.0D, -1.501F, 0.0D);
 
         this.model.prepareMobModel(entity, 0.0f, 0.0f, subTicks);
-        this.model.setupAnim(entity, 0.0f, 0.0f, f7, f2, f6);
+        this.model.setupAnim(entity, 0.0f, 0.0f, time, 0.0f, f6);  //# 5th var -> head-body rotation offset..
 
         RenderType rendertype = RenderType.entityTranslucent(this.getTextureLocation(entity), true); //# magic, entityTranslucent < entityTranslucentEmissive..
-        this.model.renderToBuffer(poseStack, source.getBuffer(rendertype), light, getOverlayCoords(entity, 0.0f), 1.0F, 1.0F, 1.0F, 0.65f); // last param: opacity..
-
+        this.model.renderToBuffer(poseStack, source.getBuffer(rendertype), light, getOverlayCoords(entity, 0.0f), 1.0F, 1.0F, 1.0F, opacity);
         if (!entity.isSpectator()) {
             for(RenderLayer<T, M> renderlayer : this.layers) {
-                renderlayer.render(poseStack, source, light, entity, 0.0f, 0.0f, subTicks, f7, f2, f6);
+                renderlayer.render(poseStack, source, light, entity, 0.0f, 0.0f, subTicks, time, 0.0f, f6);
             }
         }
 
         poseStack.popPose();
         super.render(entity, p_115309_, subTicks, poseStack, source, light);
     }
+    protected float getOpacity(T entity) {
+        return 1;
+    }
     public static int getOverlayCoords(Entity p_115339_, float p_115340_) {
         return OverlayTexture.pack(OverlayTexture.u(p_115340_), OverlayTexture.v(false));
-    }
-    protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
     }
     //TODO: fix water transparency issue..
 }

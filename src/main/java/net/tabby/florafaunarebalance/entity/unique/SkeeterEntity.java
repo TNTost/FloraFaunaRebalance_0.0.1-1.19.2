@@ -1,7 +1,11 @@
 package net.tabby.florafaunarebalance.entity.unique;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,6 +65,12 @@ public class SkeeterEntity extends BuoyantEntity {
                 .add(Attributes.ATTACK_DAMAGE, 1.3f)
 
                 .add(Attributes.FOLLOW_RANGE, 500);
+    }
+
+    @Nullable
+    @Override
+    public Entity getLeashHolder() {
+        return Minecraft.getInstance().level.getNearestPlayer(this, 5.0d);
     }
 
     @Override
