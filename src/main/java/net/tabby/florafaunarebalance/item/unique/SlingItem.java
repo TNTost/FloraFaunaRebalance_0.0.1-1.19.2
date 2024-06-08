@@ -26,7 +26,7 @@ public class SlingItem extends ProjectileWeaponItem {
         PLYR = player;
         ItemStack sling = player.getItemInHand(hand);
         ItemStack pebble = ChuteItem.getAmmo(player, sling, Items.COBBLESTONE);
-        if (isSet(sling)) {
+        if (!isSet(sling)) { //# inverted condition >:3
             if (!pebble.isEmpty() || player.getAbilities().instabuild) {
                 doSet(sling, true); //# TODO: consume item here and add unload check if velocity == 0f.
                 return InteractionResultHolder.consume(sling);
