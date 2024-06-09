@@ -12,6 +12,8 @@ import net.tabby.florafaunarebalance.entity.unique.DartProjectileEntity;
 import net.tabby.florafaunarebalance.entity.unique.DuckEntity;
 import net.tabby.florafaunarebalance.entity.unique.SandDustCloud;
 import net.tabby.florafaunarebalance.entity.unique.SkeeterEntity;
+import net.tabby.florafaunarebalance.entity.unique.core.PhysicsEntity;
+import net.tabby.florafaunarebalance.util.FFR.F;
 
 public class FFRenty {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -25,10 +27,17 @@ public class FFRenty {
                             .build(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "dart")
                                     .toString()));
 
+
     public static final RegistryObject<EntityType<SandDustCloud>> DUST_CLOUD = ENTITY_TYPES.register("dust_cloud",
             () -> EntityType.Builder.<SandDustCloud>of(SandDustCloud::new, MobCategory.MISC)
                     .sized(2.9f, 2.4f).updateInterval(10)
                     .build(new ResourceLocation(FloraFaunaRebalance.MOD_ID, "dust_cloud")
+                            .toString()));
+
+    public static final RegistryObject<EntityType<PhysicsEntity>> SLING = ENTITY_TYPES.register("sling",
+            () -> EntityType.Builder.<PhysicsEntity>of(PhysicsEntity::new, MobCategory.MISC)
+                    .sized(0.4f, 0.4f).updateInterval(1)
+                    .build(F.lr("sling")
                             .toString()));
 
 

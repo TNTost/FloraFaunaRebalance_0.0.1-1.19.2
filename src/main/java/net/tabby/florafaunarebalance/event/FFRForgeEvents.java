@@ -18,6 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
+import net.tabby.florafaunarebalance.entity.unique.core.PhysicsEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.unique.SlingItem;
@@ -39,7 +40,8 @@ public class FFRForgeEvents {
         public static void onWindSlingEmpty(PlayerInteractEvent.LeftClickEmpty emptyEvent) {
             Player player = emptyEvent.getEntity();
             if (player.getUseItem().getItem() instanceof SlingItem) {
-                //send wind particles
+                Level level = emptyEvent.getLevel();
+                level.addFreshEntity(new PhysicsEntity(level, player));
             }
         }
 
@@ -47,7 +49,7 @@ public class FFRForgeEvents {
         public static void onChangeMiningSpeed(PlayerEvent.BreakSpeed event) {
             Player player = event.getEntity();
             if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof TieredItem ti) {
-                if (FFRTags.tool.NST.contains(ti.getTier())) {
+                if (FFRTags.tool.NST.contains(ti.getTier()) || player.getUseItem().isEmpty()) {
                     System.out.println("##&=- reached! -=&##");
                     event.setNewSpeed(event.getOriginalSpeed() * 0.65f);
                 }

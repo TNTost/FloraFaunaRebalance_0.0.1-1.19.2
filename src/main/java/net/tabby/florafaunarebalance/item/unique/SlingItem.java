@@ -18,6 +18,8 @@ import java.util.function.Predicate;
 
 public class SlingItem extends ProjectileWeaponItem {
     public static final Predicate<ItemStack> STONES = (i) -> i.is(ItemTags.STONE_CRAFTING_MATERIALS);
+    protected double velocity;
+
     public SlingItem(Properties p) {
         super(p);
     }
@@ -26,15 +28,19 @@ public class SlingItem extends ProjectileWeaponItem {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack sling = player.getItemInHand(hand);
         ItemStack pebble = ChuteItem.getAmmo(player, sling, Items.COBBLESTONE);
-        if (!isSet(sling)) { //# inverted condition >:3
-            //# TODO: rabbet ammo
-            if (!pebble.isEmpty() || player.getAbilities().instabuild) {
-                doSet(sling, player, true); //# TODO: consume item here and add unload check if velocity == 0f.
+        if (isSet(sling)) {
+            if (this.velocity < 0.05) {
+                clearStone(sling, level, player); //# TODO: consume item here and add unload check if velocity == 0f.
                 return InteractionResultHolder.consume(sling);
+            } else {
+                //yeet here
             }
         } else {
-            clearStone(sling, level, player);
-            return InteractionResultHolder.consume(sling);
+            //# TODO: rabbet ammo
+            if (!pebble.isEmpty() || player.getAbilities().instabuild) {
+                doSet(sling, player, true);
+                return InteractionResultHolder.consume(sling);
+            }
         }
         return InteractionResultHolder.pass(sling);
     }
@@ -60,12 +66,12 @@ public class SlingItem extends ProjectileWeaponItem {
         CompoundTag tag = sling.getTag();
         if (tag != null && tag.contains("loadenProjectiles", 9)) {
             ListTag lt = tag.getList("loadenProjectiles", 10);
-            lt.iterator().forEachRemaining(nbt -> {
-                level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY(), player.getZ(),
-                        new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(nbt.getAsString().replaceAll(".+\"([^\"]*)\".", "$1"))),
-                                Integer.parseInt(nbt.getAsString().replaceAll(".+?:(.*?)b,.+", "$1"))))); //positive look-behind (?<=N), positive look-ahead (?=N)...
-                System.out.println(Integer.parseInt(nbt.getAsString().replaceAll(".+?:(.*?)b,.+", "$1")));
-            });
+            for (var nbt : lt) {
+                level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY() + 0.4d, player.getZ(),
+                        new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(nbt.getAsString().replaceAll(".+id:\"([^\"]*)\".", "$1"))),
+                                Integer.parseInt(nbt.getAsString().replaceAll(".+?Count:(.*?)b,.+", "$1"))))); //positive look-behind (?<=N), positive look-ahead (?=N)...
+
+            }
             lt.clear();
             tag.put("loadenProjectiles", lt);
             doSet(sling, player, false);

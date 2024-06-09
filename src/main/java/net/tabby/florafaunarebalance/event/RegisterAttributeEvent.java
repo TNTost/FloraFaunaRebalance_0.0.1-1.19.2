@@ -9,7 +9,7 @@ import net.tabby.florafaunarebalance.entity.unique.DuckEntity;
 import net.tabby.florafaunarebalance.entity.unique.SkeeterEntity;
 
 @Mod.EventBusSubscriber(modid = FloraFaunaRebalance.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class FFReBusGE {
+public class RegisterAttributeEvent { // previously -> "FFReBusGE"
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(FFRenty.DUCK.get(), DuckEntity.createAttributes().build());

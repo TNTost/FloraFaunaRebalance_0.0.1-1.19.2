@@ -33,6 +33,7 @@ import net.tabby.florafaunarebalance.entity.client.renderer.DartProjectileRender
 import net.tabby.florafaunarebalance.entity.FFRenty;
 import net.tabby.florafaunarebalance.entity.client.renderer.DuckRenderer;
 import net.tabby.florafaunarebalance.entity.client.renderer.SkeeterRenderer;
+import net.tabby.florafaunarebalance.entity.client.renderer.core.PhysicsEntityRenderer;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.Registry.FFRtt;
 import net.tabby.florafaunarebalance.item.unique.enchantment.FFRie;
@@ -90,6 +91,7 @@ public class FloraFaunaRebalance
         FFRItemProperties.addCustomItemProperties();
         EntityRenderers.register(FFRenty.DART.get(), DartProjectileRenderer::new); // renders Darts..
         EntityRenderers.register(FFRenty.DUST_CLOUD.get(), CloudRenderer::new); // renders dust-Clouds..
+        EntityRenderers.register(FFRenty.SLING.get(), PhysicsEntityRenderer::new); // renders physics-entities..
 
         Minecraft.getInstance().getBlockColors().register((p_92567_, p_92568_, p_92569_, p_92570_) -> p_92568_ != null && p_92569_ != null ? 2129968 : 7455580, FFRib.NYMPHAEACEAE.get()); // registers new plant colours for blocks x &y &z &...
         EntityRenderers.register(FFRenty.DUCK.get(), DuckRenderer::new); // renders ducks;
