@@ -14,6 +14,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.tabby.florafaunarebalance.entity.client.models.PhysicsEntityModel;
+import net.tabby.florafaunarebalance.entity.unique.core.PhysicsEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -23,17 +25,23 @@ import java.util.List;
 public abstract class VoxelEntityRenderer<T extends Entity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
     protected M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
-    protected VoxelEntityRenderer(EntityRendererProvider.Context p_174008_, M model, float radius) {
+    protected VoxelEntityRenderer(EntityRendererProvider.Context p_174008_, M model, float radius) { //# cloud entity.
         super(p_174008_);
         this.model = model;
         this.shadowRadius = radius ;
     }
+
+    public VoxelEntityRenderer(EntityRendererProvider.Context context, M model) { //# physics entity.
+        super(context);
+        this.model = model;
+    }
+
     public @NotNull M getModel() {
         return this.model;
     }
 
 
-    public void render(T entity, float p_115309_, float subTicks, PoseStack poseStack, MultiBufferSource source, int light) {
+    public void render(@NotNull T entity, float p_115309_, float subTicks, PoseStack poseStack, MultiBufferSource source, int light) {
         poseStack.pushPose();
         float opacity = getOpacity(entity);
         float f6 = Mth.lerp(subTicks, entity.xRotO, entity.getXRot());
