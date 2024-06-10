@@ -23,6 +23,8 @@ import net.tabby.florafaunarebalance.entity.unique.core.PhysicsEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.unique.SlingItem;
+import net.tabby.florafaunarebalance.network.FFRNetworkHandler;
+import net.tabby.florafaunarebalance.network.packet.EntityC2SPacket;
 import net.tabby.florafaunarebalance.util.FFR.FFRTags;
 
 @SuppressWarnings("unused")
@@ -43,9 +45,7 @@ public class FFRForgeEvents {
             ItemStack itm = player.getItemInHand(player.getUsedItemHand());
             if (itm.getItem() instanceof SlingItem si) {
                 if (si.isSet(itm)) {
-                    Level level = emptyEvent.getLevel();
-                    Entity entity = new PhysicsEntity(level, player);
-                    System.out.println("in [FFRForgeEvents.java$onWindSlingEmpty] -> entity summoned: " + level.addFreshEntity(entity));
+                    FFRNetworkHandler.sendToServer(new EntityC2SPacket()); // client only packet.
                 }
             }
         }
