@@ -15,6 +15,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.tabby.florafaunarebalance.entity.FFRenty;
+import net.tabby.florafaunarebalance.util.Math.Mh;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class PhysicsEntity extends Entity {
     public PhysicsEntity(Level level, Player player, Vec3 pos) {
         super(FFRenty.SLING.get(), level);
         this.setPos(pos);
-        this.setDeltaMovement(Mth.sin(player.getYRot()) * 0.05, 0, Mth.cos(player.getYRot()) * 0.05);
+        this.setDeltaMovement(Mth.sin(Mh.rad(player.getYRot())) * 0.05, 0, Mth.cos(Mh.rad(player.getYRot())) * 0.05);
         this.configure(player);
 
     }
