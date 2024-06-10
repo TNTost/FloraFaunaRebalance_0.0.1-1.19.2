@@ -34,13 +34,18 @@ public class PhysicsEntity extends Entity {
     public PhysicsEntity(Level level, Player player, Vec3 pos) {
         super(FFRenty.SLING.get(), level);
         this.setPos(pos);
-        this.setDeltaMovement(-Mth.sin(Mh.rad(player.getYRot())) * 0.05, 0, Mth.cos(Mh.rad(player.getYRot())) * 0.05);
+        //this.setDeltaMovement((-Mth.sin(Mh.rad(player.getYRot()))) * 0.05, -Mth.sin(Mh.rad(player.getXRot())) * 0.05, Mth.cos(Mh.rad(player.getYRot())) * 0.05);
         this.configure(player);
 
     }
 
     protected void configure(Player player) {
+        float yR = Mh.rad(player.getYRot());
+        float xR = Mh.rad(player.getXRot());
+        double scale = 0.0625;
+
         this.thrower = player;
+        this.setDeltaMovement((-Mth.sin(yR) * Mth.cos(xR)) * scale, (-Mth.sin(xR)) * scale, (Mth.cos(yR) * Mth.cos(xR)) * scale);
         setYRot(player.getYRot());
         setXRot(player.getXRot());
     }

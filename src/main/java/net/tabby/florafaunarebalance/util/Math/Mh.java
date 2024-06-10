@@ -10,7 +10,7 @@ public class Mh { //# damnit intelIj, why not allow unicode chars....
     public static float rad(float degree) {
         return degree * piOver180;
     }
-    public static double frac(double y) {
+    public static float frac(float y) {
         return y - Mth.floor(y);
     }
 
