@@ -17,6 +17,7 @@ public class PhysicsEntityRenderer extends VoxelEntityRenderer<PhysicsEntity, Ph
     @Override
     public void render(@NotNull PhysicsEntity entity, float p_115309_, float subTicks, PoseStack poseStack, MultiBufferSource source, int light) {
         super.render(entity, p_115309_, subTicks, poseStack, source, light);
+        System.out.println("in [PhysicsEntityRenderer.java$render] -> \'\"level.getPlayerFromUUID leads\'\" to -> " + entity.getOwner());
     }
 
     public @NotNull ResourceLocation getTextureLocation(@NotNull PhysicsEntity entity) {

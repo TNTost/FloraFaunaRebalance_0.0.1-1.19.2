@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -39,9 +40,13 @@ public class FFRForgeEvents {
         @SubscribeEvent
         public static void onWindSlingEmpty(PlayerInteractEvent.LeftClickEmpty emptyEvent) {
             Player player = emptyEvent.getEntity();
-            if (player.getUseItem().getItem() instanceof SlingItem) {
-                Level level = emptyEvent.getLevel();
-                level.addFreshEntity(new PhysicsEntity(level, player));
+            ItemStack itm = player.getItemInHand(player.getUsedItemHand());
+            if (itm.getItem() instanceof SlingItem si) {
+                if (si.isSet(itm)) {
+                    Level level = emptyEvent.getLevel();
+                    Entity entity = new PhysicsEntity(level, player);
+                    System.out.println("in [FFRForgeEvents.java$onWindSlingEmpty] -> entity summoned: " + level.addFreshEntity(entity));
+                }
             }
         }
 
