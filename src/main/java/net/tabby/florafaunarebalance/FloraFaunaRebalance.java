@@ -7,10 +7,6 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.Registry;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.RangedAttribute;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,8 +16,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.tabby.florafaunarebalance.Registry.pre.PreInitialisation;
 import net.tabby.florafaunarebalance.block.FFRib;
 import net.tabby.florafaunarebalance.block.entity.FFRbe;
 import net.tabby.florafaunarebalance.block.entity.unique.menu.FFRmt;
@@ -37,6 +31,7 @@ import net.tabby.florafaunarebalance.entity.client.renderer.core.PhysicsEntityRe
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.Registry.FFRtt;
 import net.tabby.florafaunarebalance.item.unique.enchantment.FFRie;
+import net.tabby.florafaunarebalance.network.FFRNetworkHandler;
 import net.tabby.florafaunarebalance.util.FFR.FFRItemProperties;
 import net.tabby.florafaunarebalance.Registry.FFRgr;
 import net.tabby.florafaunarebalance.world.generation.ore.FFRof;
@@ -75,7 +70,7 @@ public class FloraFaunaRebalance
 
         FFRenty.register(ffrEventBus); //# entities.
 
-        ffrEventBus.addListener(this::Setup);
+        ffrEventBus.addListener(this::commonSetup);
         ffrEventBus.addListener(this::clientSetup);
 
 
@@ -84,7 +79,8 @@ public class FloraFaunaRebalance
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFRConfig.SPEC);
     }
 
-    private void Setup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        FFRNetworkHandler.register(); //# packet-handler.
     }
 
     private void clientSetup(final FMLClientSetupEvent event) { //# subscribes to eventbus and does client-setupEvents...
