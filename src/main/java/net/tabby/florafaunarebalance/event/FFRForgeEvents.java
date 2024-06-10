@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -19,7 +18,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tabby.florafaunarebalance.FloraFaunaRebalance;
 import net.tabby.florafaunarebalance.block.core.unique.BuddingLog;
-import net.tabby.florafaunarebalance.entity.unique.core.PhysicsEntity;
 import net.tabby.florafaunarebalance.item.FFRii;
 import net.tabby.florafaunarebalance.item.unique.ChuteItem;
 import net.tabby.florafaunarebalance.item.unique.SlingItem;
@@ -34,20 +32,23 @@ public class FFRForgeEvents {
 
         @SubscribeEvent
         public static void onWindSlingBlock(PlayerInteractEvent.LeftClickBlock blockEvent) {
-            Player player = blockEvent.getEntity();
-            if (player.getUseItem().getItem() instanceof SlingItem) {
-                //send wind particles
+            if (blockEvent.getLevel().isClientSide) {
+                blockEvent.setCanceled(trySling(blockEvent.getEntity()));
             }
         }
         @SubscribeEvent
         public static void onWindSlingEmpty(PlayerInteractEvent.LeftClickEmpty emptyEvent) {
-            Player player = emptyEvent.getEntity();
+            trySling(emptyEvent.getEntity());
+        }
+        protected static boolean trySling(Player player) {
             ItemStack itm = player.getItemInHand(player.getUsedItemHand());
             if (itm.getItem() instanceof SlingItem si) {
                 if (si.isSet(itm)) {
                     FFRNetworkHandler.sendToServer(new EntityC2SPacket()); // client only packet.
+                    return true;
                 }
             }
+            return false;
         }
 
         @SubscribeEvent

@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
@@ -32,9 +33,15 @@ public class PhysicsEntity extends Entity {
     public PhysicsEntity(Level level, Player player, Vec3 pos) {
         super(FFRenty.SLING.get(), level);
         this.setPos(pos);
-        this.setDeltaMovement(Mth.sin(player.getYRot()), 0, Mth.cos(player.getYRot()));
+        this.setDeltaMovement(Mth.sin(player.getYRot()) * 0.05, 0, Mth.cos(player.getYRot()) * 0.05);
+        this.configure(player);
+
+    }
+
+    protected void configure(Player player) {
         this.thrower = player;
-        System.out.println("yeet");
+        setYRot(player.getYRot());
+        setXRot(player.getXRot());
     }
     private boolean hasOwner(CompoundTag tag) {
         return tag.contains("thrower");
@@ -50,6 +57,7 @@ public class PhysicsEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
+        this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
     protected void defineSynchedData() {
